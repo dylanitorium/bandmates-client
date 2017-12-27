@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import PeaksInterface from './components/PeaksInterface';
 
 class App extends Component {
   render() {
@@ -13,6 +14,17 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <PeaksInterface
+          containerId="player"
+          containerSelector="#player"
+          mediaSelector="audio"
+          source="Fortress_latest.mp3"
+          peaksConfiguration={{
+            dataUri:{
+              arraybuffer: 'Fortress_latest.dat'
+            }
+          }}
+        />
       </div>
     );
   }
