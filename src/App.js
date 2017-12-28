@@ -1,31 +1,32 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import PeaksInterface from './components/PeaksInterface';
+import WaveFormInterface from './components/WaveFormInterface';
+import WaveformData from 'waveform-data';
+
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      waveformData: null,
+    }
+  }
+
+  componentDidMount() {
+    fetch('Fortress_latest.dat')
+      .then(response => response.arrayBuffer())
+      .then(data => WaveformData.create(data))
+      .then(waveformData => this.setState({ waveformData }));
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <PeaksInterface
-          containerId="player"
-          containerSelector="#player"
-          mediaSelector="audio"
-          source="Fortress_latest.mp3"
-          peaksConfiguration={{
-            dataUri:{
-              arraybuffer: 'Fortress_latest.dat'
-            }
-          }}
-        />
-      </div>
+      <WaveFormInterface
+        data={this.state.waveformData}
+        width={1000}
+        height={500}
+        amplitude={256}
+      />
     );
   }
 }
