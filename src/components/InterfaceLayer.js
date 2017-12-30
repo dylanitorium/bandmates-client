@@ -79,7 +79,7 @@ class InterfaceLayer extends Component {
 };
 
 InterfaceLayer.propTypes = {
-  heights: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
   onCreateSegment: PropTypes.func.isRequired,
 };
 
