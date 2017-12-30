@@ -79,12 +79,8 @@ class InterfaceLayer extends Component {
 };
 
 InterfaceLayer.propTypes = {
-
+  heights: PropTypes.number.isRequired,
+  onCreateSegment: PropTypes.func.isRequired,
 };
-
-InterfaceLayer.defaultProps = {
-  onCreateSegment: () => {},
-};
-
 
 export default InterfaceLayer;
