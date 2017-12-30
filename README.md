@@ -1,3 +1,3 @@
 # Audio Feedback Tool Concept Development
 
-*bootstraped with create-react-app*
+*bootstrapped with create-react-app*
