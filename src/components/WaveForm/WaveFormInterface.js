@@ -5,6 +5,8 @@ import WaveformData from 'waveform-data';
 import WaveFormLayer from './WaveFormLayer';
 import InterfaceLayer from './InterfaceLayer';
 import SegmentsLayer from './SegmentsLayer';
+import CursorLayer from './CursorLayer';
+import Audio from '../Audio';
 
 class WaveFormInterface extends React.Component {
   constructor(props) {
@@ -13,11 +15,16 @@ class WaveFormInterface extends React.Component {
     this.state = {
       segments: [],
       waveformData: props.data.resample(props.width),
+      currentTime: 0,
     };
   }
 
+  updateCursorPosition() {
+    return (currentTime) => this.setState({ currentTime });
+  }
+
   createSegment() {
-    const pixelsPerSecond = this.state.waveformData.seconds_per_pixel
+    const secondsPerPixel = this.state.waveformData.seconds_per_pixel
     return ({ start, end }) => {
       this.setState({
         segments: [
@@ -25,8 +32,8 @@ class WaveFormInterface extends React.Component {
           {
             start,
             end,
-            startSeconds: start * pixelsPerSecond,
-            endSeconds: end * pixelsPerSecond,
+            startSeconds: start * secondsPerPixel,
+            endSeconds: end * secondsPerPixel,
           }
         ]
       });
@@ -38,16 +45,25 @@ class WaveFormInterface extends React.Component {
       <Layer>
         <WaveFormLayer {...this.props} data={this.state.waveformData} />
         <SegmentsLayer {...this.props} segments={this.state.segments}  />
+        <CursorLayer {...this.props} currentTime={this.state.currentTime} data={this.state.waveformData} />
         <InterfaceLayer onCreateSegment={this.createSegment()} {...this.props}  />
       </Layer>
     );
   }
 
+
   render() {
     return (
-      <Stage width={this.props.width} height={this.props.height}>
-        {this.getLayers()}
-      </Stage>
+      <div>
+        <Stage width={this.props.width} height={this.props.height}>
+          {this.getLayers()}
+        </Stage>
+        <Audio
+          source="Fortress_latest.mp3"
+          onTick={this.updateCursorPosition()}
+          tickInterval={this.state.waveformData.seconds_per_pixel}
+        />
+      </div>
     )
   }
 }

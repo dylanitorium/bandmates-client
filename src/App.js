@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import WaveFormInterface from './components/WaveFormInterface';
+import WaveFormInterface from './components/WaveForm/WaveFormInterface';
+
 import WaveformData from 'waveform-data';
 
 
@@ -12,6 +13,8 @@ class App extends Component {
     }
   }
 
+
+
   componentDidMount() {
     fetch('Fortress_latest.dat')
       .then(response => response.arrayBuffer())
@@ -21,12 +24,14 @@ class App extends Component {
 
   render() {
     return this.state.waveformData ? (
-      <WaveFormInterface
-        data={this.state.waveformData}
-        width={1000}
-        height={500}
-        amplitude={256}
-      />
+      <div>
+        <WaveFormInterface
+          data={this.state.waveformData}
+          width={1000}
+          height={500}
+          amplitude={256}
+        />
+      </div>
     ) : null;
   }
 }
