@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Group, Rect, Shape, Layer } from 'react-konva';
-import debounce from 'debounce';
+import { Group, Rect } from 'react-konva';
 
 const SegmentOverlay = props => (
   props.active
@@ -15,7 +14,7 @@ const SegmentOverlay = props => (
     )
 )
 
-class WaveForm extends Component {
+class InterfaceLayer extends Component {
     constructor(props) {
       super(props);
 
@@ -62,16 +61,14 @@ class WaveForm extends Component {
             const { evt } = event;
 
             if (this.state.isCreatingSegment) {
+              this.props.onCreateSegment({
+                start: this.state.segmentStart,
+                end: evt.x,
+              });
+
               this.setState({
                 isCreatingSegment: false,
                 segmentStart: false,
-                segments: [
-                  ...this.state.segments,
-                  {
-                    start: this.state.segmentStart,
-                    end: evt.x,
-                  }
-                ],
               });
             }
           }}
@@ -81,12 +78,13 @@ class WaveForm extends Component {
     }
 };
 
-WaveForm.propTypes = {
+InterfaceLayer.propTypes = {
 
 };
 
-WaveForm.defaultProps = {
-  onMouseDown: () => {},
+InterfaceLayer.defaultProps = {
+  onCreateSegment: () => {},
 };
 
-export default WaveForm;
+
+export default InterfaceLayer;

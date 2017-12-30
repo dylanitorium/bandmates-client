@@ -3,14 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "debounce": "^1.1.0",
-    "konva": "^1.7.6",
-    "peaks.js": "^0.9.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-konva": "^1.6.4",
     "react-scripts": "1.0.17",
-    "uniqid": "^4.1.1",
     "waveform-data": "^2.0.1"
   },
   "scripts": {

@@ -20,14 +20,14 @@ class App extends Component {
   }
 
   render() {
-    return (
+    return this.state.waveformData ? (
       <WaveFormInterface
         data={this.state.waveformData}
         width={1000}
         height={500}
         amplitude={256}
       />
-    );
+    ) : null;
   }
 }
 

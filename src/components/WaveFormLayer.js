@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Shape } from 'react-konva';
 
-const WaveForm = (props) => {
+const WaveFormLayer = (props) => {
   const POINT_MOD = 0.5;
 
   const modPoint = (point, offset) => (
@@ -35,8 +35,8 @@ const WaveForm = (props) => {
   );
 };
 
-WaveForm.propTypes = {
+WaveFormLayer.propTypes = {
 
 };
 
-export default WaveForm;
+export default WaveFormLayer;
