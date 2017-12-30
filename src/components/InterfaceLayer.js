@@ -39,39 +39,39 @@ class InterfaceLayer extends Component {
             strokeWidth={1}
           />
           <Rect
-          {...this.props}
-          onMouseDown={(event) => {
-            const { evt } = event;
+            {...this.props}
+            onMouseDown={(event) => {
+              const { evt } = event;
 
-            if (evt.shiftKey) {
-              this.setState({
-                isCreatingSegment: true,
-                segmentStart: evt.x,
-              });
-            }
-          }}
-          onMouseMove={(event) => {
-            const { evt } = event;
-
-            this.setState({
-              mousePosition: evt.x,
-            });
-          }}
-          onMouseUp={(event) => {
-            const { evt } = event;
-
-            if (this.state.isCreatingSegment) {
-              this.props.onCreateSegment({
-                start: this.state.segmentStart,
-                end: evt.x,
-              });
+              if (evt.shiftKey) {
+                this.setState({
+                  isCreatingSegment: true,
+                  segmentStart: evt.x,
+                });
+              }
+            }}
+            onMouseMove={(event) => {
+              const { evt } = event;
 
               this.setState({
-                isCreatingSegment: false,
-                segmentStart: false,
+                mousePosition: evt.x,
               });
-            }
-          }}
+            }}
+            onMouseUp={(event) => {
+              const { evt } = event;
+
+              if (this.state.isCreatingSegment) {
+                this.props.onCreateSegment({
+                  start: this.state.segmentStart,
+                  end: evt.x,
+                });
+
+                this.setState({
+                  isCreatingSegment: false,
+                  segmentStart: false,
+                });
+              }
+            }}
           />
         </Group>
       );
