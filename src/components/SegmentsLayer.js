@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import { Rect } from 'react-konva';
 
 const SegmentsLayer = props => {
-  const segments = Object.values(props.segments);
+  const { segments } = props;
   if (!segments.length) {
     return null;
   }
 
-  console.log(segments)
-
-  return Object.values(segments).map((segment, index) => (
+  return segments.map((segment, index) => (
     <Rect
       key={index}
       opacity={0.5}
@@ -24,8 +22,14 @@ const SegmentsLayer = props => {
   ));
 };
 
-SegmentsLayer.defaultProps = {
-  segments: {},
+SegmentsLayer.propTypes = {
+  height: PropTypes.number.isRequired,
+  segments: PropTypes.arrayOf(PropTypes.shape({
+    start: PropTypes.number,
+    end: PropTypes.number,
+    startSeconds: PropTypes.number,
+    endSeconds: PropTypes.number,
+  })).isRequired,
 }
 
 export default SegmentsLayer;

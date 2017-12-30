@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Stage, Layer } from 'react-konva';
+import WaveformData from 'waveform-data';
 import WaveFormLayer from './WaveFormLayer';
 import InterfaceLayer from './InterfaceLayer';
 import SegmentsLayer from './SegmentsLayer';
@@ -15,6 +17,7 @@ class WaveFormInterface extends React.Component {
   }
 
   createSegment() {
+    const pixelsPerSecond = this.state.waveformData.seconds_per_pixel
     return ({ start, end }) => {
       this.setState({
         segments: [
@@ -22,8 +25,8 @@ class WaveFormInterface extends React.Component {
           {
             start,
             end,
-            startSeconds: start * this.state.waveformData.seconds_per_pixel,
-            endSeconds: end * this.state.waveformData.seconds_per_pixel,
+            startSeconds: start * pixelsPerSecond,
+            endSeconds: end * pixelsPerSecond,
           }
         ]
       });
@@ -48,6 +51,12 @@ class WaveFormInterface extends React.Component {
     )
   }
 }
+
+WaveFormInterface.propTypes = {
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  data: PropTypes.instanceOf(WaveformData).isRequired,
+};
 
 
 

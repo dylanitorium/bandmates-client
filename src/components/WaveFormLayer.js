@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import WaveformData from 'waveform-data';
 import { Shape } from 'react-konva';
 
 const WaveFormLayer = (props) => {
@@ -36,7 +37,10 @@ const WaveFormLayer = (props) => {
 };
 
 WaveFormLayer.propTypes = {
-
+  data: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  amplitude: PropTypes.number.isRequired,
+  data: PropTypes.instanceOf(WaveformData).isRequired
 };
 
 export default WaveFormLayer;
