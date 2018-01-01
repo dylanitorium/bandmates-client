@@ -1,4 +1,4 @@
-import AudioFile from 'bandmates/utils';
+import AudioFile from '../../utils/AudioFile';
 
 // Config
 const audioConfig = {
@@ -18,36 +18,36 @@ const actionTypes = {
 };
 
 // Action Creators
-const requestAudioStart = () => ({
+export const requestAudioStart = () => ({
   type: actionTypes.REQUEST.START,
 });
 
-const requestAudioSuccess = audio => ({
+export const requestAudioSuccess = audio => ({
   type: actionTypes.REQUEST.SUCCESS,
   audio,
 });
 
-const requestAudioFailure = error => ({
+export const requestAudioFailure = error => ({
   type: actionTypes.REQUEST.FAILURE,
   error,
 })
 
-const play = offset => ({
+export const play = offset => ({
   type: actionTypes.PLAY,
   offset,
 });
 
-const pause = () => ({
+export const pause = () => ({
   type: actionTypes.PAUSE,
 });
 
-const updateTime = (currentTime, timeout) => ({
+export const updateTime = (currentTime, timeout) => ({
   type: actionTypes.UPDATE_TIME,
   currentTime,
   timeout,
 });
 
-const requestAudio = source => (
+export const requestAudio = source => (
   async (dispatch, getState) => {
     dispatch(requestAudioStart());
 
@@ -64,13 +64,13 @@ const requestAudio = source => (
 );
 
 // Thunk Actions
-const updateTimeThunk = () => (
+export const updateTimeThunk = () => (
   (dispatch, getState) => {
-    const { audio: { audio, isPlaying, timeout } } = getState();
+    const { audio: { audio, isPlaying, timeout, currentTime } } = getState();
     if (isPlaying) {
       dispatch(
         updateTime(
-          audio.getCurrentTime(),
+          currentTime + audioConfig.UPDATE_INTERVAL/1000,
           setTimeout(() => {
             dispatch(updateTimeThunk());
           }, audioConfig.UPDATE_INTERVAL)
@@ -82,17 +82,19 @@ const updateTimeThunk = () => (
   }
 )
 
-const playThunk = offset => (
+export const playThunk = offset => (
   (dispatch, getState) => {
-    const { audio: { audio } } = getState();
-    audio.play(offset || audio.getCurrentTime());
+    const { audio: { audio, currentTime } } = getState();
+    const start = offset || currentTime;
+    audio.play(start);
+    dispatch(play(start))
     dispatch(updateTimeThunk());
   }
 );
 
-const pauseThunk = () => (
+export const pauseThunk = () => (
   (dispatch, getState) => {
-    const { audio } = getState();
+    const { audio: { audio } } = getState();
     audio.stop();
     dispatch(pause());
   }
@@ -122,8 +124,9 @@ const handlers = {
     isRequesting: false,
     error: action.error,
   }),
-  [actionTypes.PLAY]: () => ({
+  [actionTypes.PLAY]: (state, action) => ({
     isPlaying: true,
+    currentTime: action.offset
   }),
   [actionTypes.PAUSE]: () => ({
     isPlaying: false,
@@ -133,8 +136,8 @@ const handlers = {
   }),
 }
 
-export default reducer = (state = initialState, action) => {
-  const { type, ...action } = action;
+const reducer = (state = initialState, action) => {
+  const { type, ...payload } = action;
 
   if (!handlers[type]) {
     return state;
@@ -142,6 +145,8 @@ export default reducer = (state = initialState, action) => {
 
   return {
     ...state,
-    ...handlers[type](state, action),
+    ...handlers[type](state, payload),
   };
 }
+
+export default reducer;

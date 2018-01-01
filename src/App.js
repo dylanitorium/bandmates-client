@@ -1,15 +1,27 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import { store } from './redux/store';
 import WaveFormInterface from './components/WaveForm/WaveFormInterface';
 import WaveformData from 'waveform-data';
+import { requestAudio, playThunk, pauseThunk } from './redux/reducers/audio';
 
-class App extends Component {
+const ConnectedApp = connect(
+  state => ({
+    audio: state.audio.audio,
+    isPlaying: state.audio.isPlaying,
+    isRequesting: state.audio.isRequesting,
+  }),
+  {
+    requestAudio,
+    playAudio: playThunk,
+    pauseAudio: pauseThunk,
+  }
+)(class App extends Component {
   constructor(props) {
     super(props);
   }
 
-  static state = {
+  state = {
     waveformData: null,
   }
 
@@ -18,6 +30,8 @@ class App extends Component {
       .then(response => response.arrayBuffer())
       .then(data => WaveformData.create(data))
       .then(waveformData => this.setState({ waveformData }));
+
+    this.props.requestAudio('Fortress_latest.mp3');
   }
 
   render() {
@@ -29,13 +43,20 @@ class App extends Component {
           height={300}
           amplitude={126}
         />
+      {
+        this.props.audio ? (
+          <button onClick={() => {
+              this.props.isPlaying ? this.props.pauseAudio() : this.props.playAudio()
+          }}> {this.props.isPlaying ? 'Pause' : 'Play'} </button>
+      ) : this.props.isRequesting ? 'Loading...' : null
+      }
       </div>
     ) : null;
   }
-}
+})
 
 export default () => (
   <Provider store={store}>
-    <App />
+    <ConnectedApp />
   </Provider>
 );

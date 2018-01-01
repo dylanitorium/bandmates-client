@@ -3,8 +3,9 @@ export default class BasicAudioFile {
    * @param src String
    */
   constructor(src) {
-    this.src = src
-    this.context = null;
+    this.src = src;
+    this.buffer = null;
+    this.context = new (window.AudioContext || window.webkitAudioContext)();
     this.source = null;
     this.nodes = {};
   }
@@ -18,27 +19,27 @@ export default class BasicAudioFile {
       fetch(this.src)
         .then(response => response.arrayBuffer())
         .then((buffer) => {
-          this.context = new (window.AudioContext || window.webkitAudioContext)();
           return this.context.decodeAudioData(buffer);
         })
         .then((buffer) => {
-          this.nodes.gain = this.context.createGain();
-          this.source = this.context.createBufferSource();
-          this.source.buffer = buffer;
-          this.source.connect(this.nodes.gain);
-          this.nodes.gain.connect(this.context.destination);
+          this.buffer = buffer;
         })
         .then(() => resolve())
         .catch((error) => reject(error));
     });
   }
 
-  play(timestamp) {
-    if (!this.source) {
-      return;
-    }
+  connectSource() {
+    this.nodes.gain = this.context.createGain();
+    this.nodes.gain.connect(this.context.destination);
+    this.source = this.context.createBufferSource();
+    this.source.buffer = this.buffer;
+    this.source.connect(this.nodes.gain);
+  }
 
-    this.source.start(0, this.currentTime);
+  play(timestamp) {
+    this.connectSource();
+    this.source.start(0, timestamp);
   }
 
   stop() {
@@ -50,6 +51,7 @@ export default class BasicAudioFile {
   }
 
   getCurrentTime() {
-    return this.context.currentTime;
+    const result = this.context ? this.context.currentTime : 0;
+    return result;
   }
 }
