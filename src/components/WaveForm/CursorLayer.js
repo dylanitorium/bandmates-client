@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Rect } from 'react-konva';
 
 const CursorLayer = props => {
-  console.log(props.currentTime);
   return (<Rect
     opacity={1}
     x={props.data.pixels_per_second * props.currentTime}

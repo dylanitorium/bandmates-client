@@ -30,6 +30,10 @@ export default class BasicAudioFile {
   }
 
   connectSource() {
+    if (this.source) {
+      this.source.stop();
+    }
+
     this.nodes.gain = this.context.createGain();
     this.nodes.gain.connect(this.context.destination);
     this.source = this.context.createBufferSource();
@@ -51,7 +55,10 @@ export default class BasicAudioFile {
   }
 
   getCurrentTime() {
-    const result = this.context ? this.context.currentTime : 0;
-    return result;
+    return this.context ? this.context.currentTime : 0;
+  }
+
+  getDuration() {
+    return this.buffer.duration;
   }
 }

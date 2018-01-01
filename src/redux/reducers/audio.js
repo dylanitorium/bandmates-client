@@ -14,6 +14,7 @@ const actionTypes = {
   },
   PLAY: 'app/audio/play',
   PAUSE: 'app/audio/pause',
+  STOP: 'app/audio/stop',
   UPDATE_TIME: 'app/audio/update',
 };
 
@@ -39,6 +40,10 @@ export const play = offset => ({
 
 export const pause = () => ({
   type: actionTypes.PAUSE,
+});
+
+export const stop = () => ({
+  type: actionTypes.STOP,
 });
 
 export const updateTime = (currentTime, timeout) => ({
@@ -67,18 +72,24 @@ export const requestAudio = source => (
 export const updateTimeThunk = () => (
   (dispatch, getState) => {
     const { audio: { audio, isPlaying, timeout, currentTime } } = getState();
-    if (isPlaying) {
-      dispatch(
-        updateTime(
-          currentTime + audioConfig.UPDATE_INTERVAL/1000,
-          setTimeout(() => {
-            dispatch(updateTimeThunk());
-          }, audioConfig.UPDATE_INTERVAL)
-        )
-      );
-    } else {
+    if (!isPlaying) {
       clearTimeout(timeout);
+      return;
     }
+
+    if (currentTime >= audio.getDuration()) {
+      dispatch(stop());
+      return;
+    }
+
+    dispatch(
+      updateTime(
+        currentTime + audioConfig.UPDATE_INTERVAL/1000,
+        setTimeout(() => {
+          dispatch(updateTimeThunk());
+        }, audioConfig.UPDATE_INTERVAL)
+      )
+    );
   }
 )
 
@@ -130,6 +141,10 @@ const handlers = {
   }),
   [actionTypes.PAUSE]: () => ({
     isPlaying: false,
+  }),
+  [actionTypes.STOP]: () => ({
+    isPlaying: false,
+    currentTime: 0,
   }),
   [actionTypes.UPDATE_TIME]: (state, action) => ({
     currentTime: action.currentTime,
