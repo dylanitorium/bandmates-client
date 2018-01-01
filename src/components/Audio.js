@@ -12,11 +12,9 @@ class Audio extends Component {
     audio.init().then(() => {
       audio.play();
       setInterval(() => {
-        this.props.onTick(context.currentTime);
+        this.props.onTick(audio.context.currentTime);
       }, this.props.tickInterval);
     })
-
-
   }
 
   render() {
