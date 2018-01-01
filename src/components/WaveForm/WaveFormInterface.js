@@ -20,7 +20,9 @@ class WaveFormInterface extends React.Component {
   }
 
   updateCursorPosition() {
-    return (currentTime) => this.setState({ currentTime });
+    return (currentTime) => {
+      this.setState({ currentTime });
+    }
   }
 
   createSegment() {
@@ -60,6 +62,7 @@ class WaveFormInterface extends React.Component {
         </Stage>
         <Audio
           source="Fortress_latest.mp3"
+          start=
           onTick={this.updateCursorPosition()}
           tickInterval={this.state.waveformData.seconds_per_pixel}
         />

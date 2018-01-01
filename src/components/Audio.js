@@ -10,15 +10,17 @@ class Audio extends Component {
   componentDidMount() {
     const audio = new BasicAudioFile(this.props.source);
     audio.init().then(() => {
+
+      audio.on('update', (currentTime) => {
+        this.props.onTick(currentTime)
+      });
+
       audio.play();
-      setInterval(() => {
-        this.props.onTick(audio.context.currentTime);
-      }, this.props.tickInterval);
     })
   }
 
   render() {
-    return (<div />);
+    return null;
   }
 }
 
