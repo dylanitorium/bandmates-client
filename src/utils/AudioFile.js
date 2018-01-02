@@ -10,22 +10,14 @@ export default class BasicAudioFile {
     this.nodes = {};
   }
 
-  static eventTypes = {
-    TIME_UPDATE: 'update',
-  };
-
   async init() {
     return new Promise((resolve, reject) => {
       fetch(this.src)
         .then(response => response.arrayBuffer())
-        .then((buffer) => {
-          return this.context.decodeAudioData(buffer);
-        })
-        .then((buffer) => {
-          this.buffer = buffer;
-        })
+        .then(buffer => this.context.decodeAudioData(buffer))
+        .then(buffer => this.buffer = buffer)
         .then(() => resolve())
-        .catch((error) => reject(error));
+        .catch(error => reject(error));
     });
   }
 

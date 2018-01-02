@@ -95,7 +95,8 @@ export const updateTimeThunk = () => (
 
 export const playThunk = offset => (
   (dispatch, getState) => {
-    const { audio: { audio, currentTime } } = getState();
+    const { audio: { audio, currentTime, timeout } } = getState();
+    clearTimeout(timeout);
     const start = offset || currentTime;
     audio.play(start);
     dispatch(play(start))
