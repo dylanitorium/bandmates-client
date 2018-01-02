@@ -1,4 +1,5 @@
 import AudioFile from '../../utils/AudioFile';
+import makeReducer from '../../utils/makeReducer';
 
 // Config
 const audioConfig = {
@@ -150,19 +151,6 @@ const handlers = {
   [actionTypes.UPDATE_TIME]: (state, action) => ({
     currentTime: action.currentTime,
   }),
-}
+};
 
-const reducer = (state = initialState, action) => {
-  const { type, ...payload } = action;
-
-  if (!handlers[type]) {
-    return state;
-  }
-
-  return {
-    ...state,
-    ...handlers[type](state, payload),
-  };
-}
-
-export default reducer;
+export default makeReducer(initialState, handlers);

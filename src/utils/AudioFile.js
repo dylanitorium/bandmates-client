@@ -1,3 +1,7 @@
+// I think I'd like to get rid of this at some point
+
+import * as requestUtils from './request';
+
 export default class BasicAudioFile {
   /**
    * @param src String
@@ -11,14 +15,12 @@ export default class BasicAudioFile {
   }
 
   async init() {
-    return new Promise((resolve, reject) => {
-      fetch(this.src)
-        .then(response => response.arrayBuffer())
-        .then(buffer => this.context.decodeAudioData(buffer))
-        .then(buffer => this.buffer = buffer)
-        .then(() => resolve())
-        .catch(error => reject(error));
-    });
+    try {
+      const buffer = await requestUtils.requestArrayBuffer(this.src);
+      this.buffer = this.context.decodeAudioData(buffer);
+    } catch (error) {
+      throw error;
+    }
   }
 
   connectSource() {
