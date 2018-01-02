@@ -7,7 +7,7 @@ import WaveFormLayer from './WaveFormLayer';
 import InterfaceLayer from './InterfaceLayer';
 import SegmentsLayer from './SegmentsLayer';
 import CursorLayer, {ConnectCursorLayer} from './CursorLayer';
-import { playThunk } from '../../redux/reducers/audio';
+import { playThunk } from 'state/reducers/audio';
 
 class WaveFormInterface extends React.Component {
   constructor(props) {

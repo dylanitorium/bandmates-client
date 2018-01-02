@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Provider, connect } from 'react-redux';
-import { store } from './redux/store';
-import WaveFormInterface from './components/WaveForm/WaveFormInterface';
 import WaveformData from 'waveform-data';
-import { requestAudio, playThunk, pauseThunk } from './redux/reducers/audio';
+import { requestAudio, playThunk, pauseThunk } from 'state/reducers/audio';
+import { store } from 'state/store';
+import WaveFormInterface from './WaveForm/WaveFormInterface';
 
 const ConnectedApp = connect(
   state => ({
@@ -17,10 +17,6 @@ const ConnectedApp = connect(
     pauseAudio: pauseThunk,
   }
 )(class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     waveformData: null,
   }
@@ -43,17 +39,19 @@ const ConnectedApp = connect(
           height={300}
           amplitude={126}
         />
-      {
+        {
         this.props.audio ? (
           <button onClick={() => {
-              this.props.isPlaying ? this.props.pauseAudio() : this.props.playAudio()
-          }}> {this.props.isPlaying ? 'Pause' : 'Play'} </button>
+              this.props.isPlaying ? this.props.pauseAudio() : this.props.playAudio();
+          }}
+          > {this.props.isPlaying ? 'Pause' : 'Play'}
+          </button>
       ) : this.props.isRequesting ? 'Loading...' : null
       }
       </div>
     ) : null;
   }
-})
+});
 
 export default () => (
   <Provider store={store}>

@@ -1,5 +1,5 @@
-import AudioFile from '../../utils/AudioFile';
-import makeReducer from '../../utils/makeReducer';
+import BasicAudioFile from 'utils/BasicAudioFile';
+import makeReducer from 'utils/makeReducer';
 
 // Config
 const audioConfig = {
@@ -57,7 +57,7 @@ export const requestAudio = source => (
   async (dispatch, getState) => {
     dispatch(requestAudioStart());
 
-    const audio = new AudioFile(source);
+    const audio = new BasicAudioFile(source);
 
     try {
       await audio.init();

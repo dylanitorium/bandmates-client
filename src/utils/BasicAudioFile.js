@@ -17,13 +17,21 @@ export default class BasicAudioFile {
   async init() {
     try {
       const buffer = await requestUtils.requestArrayBuffer(this.src);
-      this.buffer = this.context.decodeAudioData(buffer);
+      this.buffer = await this.decodeAudioData(buffer);
     } catch (error) {
       throw error;
     }
   }
 
+  async decodeAudioData (buffer) {
+    return this.context.decodeAudioData(buffer);
+  }
+
   connectSource() {
+    if (!this.buffer) {
+      return;
+    }
+
     if (this.source) {
       this.source.stop();
     }
