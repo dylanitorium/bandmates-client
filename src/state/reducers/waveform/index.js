@@ -2,6 +2,7 @@ import WaveformData from 'waveform-data';
 import * as requestUtils from 'utils/request';
 import makeReducer from 'utils/makeReducer';
 import { DEFAULT_WAVEFORM_WIDTH } from 'utils/constants';
+import cursor, { initialState as cursorInitalState } from './cursor';
 
 // Action Types
 const actionTypes = {
@@ -64,7 +65,8 @@ export const resampleWaveformThunk = width => (
 const initialState = {
   waveform: null,
   isRequesting: false,
-  error: null
+  error: null,
+  ...cursorInitalState
 };
 
 const handlers = {
@@ -82,6 +84,7 @@ const handlers = {
   [actionTypes.RESAMPLE]: (state, action) => ({
     waveform: action.waveform,
   }),
+  ...cursor,
 };
 
 

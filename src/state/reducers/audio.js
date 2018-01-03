@@ -7,7 +7,7 @@ const audioConfig = {
 }
 
 // Action Types
-const actionTypes = {
+export const actionTypes = {
   REQUEST: {
     START: 'app/audio/request/start',
     SUCCESS: 'app/audio/request/success',
@@ -47,10 +47,9 @@ export const stop = () => ({
   type: actionTypes.STOP,
 });
 
-export const updateTime = (currentTime, timeout) => ({
+export const updateTime = (currentTime) => ({
   type: actionTypes.UPDATE_TIME,
   currentTime,
-  timeout,
 });
 
 export const requestAudio = source => (
@@ -61,20 +60,26 @@ export const requestAudio = source => (
 
     try {
       await audio.init();
+      dispatch(requestAudioSuccess(audio));
     } catch (error) {
       dispatch(requestAudioFailure(error));
     }
-
-    dispatch(requestAudioSuccess(audio));
   }
 );
+
+const clearAllTimeouts = () => {
+  let id = setTimeout(null,0);
+  while (id--) {
+      clearTimeout(id);
+  }
+}
 
 // Thunk Actions
 export const updateTimeThunk = () => (
   (dispatch, getState) => {
-    const { audio: { audio, isPlaying, timeout, currentTime } } = getState();
+    const { audio: { audio, isPlaying, currentTime } } = getState();
     if (!isPlaying) {
-      clearTimeout(timeout);
+      clearAllTimeouts();
       return;
     }
 
@@ -83,24 +88,23 @@ export const updateTimeThunk = () => (
       return;
     }
 
-    dispatch(
-      updateTime(
-        currentTime + audioConfig.UPDATE_INTERVAL/1000,
-        setTimeout(() => {
-          dispatch(updateTimeThunk());
-        }, audioConfig.UPDATE_INTERVAL)
-      )
-    );
+    dispatch(updateTime(currentTime + audioConfig.UPDATE_INTERVAL/1000));
+
+    setTimeout(() => {
+      dispatch(updateTimeThunk());
+    }, audioConfig.UPDATE_INTERVAL)
   }
 )
 
 export const playThunk = offset => (
   (dispatch, getState) => {
-    const { audio: { audio, currentTime, timeout } } = getState();
-    clearTimeout(timeout);
+    const { audio: { audio, currentTime } } = getState();
+
+    clearAllTimeouts();
+
     const start = offset || currentTime;
     audio.play(start);
-    dispatch(play(start))
+    dispatch(play(start));
     dispatch(updateTimeThunk());
   }
 );
@@ -118,7 +122,6 @@ const initialState = {
   isRequesting: false,
   audio: null,
   isPlaying: false,
-  timeout: null,
   currentTime: 0,
   error: null
 };

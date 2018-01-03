@@ -7,13 +7,14 @@ const InterfaceLayer = props => {
     <Group>
       <Rect
         {...props}
+        onClick={props.onInterfaceClick}
       />
     </Group>
   );
 };
 
 InterfaceLayer.propTypes = {
-
+  onInterfaceClick: PropTypes.func.isRequired,
 };
 
 export default InterfaceLayer;

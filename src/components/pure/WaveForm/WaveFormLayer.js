@@ -29,18 +29,18 @@ const WaveFormLayer = (props) => {
         context.closePath();
         context.fillStrokeShape(this);
       }}
-      fill="black"
-      stroke="black"
+      fill="#20d8ba"
+      stroke="#20d8ba"
       strokeWidth="1"
     />
   );
 };
 
 WaveFormLayer.propTypes = {
-  data: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   amplitude: PropTypes.number.isRequired,
-  data: PropTypes.instanceOf(WaveformData).isRequired
+  data: PropTypes.instanceOf(WaveformData),
 };
 
 export default WaveFormLayer;

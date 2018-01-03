@@ -1,13 +1,17 @@
-const makeReducer = (initialState, handlers) => (
+const makeReducer = (initialState, handlers, name) => (
   (state = initialState, action) => {
     const { type, ...payload } = action;
 
+    const stateInContext = name ? state[name] : state;
+
+    console.log(handlers);
+
     if (!handlers[type]) {
-      return state;
+      return stateInContext;
     }
 
     return {
-      ...state,
+      ...stateInContext,
       ...handlers[type](state, payload),
     };
   }

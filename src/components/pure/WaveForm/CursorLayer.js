@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import WaveformData from 'waveform-data';
 import { Rect } from 'react-konva';
 
 const CursorLayer = props => {
   return (<Rect
     opacity={1}
-    x={props.data.pixels_per_second * props.currentTime}
+    x={props.cursorPostion}
     width={1}
     height={props.height}
     fill="red"
@@ -15,10 +15,9 @@ const CursorLayer = props => {
   />)
 }
 
-export default CursorLayer;
+CursorLayer.propTypes = {
+  data: PropTypes.instanceOf(WaveformData),
+  currentTime: PropTypes.number.isRequired,
+}
 
-export const ConnectCursorLayer = connect(
-  state => ({
-    currentTime: state.audio.currentTime,
-  }),
-)(CursorLayer);
+export default CursorLayer;
