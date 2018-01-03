@@ -4,8 +4,6 @@ const makeReducer = (initialState, handlers, name) => (
 
     const stateInContext = name ? state[name] : state;
 
-    console.log(handlers);
-
     if (!handlers[type]) {
       return stateInContext;
     }

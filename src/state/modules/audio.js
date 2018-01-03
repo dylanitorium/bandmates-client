@@ -3,7 +3,7 @@ import makeReducer from 'utils/makeReducer';
 
 // Config
 const audioConfig = {
-  UPDATE_INTERVAL: 100,
+  UPDATE_INTERVAL: 50,
 }
 
 // Action Types
@@ -34,9 +34,10 @@ export const requestAudioFailure = error => ({
   error,
 })
 
-export const play = offset => ({
+export const play = (offset, timestamp) => ({
   type: actionTypes.PLAY,
   offset,
+  timestamp,
 });
 
 export const pause = () => ({
@@ -47,9 +48,10 @@ export const stop = () => ({
   type: actionTypes.STOP,
 });
 
-export const updateTime = (currentTime) => ({
+export const updateTime = (currentTime, timestamp) => ({
   type: actionTypes.UPDATE_TIME,
   currentTime,
+  timestamp,
 });
 
 export const requestAudio = source => (
@@ -74,10 +76,16 @@ const clearAllTimeouts = () => {
   }
 }
 
+const getTimestamp = () => {
+  const date = new Date();
+  return date.getTime();
+}
+
 // Thunk Actions
 export const updateTimeThunk = () => (
   (dispatch, getState) => {
-    const { audio: { audio, isPlaying, currentTime } } = getState();
+    const { audio: { audio, isPlaying, currentTime, timestamp } } = getState();
+
     if (!isPlaying) {
       clearAllTimeouts();
       return;
@@ -88,7 +96,10 @@ export const updateTimeThunk = () => (
       return;
     }
 
-    dispatch(updateTime(currentTime + audioConfig.UPDATE_INTERVAL/1000));
+
+    const elapsed = (getTimestamp() - timestamp) / 1000;
+
+    dispatch(updateTime(currentTime + elapsed, getTimestamp()));
 
     setTimeout(() => {
       dispatch(updateTimeThunk());
@@ -104,7 +115,7 @@ export const playThunk = offset => (
 
     const start = offset || currentTime;
     audio.play(start);
-    dispatch(play(start));
+    dispatch(play(start, getTimestamp()));
     dispatch(updateTimeThunk());
   }
 );
@@ -123,7 +134,8 @@ const initialState = {
   audio: null,
   isPlaying: false,
   currentTime: 0,
-  error: null
+  error: null,
+  timestamp: 0,
 };
 
 const handlers = {
@@ -142,17 +154,21 @@ const handlers = {
   }),
   [actionTypes.PLAY]: (state, action) => ({
     isPlaying: true,
-    currentTime: action.offset
+    currentTime: action.offset,
+    timestamp: action.timestamp,
   }),
   [actionTypes.PAUSE]: () => ({
     isPlaying: false,
+    timestamp: 0,
   }),
   [actionTypes.STOP]: () => ({
     isPlaying: false,
     currentTime: 0,
+    timestamp: 0,
   }),
   [actionTypes.UPDATE_TIME]: (state, action) => ({
     currentTime: action.currentTime,
+    timestamp: action.timestamp,
   }),
 };
 

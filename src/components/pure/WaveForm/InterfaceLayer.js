@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Group, Rect } from 'react-konva';
 
@@ -7,7 +7,7 @@ const InterfaceLayer = props => {
     <Group>
       <Rect
         {...props}
-        onClick={props.onInterfaceClick}
+        onClick={({ evt: { offsetX, offsetY }}) => props.onInterfaceClick(offsetX, offsetY)}
       />
     </Group>
   );

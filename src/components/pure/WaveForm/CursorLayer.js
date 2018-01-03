@@ -7,7 +7,7 @@ const CursorLayer = props => {
   return (<Rect
     opacity={1}
     x={props.cursorPostion}
-    width={1}
+    width={0}
     height={props.height}
     fill="red"
     stroke="red"
