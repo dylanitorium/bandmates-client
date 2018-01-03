@@ -12,9 +12,7 @@ import CursorLayer from './CursorLayer';
 class WaveFormInterface extends Component {
   componentDidMount() {
     const { props } = this;
-
-    props.requestAudio('Fortress_latest.mp3');
-    props.requestWaveform('Fortress_latest.dat');
+    props.onMount();
   }
 
   render() {
@@ -24,11 +22,9 @@ class WaveFormInterface extends Component {
       return null;
     }
 
-    const containerWidth = 500;
-
     const containerStyle = {
       border: '1px solid black',
-      width: containerWidth,
+      width: props.windowWidth,
       height: constants.DEFAULT_WAVEFORM_HEIGHT,
       overflow: 'hidden',
       background: '#36454F',
@@ -36,7 +32,7 @@ class WaveFormInterface extends Component {
     };
 
     const stageContainer = {
-      padding: `0 ${containerWidth/2}px`,
+      padding: `0 ${props.windowWidth/2}px`,
       transform: `translate(-${props.cursorPostion}px, 0)`,
       opacity: 1,
       transition: `all 0.3s ease`,
@@ -45,19 +41,10 @@ class WaveFormInterface extends Component {
 
     return (
       <div style={containerStyle}>
-        <span style={{
-            width: 1,
-            height: 20,
-            position: 'absolute',
-            left: 250,
-            bottom: 0,
-            background: 'white',
-        }}></span>
         <div style={stageContainer}>
           <Stage width={props.width} height={props.height}>
             <Layer>
               <WaveFormLayer {...props} />
-
               <InterfaceLayer {...props} />
             </Layer>
           </Stage>

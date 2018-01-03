@@ -4,6 +4,7 @@ import WaveformData from 'waveform-data';
 import { requestAudio, playThunk, pauseThunk } from 'state/reducers/audio';
 import { store } from 'state/store';
 import WaveFormInterface from './connected/WaveFormInterface';
+import './App.css';
 
 class App extends Component {
   render() {
