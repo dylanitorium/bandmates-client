@@ -16,18 +16,24 @@ const WaveFormLayer = (props) => {
 
   const xOffset = (props.cursorPostion  * -1) + (props.windowWidth / 2);
 
+  const sharedProps = {
+    x: xOffset,
+    draggable: true,
+    onClick: ({ evt: { offsetX } }) => props.onInterfaceClick(offsetX),
+    onDragMove: ({ target: { attrs: { x } } }) => props.onInterfaceDrag(x),
+  };
+
   return (
     <Group>
       {/* Click Catcher */}
       <Rect
-          x={xOffset}
-          width={props.width}
-          height={props.height}
-          onClick={({ evt: { offsetX } }) => props.onInterfaceClick(offsetX)}
+        {...sharedProps}
+        width={props.width}
+        height={props.height}
       />
     {/* Drawing */}
       <Shape
-        x={xOffset}
+        {...sharedProps}
         sceneFunc={function (context) {
           const drawPoint = (offset) => (
             (y, x) => (
@@ -41,7 +47,12 @@ const WaveFormLayer = (props) => {
           context.closePath();
           context.fillStrokeShape(this);
         }}
-        onClick={({ evt: { offsetX } }) => props.onInterfaceClick(offsetX)}
+        dragBoundFunc={function(pos) {
+            return {
+                x: pos.x,
+                y: this.getAbsolutePosition().y
+            }
+        }}
         fill="#20d8ba"
         stroke="#20d8ba"
         strokeWidth="1"

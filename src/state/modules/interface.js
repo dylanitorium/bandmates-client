@@ -7,38 +7,51 @@ const clearAllTimeouts = () => {
   }
 }
 
+const getTimestamp = () => {
+  const date = new Date();
+  return date.getTime();
+}
+
 
 // Thunk
 export const jumpToTime = (offset) => (
   (dispatch, getState) => {
-    const { audio: { audio }, waveform: { waveform }, window: { width }, cursor: { cursorPostion } } = getState();
-
-    if (!audio) {
-      return;
-    }
+    const {
+      audio: { audio, isPlaying },
+      waveform: { waveform },
+      window: { width },
+      cursor: { cursorPostion },
+    } = getState();
 
     clearAllTimeouts();
 
     const timeOffset = waveform.seconds_per_pixel * ((offset + cursorPostion) - (width / 2));
 
-    dispatch(audioActions.playThunk(timeOffset));
+    if (isPlaying) {
+      dispatch(audioActions.playThunk(timeOffset));
+    } else {
+      dispatch(audioActions.updateTime(timeOffset, getTimestamp()));
+    }
   }
 );
 
-export const dragToTime = (movement) => (
+export const dragToTime = (offset) => (
   (dispatch, getState) => {
-    const { audio: { audio }, waveform: { waveform }, cursor: { cursorPostion } } = getState();
-
-    if (!audio) {
-      return;
-    }
+    const {
+      audio: { audio, isPlaying },
+      waveform: { waveform },
+      window: { width },
+    } = getState();
 
     clearAllTimeouts();
 
-    const offset = cursorPostion + (movement * -1);
-    const timeOffset = waveform.seconds_per_pixel * (offset < 0) ? 0 : offset;
+    const timeOffset = waveform.seconds_per_pixel * (offset - (width / 2)) * -1;
 
-    dispatch(audioActions.playThunk(timeOffset));
+    if (isPlaying) {
+      dispatch(audioActions.playThunk(timeOffset));
+    } else {
+      dispatch(audioActions.updateTime(timeOffset, getTimestamp()));
+    }
   }
 );
 
