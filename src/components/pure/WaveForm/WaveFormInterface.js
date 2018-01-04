@@ -23,32 +23,30 @@ class WaveFormInterface extends Component {
     }
 
     const containerStyle = {
-      border: '1px solid black',
-      width: props.windowWidth,
-      height: constants.DEFAULT_WAVEFORM_HEIGHT,
-      overflow: 'hidden',
       background: '#36454F',
       position: 'relative',
     };
 
-    const stageContainer = {
-      padding: `0 ${props.windowWidth/2}px`,
-      transform: `translate(-${props.cursorPostion}px, 0)`,
-      opacity: 1,
-      transition: `all 0.3s ease`,
+    const cursor = {
+      width: '2px',
+      height: constants.DEFAULT_WAVEFORM_HEIGHT,
+      backgroundColor: 'white',
+      position: 'absolute',
+      bottom: 0,
+      top: 0,
+      left: (props.windowWidth/2) - 1,
     };
-
 
     return (
       <div style={containerStyle}>
-        <div style={stageContainer}>
-          <Stage width={props.width} height={props.height}>
+        <div>
+          <Stage width={props.windowWidth} height={props.height}>
             <Layer>
               <WaveFormLayer {...props} />
-              <InterfaceLayer {...props} />
             </Layer>
           </Stage>
         </div>
+        <span style={cursor}></span>
       </div>
     );
   }

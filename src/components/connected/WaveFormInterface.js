@@ -25,11 +25,13 @@ const mapDispatchToProps = {
       dispatch(audio.requestAudio('Fortress_latest.mp3'));
       dispatch(waveform.requestWaveform('Fortress_latest.dat'));
       dispatch(windowActions.listenForResize());
+      dispatch(interfaceActions.registerKeyboardEvents());
     }
   ),
   requestAudio: audio.requestAudio,
   requestWaveform: waveform.requestWaveform,
   onInterfaceClick: interfaceActions.jumpToTime,
+  onInterfaceDrag: interfaceActions.dragToTime,
 };
 
 const ConnectedWaveFormInterface = connect(

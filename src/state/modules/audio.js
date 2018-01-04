@@ -54,6 +54,8 @@ export const updateTime = (currentTime, timestamp) => ({
   timestamp,
 });
 
+
+// Thunk Actions
 export const requestAudio = source => (
   async (dispatch, getState) => {
     dispatch(requestAudioStart());
@@ -72,7 +74,7 @@ export const requestAudio = source => (
 const clearAllTimeouts = () => {
   let id = setTimeout(null,0);
   while (id--) {
-      clearTimeout(id);
+    clearTimeout(id);
   }
 }
 
@@ -81,7 +83,6 @@ const getTimestamp = () => {
   return date.getTime();
 }
 
-// Thunk Actions
 export const updateTimeThunk = () => (
   (dispatch, getState) => {
     const { audio: { audio, isPlaying, currentTime, timestamp } } = getState();
@@ -96,10 +97,8 @@ export const updateTimeThunk = () => (
       return;
     }
 
-
-    const elapsed = (getTimestamp() - timestamp) / 1000;
-
-    dispatch(updateTime(currentTime + elapsed, getTimestamp()));
+    const elapsed = currentTime + ((getTimestamp() - timestamp) / 1000);
+    dispatch(updateTime(elapsed, getTimestamp()));
 
     setTimeout(() => {
       dispatch(updateTimeThunk());
