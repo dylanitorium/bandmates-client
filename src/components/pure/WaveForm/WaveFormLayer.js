@@ -17,7 +17,6 @@ const WaveFormLayer = (props) => {
   const xOffset = (props.cursorPostion  * -1) + (props.windowWidth / 2);
 
   const sharedProps = {
-    x: xOffset,
     draggable: true,
     onClick: ({ evt: { offsetX } }) => props.onInterfaceClick(offsetX),
     onDragMove: ({ target: { attrs: { x } } }) => props.onInterfaceDrag(x),
@@ -37,15 +36,9 @@ const WaveFormLayer = (props) => {
 
   return (
     <Group>
-      {/* Click Catcher */}
-      <Rect
-        {...sharedProps}
-        width={props.width}
-        height={props.height}
-      />
-    {/* Drawing */}
+      {/* Drawing */}
       <Shape
-        {...sharedProps}
+        x={xOffset}
         sceneFunc={function (context) {
           const drawPoint = (offset) => (
             (y, x) => (
@@ -62,6 +55,27 @@ const WaveFormLayer = (props) => {
         fill="#20d8ba"
         stroke="#20d8ba"
         strokeWidth="1"
+      />
+      {/* Click Catcher */}
+      <Rect
+        width={props.width}
+        height={props.height}
+        draggable={true}
+        onClick={({ evt: { offsetX } }) => props.onInterfaceClick(offsetX)}
+        onTouchEnd={(({ evt: { changedTouches } }) => props.onInterfaceClick(changedTouches[0].clientX))}
+        onDragMove={({ target: { attrs: { x } } }) => props.onInterfaceDrag(x)}
+        dragBoundFunc={function(pos) {
+            const min = props.windowWidth / 2;
+            const max = min - props.width;
+            return {
+                x: pos.x >= min
+                  ? min
+                  : pos.x <= max
+                    ? max
+                    : pos.x,
+                y: this.getAbsolutePosition().y
+            }
+        }}
       />
     </Group>
   );

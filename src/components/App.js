@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Provider, connect } from 'react-redux';
-import WaveformData from 'waveform-data';
-import { requestAudio, playThunk, pauseThunk } from 'state/reducers/audio';
+import { Provider } from 'react-redux';
 import { store } from 'state/store';
 import WaveFormInterface from './connected/WaveFormInterface';
 import './App.css';
