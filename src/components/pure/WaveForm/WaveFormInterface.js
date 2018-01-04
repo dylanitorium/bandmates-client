@@ -5,8 +5,6 @@ import WaveformData from 'waveform-data';
 import BasicAudioFile from 'utils/BasicAudioFile';
 import * as constants from 'utils/constants';
 import WaveFormLayer from './WaveFormLayer';
-import InterfaceLayer from './InterfaceLayer';
-import CursorLayer from './CursorLayer';
 
 
 class WaveFormInterface extends Component {
