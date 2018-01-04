@@ -26,11 +26,12 @@ export const jumpToTime = (offset) => (
     clearAllTimeouts();
 
     const timeOffset = waveform.seconds_per_pixel * ((offset + cursorPostion) - (width / 2));
+    const positiveOffset = timeOffset > 0 ? timeOffset : 0;
 
     if (isPlaying) {
-      dispatch(audioActions.playThunk(timeOffset));
+      dispatch(audioActions.playThunk(positiveOffset));
     } else {
-      dispatch(audioActions.updateTime(timeOffset, getTimestamp()));
+      dispatch(audioActions.updateTime(positiveOffset, getTimestamp()));
     }
   }
 );
@@ -45,12 +46,13 @@ export const dragToTime = (offset) => (
 
     clearAllTimeouts();
 
-    const timeOffset = waveform.seconds_per_pixel * (offset - (width / 2)) * -1;
+    const timeOffset = (waveform.seconds_per_pixel * (offset - (width / 2)) * -1)
+    const positiveOffset = timeOffset > 0 ? timeOffset : 0;
 
     if (isPlaying) {
-      dispatch(audioActions.playThunk(timeOffset));
+      dispatch(audioActions.playThunk(positiveOffset));
     } else {
-      dispatch(audioActions.updateTime(timeOffset, getTimestamp()));
+      dispatch(audioActions.updateTime(positiveOffset, getTimestamp()));
     }
   }
 );

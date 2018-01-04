@@ -34,9 +34,9 @@ export const requestAudioFailure = error => ({
   error,
 })
 
-export const play = (offset, timestamp) => ({
+export const play = (currentTime, timestamp) => ({
   type: actionTypes.PLAY,
-  offset,
+  currentTime,
   timestamp,
 });
 
@@ -153,7 +153,7 @@ const handlers = {
   }),
   [actionTypes.PLAY]: (state, action) => ({
     isPlaying: true,
-    currentTime: action.offset,
+    currentTime: action.currentTime > 0 ? action.currentTime : 0,
     timestamp: action.timestamp,
   }),
   [actionTypes.PAUSE]: () => ({
@@ -166,7 +166,7 @@ const handlers = {
     timestamp: 0,
   }),
   [actionTypes.UPDATE_TIME]: (state, action) => ({
-    currentTime: action.currentTime,
+    currentTime: action.currentTime > 0 ? action.currentTime : 0,
     timestamp: action.timestamp,
   }),
 };
