@@ -59,7 +59,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "deploy": "yarn build && aws s3 sync build s3://bandmates --acl public-read"
   },
   "jest": {
     "collectCoverageFrom": [

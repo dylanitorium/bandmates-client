@@ -22,7 +22,7 @@ const buttonStyle = {
 }
 
 const PlayButton = props => (
-  <button style={buttonStyle} onClick={props.onPlayClick}>
+  <div style={buttonStyle} onClick={props.onPlayClick}>
   {
     props.isPlaying ? (
       <Pause />
@@ -30,7 +30,7 @@ const PlayButton = props => (
       <Play />
     )
   }
-  </button>
+  </div>
 );
 
 PlayButton.propTypes = {

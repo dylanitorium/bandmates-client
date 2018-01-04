@@ -2,15 +2,18 @@ import * as audioActions from './audio';
 import * as timeUtils from 'utils/time';
 
 // Thunk
-export const playToggle = () => (
+export const playToggle = (event) => (
   (dispatch, getState) => {
     const { audio: { audio, isPlaying } } = getState();
+
+    console.log(event);
 
     if (!audio) {
       return;
     }
 
     if (isPlaying) {
+
       dispatch(audioActions.pauseThunk());
     } else {
       dispatch(audioActions.playThunk());
@@ -63,9 +66,10 @@ export const dragToTime = (offset) => (
 
 export const registerKeyboardEvents = () => (
   (dispatch, getState) => {
-    window.addEventListener('keypress', (event) => {
+    window.addEventListener('keyup', (event) => {
       const { audio: { audio, isPlaying } } = getState();
 
+      console.log(isPlaying);
       if (event.keyCode === 32) {
         if (!audio) {
           return;
@@ -74,6 +78,7 @@ export const registerKeyboardEvents = () => (
         if (isPlaying) {
           dispatch(audioActions.pauseThunk());
         } else {
+            console.log('plaaaaay');
           dispatch(audioActions.playThunk());
         }
       }
