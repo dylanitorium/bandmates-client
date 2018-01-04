@@ -12,6 +12,7 @@ const mapStateToProps = state => ({
   currentTime: state.audio.currentTime,
   cursorPostion: state.cursor.cursorPostion,
   windowWidth: state.window.width,
+  isPlaying: state.audio.isPlaying,
   width: constants.DEFAULT_WAVEFORM_WIDTH,
   height: constants.DEFAULT_WAVEFORM_HEIGHT,
   amplitude: constants.DEFAULT_WAVEFORM_AMPLITUDE,
@@ -32,6 +33,7 @@ const mapDispatchToProps = {
   requestWaveform: waveform.requestWaveform,
   onInterfaceClick: interfaceActions.jumpToTime,
   onInterfaceDrag: interfaceActions.dragToTime,
+  onPlayClick: interfaceActions.playToggle,
 };
 
 const ConnectedWaveFormInterface = connect(

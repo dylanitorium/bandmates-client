@@ -5,6 +5,7 @@ import WaveformData from 'waveform-data';
 import BasicAudioFile from 'utils/BasicAudioFile';
 import * as constants from 'utils/constants';
 import WaveFormLayer from './WaveFormLayer';
+import PlayButton from './PlayButton';
 
 
 class WaveFormInterface extends Component {
@@ -35,6 +36,8 @@ class WaveFormInterface extends Component {
       left: (props.windowWidth/2) - 1,
     };
 
+
+
     return (
       <div style={containerStyle}>
         <div>
@@ -44,6 +47,7 @@ class WaveFormInterface extends Component {
             </Layer>
           </Stage>
         </div>
+        <PlayButton {...props} />
         <span style={cursor}></span>
       </div>
     );
