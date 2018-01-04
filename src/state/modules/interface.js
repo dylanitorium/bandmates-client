@@ -1,59 +1,47 @@
 import * as audioActions from './audio';
-
-const clearAllTimeouts = () => {
-  let id = setTimeout(null,0);
-  while (id--) {
-    clearTimeout(id);
-  }
-}
-
-const getTimestamp = () => {
-  const date = new Date();
-  return date.getTime();
-}
-
+import * as timeUtils from 'utils/time';
 
 // Thunk
+const setNewOffset = (offset) => (
+  (dispatch, getState) => {
+    const { audio: { isPlaying } } = getState();
+
+    timeUtils.clearAllTimeouts();
+
+    const positiveOffset = offset > 0 ? offset : 0;
+
+    if (isPlaying) {
+      dispatch(audioActions.playThunk(positiveOffset));
+    } else {
+      dispatch(audioActions.updateTime(positiveOffset, timeUtils.getTimestamp()));
+    }
+  }
+);
+
 export const jumpToTime = (offset) => (
   (dispatch, getState) => {
     const {
-      audio: { audio, isPlaying },
       waveform: { waveform },
       window: { width },
       cursor: { cursorPostion },
     } = getState();
 
-    clearAllTimeouts();
-
     const timeOffset = waveform.seconds_per_pixel * ((offset + cursorPostion) - (width / 2));
-    const positiveOffset = timeOffset > 0 ? timeOffset : 0;
 
-    if (isPlaying) {
-      dispatch(audioActions.playThunk(positiveOffset));
-    } else {
-      dispatch(audioActions.updateTime(positiveOffset, getTimestamp()));
-    }
+    dispatch(setNewOffset(timeOffset));
   }
 );
 
 export const dragToTime = (offset) => (
   (dispatch, getState) => {
     const {
-      audio: { audio, isPlaying },
       waveform: { waveform },
       window: { width },
     } = getState();
 
-    clearAllTimeouts();
-
     const timeOffset = (waveform.seconds_per_pixel * (offset - (width / 2)) * -1)
-    const positiveOffset = timeOffset > 0 ? timeOffset : 0;
 
-    if (isPlaying) {
-      dispatch(audioActions.playThunk(positiveOffset));
-    } else {
-      dispatch(audioActions.updateTime(positiveOffset, getTimestamp()));
-    }
+    dispatch(setNewOffset(timeOffset));
   }
 );
 
