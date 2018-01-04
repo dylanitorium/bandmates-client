@@ -6,8 +6,6 @@ export const playToggle = (event) => (
   (dispatch, getState) => {
     const { audio: { audio, isPlaying } } = getState();
 
-    console.log(event);
-
     if (!audio) {
       return;
     }
@@ -58,7 +56,9 @@ export const dragToTime = (offset) => (
       window: { width },
     } = getState();
 
-    const timeOffset = (waveform.seconds_per_pixel * (offset - (width / 2)) * -1)
+    console.log(offset);
+
+    const timeOffset = (waveform.seconds_per_pixel * (offset - (width / 2)) * -1);
 
     dispatch(setNewOffset(timeOffset));
   }
@@ -69,7 +69,6 @@ export const registerKeyboardEvents = () => (
     window.addEventListener('keyup', (event) => {
       const { audio: { audio, isPlaying } } = getState();
 
-      console.log(isPlaying);
       if (event.keyCode === 32) {
         if (!audio) {
           return;
@@ -78,7 +77,6 @@ export const registerKeyboardEvents = () => (
         if (isPlaying) {
           dispatch(audioActions.pauseThunk());
         } else {
-            console.log('plaaaaay');
           dispatch(audioActions.playThunk());
         }
       }

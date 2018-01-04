@@ -15,7 +15,7 @@ const WaveFormLayer = (props) => {
   );
 
   const xOffset = (props.cursorPostion  * -1) + (props.windowWidth / 2);
-  
+
   return (
     <Group>
       {/* Drawing */}
@@ -39,12 +39,13 @@ const WaveFormLayer = (props) => {
       />
       {/* Click Catcher */}
       <Rect
+        x={xOffset}
         width={props.width}
         height={props.height}
         draggable={true}
         onClick={({ evt: { offsetX } }) => props.onInterfaceClick(offsetX)}
         onTap={(({ evt: { changedTouches } }) => props.onInterfaceClick(changedTouches[0].clientX))}
-        onDragMove={({ target: { attrs: { x } } }) => props.onInterfaceDrag(x)}
+        onDragMove={({ target: { attrs: { x } }, ...event }) => props.onInterfaceDrag(x)}
         dragBoundFunc={function(pos) {
             const min = props.windowWidth / 2;
             const max = min - props.width;
