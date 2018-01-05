@@ -43,7 +43,7 @@ const WaveFormLayer = (props) => {
       {/* Clock */}
       <Text
         align={'center'}
-        fontFamily={'Helvetica'}
+        fontFamily={'Roboto'}
         fontSize={fontSize}
         fill={'white'}
         opacity={0.5}
@@ -69,8 +69,8 @@ const WaveFormLayer = (props) => {
                   : pos.x <= max
                     ? max
                     : pos.x,
-                y: this.getAbsolutePosition().y
-            }
+                y: this.getAbsolutePosition().y,
+            };
         }}
       />
     </Group>

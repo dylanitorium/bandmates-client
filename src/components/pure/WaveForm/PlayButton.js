@@ -1,8 +1,6 @@
 import React from 'react';
 import Radium from 'radium';
 import PropTypes from 'prop-types';
-import Play from 'react-icons/lib/fa/play-circle-o';
-import Pause from 'react-icons/lib/fa/pause-circle-o';
 
 const buttonStyle = {
   border: 0,
@@ -24,10 +22,12 @@ const buttonStyle = {
 const PlayButton = props => (
   <div style={buttonStyle} onClick={props.onPlayClick}>
   {
-    props.isPlaying ? (
-      <Pause />
+    !props.audio ? (
+      <i className={'fas fa-spinner fa-spin'}/>
+    ) : !props.isPlaying ? (
+      <i className={'far fa-play-circle'}/>
     ) : (
-      <Play />
+      <i className={'far fa-pause-circle'}/>
     )
   }
   </div>
