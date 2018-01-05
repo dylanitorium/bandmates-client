@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import WaveformData from 'waveform-data';
-import { Shape, Rect, Group } from 'react-konva';
+import { Shape, Rect, Group, Text } from 'react-konva';
+import * as timeUtils from 'utils/time';
 
 const WaveFormLayer = (props) => {
   const POINT_MOD = 0.5;
@@ -15,6 +16,8 @@ const WaveFormLayer = (props) => {
   );
 
   const xOffset = (props.cursorPostion  * -1) + (props.windowWidth / 2);
+
+  const fontSize = 60;
 
   return (
     <Group>
@@ -36,6 +39,17 @@ const WaveFormLayer = (props) => {
         fill="#20d8ba"
         stroke="#20d8ba"
         strokeWidth="1"
+      />
+      {/* Clock */}
+      <Text
+        align={'center'}
+        fontFamily={'Helvetica'}
+        fontSize={fontSize}
+        fill={'white'}
+        opacity={0.5}
+        width={props.windowWidth}
+        y={(props.height / 2) - (fontSize / 2)}
+        text={timeUtils.toClock(props.currentTime)}
       />
       {/* Click Catcher */}
       <Rect
