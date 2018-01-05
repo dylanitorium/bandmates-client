@@ -1,5 +1,6 @@
 import BasicAudioFile from 'utils/BasicAudioFile';
 import makeReducer from 'utils/makeReducer';
+import * as timeUtils from 'utils/time';
 
 // Config
 const audioConfig = {
@@ -71,24 +72,12 @@ export const requestAudio = source => (
   }
 );
 
-const clearAllTimeouts = () => {
-  let id = setTimeout(null,0);
-  while (id--) {
-    clearTimeout(id);
-  }
-}
-
-const getTimestamp = () => {
-  const date = new Date();
-  return date.getTime();
-}
-
 export const updateTimeThunk = () => (
   (dispatch, getState) => {
     const { audio: { audio, isPlaying, currentTime, timestamp } } = getState();
 
     if (!isPlaying) {
-      clearAllTimeouts();
+      timeUtils.clearAllTimeouts();
       return;
     }
 
@@ -97,8 +86,8 @@ export const updateTimeThunk = () => (
       return;
     }
 
-    const elapsed = currentTime + ((getTimestamp() - timestamp) / 1000);
-    dispatch(updateTime(elapsed, getTimestamp()));
+    const elapsed = currentTime + ((timeUtils.getTimestamp() - timestamp) / 1000);
+    dispatch(updateTime(elapsed, timeUtils.getTimestamp()));
 
     setTimeout(() => {
       dispatch(updateTimeThunk());
@@ -110,11 +99,11 @@ export const playThunk = offset => (
   (dispatch, getState) => {
     const { audio: { audio, currentTime } } = getState();
 
-    clearAllTimeouts();
+    timeUtils.clearAllTimeouts();
 
     const start = offset || currentTime;
     audio.play(start);
-    dispatch(play(start, getTimestamp()));
+    dispatch(play(start, timeUtils.getTimestamp()));
     dispatch(updateTimeThunk());
   }
 );

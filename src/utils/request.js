@@ -1,6 +1,8 @@
+import 'whatwg-fetch';
+
 // Abstraction of request methods - fetch will not be final
 
-export const request = async (path, options) => {
+export const request = async (path, options = {}) => {
   return fetch(path, options);
 }
 

@@ -57,8 +57,6 @@ const WaveFormLayer = (props) => {
         width={props.width}
         height={props.height}
         draggable={true}
-        onClick={({ evt: { offsetX } }) => props.onInterfaceClick(offsetX)}
-        onTap={(({ evt: { changedTouches } }) => props.onInterfaceClick(changedTouches[0].clientX))}
         onDragMove={({ target: { attrs: { x } }, ...event }) => props.onInterfaceDrag(x)}
         dragBoundFunc={function(pos) {
             const min = props.windowWidth / 2;

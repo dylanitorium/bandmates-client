@@ -1,6 +1,5 @@
-// I think I'd like to get rid of this at some point
 
-import * as requestUtils from './request';
+import { Howl } from 'howler';
 
 export default class BasicAudioFile {
   /**
@@ -8,59 +7,35 @@ export default class BasicAudioFile {
    */
   constructor(src) {
     this.src = src;
-    this.buffer = null;
-    this.context = new (window.AudioContext || window.webkitAudioContext)();
-    this.source = null;
-    this.nodes = {};
+    this.howl = null;
   }
 
   async init() {
-    try {
-      const buffer = await requestUtils.requestArrayBuffer(this.src);
-      this.buffer = await this.decodeAudioData(buffer);
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async decodeAudioData (buffer) {
-    return this.context.decodeAudioData(buffer);
-  }
-
-  connectSource() {
-    if (!this.buffer) {
-      return;
-    }
-
-    if (this.source) {
-      this.source.stop();
-    }
-
-    this.nodes.gain = this.context.createGain();
-    this.nodes.gain.connect(this.context.destination);
-    this.source = this.context.createBufferSource();
-    this.source.buffer = this.buffer;
-    this.source.connect(this.nodes.gain);
+    this.howl = new Howl({ src: [this.src] });
+    return new Promise((resolve) => {
+      this.howl.once('load', () => resolve());
+    });
   }
 
   play(timestamp) {
-    this.connectSource();
-    this.source.start(0, timestamp);
-  }
-
-  stop() {
-    if (!this.source) {
+    if(!this.howl) {
       return;
     }
 
-    this.source.stop();
+    this.howl.stop();
+
+    if (timestamp) {
+      this.howl.seek(timestamp);
+    }
+
+    this.howl.play();
   }
 
-  getCurrentTime() {
-    return this.context ? this.context.currentTime : 0;
+  stop() {
+    this.howl.stop();
   }
 
   getDuration() {
-    return this.buffer.duration;
+    return this.howl.duration();
   }
 }
