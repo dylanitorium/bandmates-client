@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PlayButton /> renders a pause button when audio is playing 1`] = `
+<div
+  className="button"
+  onClick={[Function]}
+>
+  <i
+    className="far fa-pause-circle"
+  />
+</div>
+`;
+
+exports[`<PlayButton /> renders a play button when audio is loaded and it is not playing 1`] = `
+<div
+  className="button"
+  onClick={[Function]}
+>
+  <i
+    className="far fa-play-circle"
+  />
+</div>
+`;
+
+exports[`<PlayButton /> renders a spinner when audio is loading 1`] = `
+<div
+  className="button"
+  onClick={[Function]}
+>
+  <i
+    className="fas fa-spinner fa-spin"
+  />
+</div>
+`;

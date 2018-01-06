@@ -5,7 +5,7 @@ import WaveformData from 'waveform-data';
 import BasicAudioFile from 'utils/BasicAudioFile';
 import * as constants from 'utils/constants';
 import WaveFormLayer from './WaveFormLayer';
-import PlayButton from './PlayButton';
+import PlayButton from './PlayButton/PlayButton';
 
 
 class WaveFormInterface extends Component {

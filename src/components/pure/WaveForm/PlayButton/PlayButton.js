@@ -1,26 +1,10 @@
 import React from 'react';
-import Radium from 'radium';
 import PropTypes from 'prop-types';
-
-const buttonStyle = {
-  border: 0,
-  background: 'none',
-  fontSize: '50px',
-  color: 'white',
-  opacity: 0.7,
-  position: 'absolute',
-  bottom: '15px',
-  left: '10px',
-  ':active': {
-    outline: 'none',
-  },
-  ':focus': {
-    outline: 'none',
-  },
-}
+import BasicAudioFile from 'utils/BasicAudioFile';
+import styles from './play-button.css';
 
 const PlayButton = props => (
-  <div style={buttonStyle} onClick={props.onPlayClick}>
+  <div className={styles.button} onClick={props.onPlayClick}>
   {
     !props.audio ? (
       <i className={'fas fa-spinner fa-spin'}/>
@@ -34,8 +18,9 @@ const PlayButton = props => (
 );
 
 PlayButton.propTypes = {
+  audio: PropTypes.instanceOf(BasicAudioFile),
   isPlaying: PropTypes.bool.isRequired,
   onPlayClick: PropTypes.func.isRequired,
 };
 
-export default Radium(PlayButton);
+export default PlayButton;
