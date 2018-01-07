@@ -2529,7 +2529,7 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "^2.0.0"
 
-fbjs@^0.8.14, fbjs@^0.8.16:
+fbjs@^0.8.16:
   version "0.8.16"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
   dependencies:
@@ -5223,22 +5223,6 @@ react-icons@^2.2.7:
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-2.2.7.tgz#d7860826b258557510dac10680abea5ca23cf650"
   dependencies:
     react-icon-base "2.1.0"
-
-react-konva@^1.6.4:
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/react-konva/-/react-konva-1.6.4.tgz#7e5665abad208a5379635308c00f9bc339c57542"
-  dependencies:
-    fbjs "^0.8.14"
-    react-reconciler "^0.5.0"
-
-react-reconciler@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.5.0.tgz#4c4cdfa2ec8f4f35ebf6305ed65fcef9b3d5d6e7"
-  dependencies:
-    fbjs "^0.8.16"
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.0"
 
 react-redux@^5.0.6:
   version "5.0.6"

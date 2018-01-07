@@ -1,0 +1,25 @@
+.main {
+  width: 2px;
+  height: 100%;
+  background-color: white;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  opacity: 0.4;
+}
+
+.top {
+  width: 2px;
+  height: 20px;
+  background-color: white;
+  position: absolute;
+  top: 0;
+}
+
+.botton {
+  width: 2px;
+  height: 20px;
+  background-color: white;
+  position: absolute;
+  bottom: 0;
+};

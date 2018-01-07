@@ -46,7 +46,6 @@
     "react-dev-utils": "^4.2.1",
     "react-dom": "^16.2.0",
     "react-icons": "^2.2.7",
-    "react-konva": "^1.6.4",
     "react-redux": "^5.0.6",
     "react-test-renderer": "^16.2.0",
     "redux": "^3.7.2",
@@ -90,7 +89,7 @@
     ],
     "moduleNameMapper": {
       "^react-native$": "react-native-web",
-       "^.+\\.css$": "identity-obj-proxy",
+      "^.+\\.css$": "identity-obj-proxy",
       "^.*[.](gif|ttf|eot|svg)$": "<rootDir>/test/fileMock.js"
     },
     "moduleFileExtensions": [

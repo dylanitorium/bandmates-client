@@ -27,34 +27,7 @@ class WaveFormInterface extends Component {
       position: 'relative',
     };
 
-    const cursor = {
-      width: '2px',
-      height: constants.DEFAULT_WAVEFORM_HEIGHT,
-      backgroundColor: 'white',
-      position: 'absolute',
-      bottom: 0,
-      top: 0,
-      opacity: 0.4,
-      left: (props.windowWidth/2) - 1,
-    };
 
-    const cursorTop = {
-      width: '2px',
-      height: '20px',
-      backgroundColor: 'white',
-      position: 'absolute',
-      top: 0,
-      left: (props.windowWidth/2) - 1,
-    };
-
-    const cursorBottom = {
-      width: '2px',
-      height: '20px',
-      backgroundColor: 'white',
-      position: 'absolute',
-      bottom: 0,
-      left: (props.windowWidth/2) - 1,
-    };
 
 
 
@@ -62,10 +35,8 @@ class WaveFormInterface extends Component {
       <div style={containerStyle}>
         <WaveFormLayer {...props}/>
         <ClockLayer {...props} />
+        <CursorLayer {...props} />
         <PlayButton {...props} />
-        <span style={cursor}></span>
-        <span style={cursorTop}></span>
-        <span style={cursorBottom}></span>
       </div>
     );
   }
