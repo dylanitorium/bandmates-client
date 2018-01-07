@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import WaveformData from 'waveform-data';
 import BasicAudioFile from 'utils/BasicAudioFile';
-import WaveFormLayer from './WaveFormLayer';
+import WaveFormLayer from './WaveFormLayer/WaveFormLayer';
 import PlayButton from './PlayButton/PlayButton';
 import ClockLayer from './ClockLayer/ClockLayer';
 import CursorLayer from './CursorLayer/CursorLayer';

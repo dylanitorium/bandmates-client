@@ -2,11 +2,6 @@ import BasicAudioFile from 'utils/BasicAudioFile';
 import makeReducer from 'utils/makeReducer';
 import * as timeUtils from 'utils/time';
 
-// Config
-const audioConfig = {
-  UPDATE_INTERVAL: 10,
-}
-
 // Action Types
 export const actionTypes = {
   REQUEST: {
