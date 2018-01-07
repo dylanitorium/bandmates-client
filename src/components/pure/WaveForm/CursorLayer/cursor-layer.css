@@ -1,25 +1,40 @@
-.main {
+/* Components */
+.base {
   width: 2px;
-  height: 100%;
-  background-color: white;
   position: absolute;
+}
+
+.cursor {
+  background-color: white;
+}
+
+.center {
+  height: 100%;
+}
+
+.edge {
+  height: 20px;
+}
+
+/* Classes */
+.container {
+  composes: base center;
+  top: 0;
+}
+
+.main {
+  composes: base cursor center;
   bottom: 0;
   top: 0;
   opacity: 0.4;
 }
 
 .top {
-  width: 2px;
-  height: 20px;
-  background-color: white;
-  position: absolute;
+  composes: base cursor edge;
   top: 0;
 }
 
-.botton {
-  width: 2px;
-  height: 20px;
-  background-color: white;
-  position: absolute;
+.bottom {
+  composes: base cursor edge;
   bottom: 0;
-};
+}

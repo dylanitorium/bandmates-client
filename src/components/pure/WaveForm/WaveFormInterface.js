@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Stage, Layer } from 'react-konva';
 import WaveformData from 'waveform-data';
 import BasicAudioFile from 'utils/BasicAudioFile';
-import * as constants from 'utils/constants';
 import WaveFormLayer from './WaveFormLayer';
 import PlayButton from './PlayButton/PlayButton';
 import ClockLayer from './ClockLayer/ClockLayer';
+import CursorLayer from './CursorLayer/CursorLayer';
 
 
 class WaveFormInterface extends Component {
@@ -26,10 +25,6 @@ class WaveFormInterface extends Component {
       background: '#36454F',
       position: 'relative',
     };
-
-
-
-
 
     return (
       <div style={containerStyle}>
