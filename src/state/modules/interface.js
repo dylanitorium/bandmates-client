@@ -23,8 +23,6 @@ const setNewOffset = (offset) => (
   (dispatch, getState) => {
     const { audio: { isPlaying } } = getState();
 
-    timeUtils.clearAllTimeouts();
-
     const positiveOffset = offset > 0 ? offset : 0;
 
     if (isPlaying) {
@@ -55,8 +53,6 @@ export const dragToTime = (offset) => (
       waveform: { waveform },
       window: { width },
     } = getState();
-
-    console.log(offset);
 
     const timeOffset = (waveform.seconds_per_pixel * (offset - (width / 2)) * -1);
 

@@ -6,6 +6,7 @@ import BasicAudioFile from 'utils/BasicAudioFile';
 import * as constants from 'utils/constants';
 import WaveFormLayer from './WaveFormLayer';
 import PlayButton from './PlayButton/PlayButton';
+import ClockLayer from './ClockLayer/ClockLayer';
 
 
 class WaveFormInterface extends Component {
@@ -59,13 +60,8 @@ class WaveFormInterface extends Component {
 
     return (
       <div style={containerStyle}>
-        <div>
-          <Stage width={props.windowWidth} height={props.height}>
-            <Layer>
-              <WaveFormLayer {...props} />
-            </Layer>
-          </Stage>
-        </div>
+        <WaveFormLayer {...props}/>
+        <ClockLayer {...props} />
         <PlayButton {...props} />
         <span style={cursor}></span>
         <span style={cursorTop}></span>

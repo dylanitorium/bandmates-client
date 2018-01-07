@@ -8,7 +8,7 @@ const loggerIfDev = isDev ? logger : null;
 
 const middleware = [
   thunk,
-  loggerIfDev,
+  // loggerIfDev,
 ].filter(m => !!m);
 
 

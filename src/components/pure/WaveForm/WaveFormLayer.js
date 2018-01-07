@@ -15,63 +15,27 @@ const WaveFormLayer = (props) => {
     props.height - ((size + props.amplitude / 2) * props.height) / props.amplitude
   );
 
+  let pathData = `M 0 ${props.height /2}`;
+
+  const drawPoint = (offset) => (
+    (y, x) => (
+      pathData = `${pathData} L ${modPoint(x, offset)}  ${modPoint(interpolateY(y))}`
+    )
+  );
+
+  props.data.min.forEach(drawPoint());
+  props.data.max.reverse().forEach(drawPoint(props.data.offset_length));
+
   const xOffset = (props.cursorPostion  * -1) + (props.windowWidth / 2);
 
-  const fontSize = 60;
+  const style = {
+    transform: `translate(${xOffset}px, 0px)`,
+  };
 
   return (
-    <Group>
-      {/* Drawing */}
-      <Shape
-        x={xOffset}
-        sceneFunc={function (context) {
-          const drawPoint = (offset) => (
-            (y, x) => (
-              context.lineTo(modPoint(x, offset), modPoint(interpolateY(y)))
-            )
-          );
-          context.beginPath();
-          props.data.min.forEach(drawPoint());
-          props.data.max.reverse().forEach(drawPoint(props.data.offset_length));
-          context.closePath();
-          context.fillStrokeShape(this);
-        }}
-        fill="#20d8ba"
-        stroke="#20d8ba"
-        strokeWidth="1"
-      />
-      {/* Clock */}
-      <Text
-        align={'center'}
-        fontFamily={'Roboto'}
-        fontSize={fontSize}
-        fill={'white'}
-        opacity={0.5}
-        width={props.windowWidth}
-        y={(props.height / 2) - (fontSize / 2)}
-        text={timeUtils.toClock(props.currentTime)}
-      />
-      {/* Click Catcher */}
-      <Rect
-        x={xOffset}
-        width={props.width}
-        height={props.height}
-        draggable={true}
-        onDragMove={({ target: { attrs: { x } }, ...event }) => props.onInterfaceDrag(x)}
-        dragBoundFunc={function(pos) {
-            const min = props.windowWidth / 2;
-            const max = min - props.width;
-            return {
-                x: pos.x >= min
-                  ? min
-                  : pos.x <= max
-                    ? max
-                    : pos.x,
-                y: this.getAbsolutePosition().y,
-            };
-        }}
-      />
-    </Group>
+    <svg width={props.width} height={props.height} style={style}>
+      <path d={pathData} fill={props.color} stroke={props.color} strokeWidth={1} />
+    </svg>
   );
 };
 
@@ -80,6 +44,10 @@ WaveFormLayer.propTypes = {
   height: PropTypes.number.isRequired,
   amplitude: PropTypes.number.isRequired,
   data: PropTypes.instanceOf(WaveformData),
+};
+
+WaveFormLayer.defaultProps = {
+  color: '#20d8ba',
 };
 
 export default WaveFormLayer;

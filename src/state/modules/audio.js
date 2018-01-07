@@ -4,7 +4,7 @@ import * as timeUtils from 'utils/time';
 
 // Config
 const audioConfig = {
-  UPDATE_INTERVAL: 50,
+  UPDATE_INTERVAL: 10,
 }
 
 // Action Types
@@ -77,7 +77,6 @@ export const updateTimeThunk = () => (
     const { audio: { audio, isPlaying, currentTime, timestamp } } = getState();
 
     if (!isPlaying) {
-      timeUtils.clearAllTimeouts();
       return;
     }
 
@@ -89,17 +88,15 @@ export const updateTimeThunk = () => (
     const elapsed = currentTime + ((timeUtils.getTimestamp() - timestamp) / 1000);
     dispatch(updateTime(elapsed, timeUtils.getTimestamp()));
 
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       dispatch(updateTimeThunk());
-    }, audioConfig.UPDATE_INTERVAL)
+    });
   }
 )
 
 export const playThunk = offset => (
   (dispatch, getState) => {
     const { audio: { audio, currentTime } } = getState();
-
-    timeUtils.clearAllTimeouts();
 
     const start = offset || currentTime;
     audio.play(start);
