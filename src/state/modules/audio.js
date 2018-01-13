@@ -70,6 +70,7 @@ export const requestAudio = source => (
 export const updateTimeThunk = () => (
   (dispatch, getState) => {
     const { audio: { audio, isPlaying, currentTime, timestamp } } = getState();
+    timeUtils.clearAllTimeouts();
 
     if (!isPlaying) {
       return;
@@ -83,9 +84,9 @@ export const updateTimeThunk = () => (
     const elapsed = currentTime + ((timeUtils.getTimestamp() - timestamp) / 1000);
     dispatch(updateTime(elapsed, timeUtils.getTimestamp()));
 
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       dispatch(updateTimeThunk());
-    });
+    }, 10);
   }
 )
 

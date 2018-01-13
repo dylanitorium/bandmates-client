@@ -51,9 +51,7 @@ export const dragToTime = (movement, start) => (
   (dispatch, getState) => {
     const {
       waveform: { waveform },
-      window: { width },
       audio: { currentTime },
-      cursor: { cursorPostion }
     } = getState();
 
     const timeMovement = movement * waveform.seconds_per_pixel;

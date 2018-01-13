@@ -26,6 +26,7 @@ class WaveFormInterface extends Component {
       background: '#36454F',
       position: 'relative',
       overflow: 'hidden',
+      height: props.height,
     };
 
     return (
