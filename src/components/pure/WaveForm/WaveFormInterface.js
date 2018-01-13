@@ -25,6 +25,7 @@ class WaveFormInterface extends Component {
     const containerStyle = {
       background: '#36454F',
       position: 'relative',
+      overflow: 'hidden',
     };
 
     return (

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { conditionalClasses } from 'utils/conditionalClasses';
 import layer from './interface-layer.css';
 
 class InterfaceLayer extends Component {
@@ -17,18 +17,34 @@ class InterfaceLayer extends Component {
   }
 
   onMouseDown(event) {
+    const { clientX } = event;
+
     this.setState({
       isDragging: true,
+      dragStart: clientX,
     });
   }
 
   onMouseMove(event) {
-    if (!this.state.isDragging) {
+    const { isDragging, dragStart } = this.state;
+    const { clientX } = event;
+
+    if (!isDragging || this.isAnimating) {
       return;
     }
 
-    const { ...e } = event;
-    console.log(e);
+    this.isAnimating = true;
+
+    requestAnimationFrame(() => {
+      const movement = clientX - dragStart;
+      this.props.onInterfaceDrag(movement);
+
+      this.setState({
+        dragStart: clientX,
+      });
+
+      this.isAnimating = false;
+    })
   }
 
   onMouseUp(event) {
@@ -37,10 +53,17 @@ class InterfaceLayer extends Component {
     });
   }
 
+  getClasses() {
+    return conditionalClasses({
+      [layer.interface]: true,
+      [layer.dragging]: this.state.isDragging,
+    })
+  }
+
   render() {
     return (
       <div
-        className={layer.interface}
+        className={this.getClasses()}
         onMouseDown={this.onMouseDown}
         onMouseMove={this.onMouseMove}
         onMouseUp={this.onMouseUp}

@@ -47,14 +47,18 @@ export const jumpToTime = (offset) => (
   }
 );
 
-export const dragToTime = (offset) => (
+export const dragToTime = (movement, start) => (
   (dispatch, getState) => {
     const {
       waveform: { waveform },
       window: { width },
+      audio: { currentTime },
+      cursor: { cursorPostion }
     } = getState();
 
-    const timeOffset = (waveform.seconds_per_pixel * (offset - (width / 2)) * -1);
+    const timeMovement = movement * waveform.seconds_per_pixel;
+    const inverseTimeMovement = timeMovement * -1;
+    const timeOffset = inverseTimeMovement + currentTime;
 
     dispatch(setNewOffset(timeOffset));
   }
