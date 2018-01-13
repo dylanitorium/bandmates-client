@@ -6,6 +6,7 @@ import WaveFormLayer from './WaveFormLayer/WaveFormLayer';
 import PlayButton from './PlayButton/PlayButton';
 import ClockLayer from './ClockLayer/ClockLayer';
 import CursorLayer from './CursorLayer/CursorLayer';
+import InterfaceLayer from './InterfaceLayer/InterfaceLayer';
 
 
 class WaveFormInterface extends Component {
@@ -31,6 +32,7 @@ class WaveFormInterface extends Component {
         <WaveFormLayer {...props}/>
         <ClockLayer {...props} />
         <CursorLayer {...props} />
+        <InterfaceLayer {...props} />
         <PlayButton {...props} />
       </div>
     );
