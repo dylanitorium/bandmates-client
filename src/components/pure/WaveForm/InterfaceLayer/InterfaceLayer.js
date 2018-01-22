@@ -12,22 +12,34 @@ class InterfaceLayer extends Component {
     };
 
     this.onMouseDown = this.onMouseDown.bind(this);
-    this.onMouseUp = this.onMouseUp.bind(this);
+    this.onDragEnd = this.onDragEnd.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
+    this.onTouchStart = this.onTouchStart.bind(this);
+    this.onTouchMove = this.onTouchMove.bind(this);
   }
 
-  onMouseDown(event) {
-    const { clientX } = event;
-
+  startDrag(clientX) {
     this.setState({
       isDragging: true,
       dragStart: clientX,
     });
   }
 
-  onMouseMove(event) {
-    const { isDragging, dragStart } = this.state;
+  onTouchStart(event) {
+    const { touches } = event;
+    const { clientX } = touches[0];
+
+    this.startDrag(clientX);
+  }
+
+  onMouseDown(event) {
     const { clientX } = event;
+
+    this.startDrag(clientX);
+  }
+
+  dragMove (clientX) {
+    const { isDragging, dragStart } = this.state;
 
     if (!isDragging || this.isAnimating) {
       return;
@@ -47,7 +59,20 @@ class InterfaceLayer extends Component {
     })
   }
 
-  onMouseUp(event) {
+  onTouchMove(event) {
+    const { touches } = event;
+    const { clientX } = touches[0];
+
+    this.dragMove(clientX);
+  }
+
+  onMouseMove(event) {
+    const { clientX } = event;
+
+    this.dragMove(clientX);
+  }
+
+  onDragEnd(event) {
     this.setState({
       isDragging: false,
     });
@@ -66,7 +91,10 @@ class InterfaceLayer extends Component {
         className={this.getClasses()}
         onMouseDown={this.onMouseDown}
         onMouseMove={this.onMouseMove}
-        onMouseUp={this.onMouseUp}
+        onMouseUp={this.onDragEnd}
+        onTouchStart={this.onTouchStart}
+        onTouchMove={this.onTouchMove}
+        onTouchEnd={this.onDragEnd}
       />
     );
   }

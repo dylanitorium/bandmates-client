@@ -1,40 +1,33 @@
 /* Components */
-.base {
+.main {
   width: 2px;
   position: absolute;
-}
-
-.cursor {
   background-color: white;
-}
-
-.center {
   height: 100%;
-}
-
-.edge {
-  height: 20px;
-}
-
-/* Classes */
-.container {
-  composes: base center;
-  top: 0;
-}
-
-.main {
-  composes: base cursor center;
   bottom: 0;
   top: 0;
   opacity: 0.4;
 }
 
 .top {
-  composes: base cursor edge;
+  width: 2px;
+  position: absolute;
+  background-color: white;
+  height: 20px;
   top: 0;
 }
 
 .bottom {
-  composes: base cursor edge;
+  width: 2px;
+  position: absolute;
+  background-color: white;
+  height: 20px;
   bottom: 0;
+}
+
+.container {
+  width: 2px;
+  position: absolute;
+  height: 100%;
+  top: 0;
 }
