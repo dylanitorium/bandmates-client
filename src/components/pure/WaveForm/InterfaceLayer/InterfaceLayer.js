@@ -1,101 +1,18 @@
 import React, { Component } from 'react';
+import Draggable from 'components/pure/Draggable/Draggable';
 import { conditionalClasses } from 'utils/conditionalClasses';
 import layer from './interface-layer.css';
 
 class InterfaceLayer extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isDragging: false,
-      dragStart: 0,
-    };
-
-    this.onMouseDown = this.onMouseDown.bind(this);
-    this.onDragEnd = this.onDragEnd.bind(this);
-    this.onMouseMove = this.onMouseMove.bind(this);
-    this.onTouchStart = this.onTouchStart.bind(this);
-    this.onTouchMove = this.onTouchMove.bind(this);
-  }
-
-  startDrag(clientX) {
-    this.setState({
-      isDragging: true,
-      dragStart: clientX,
-    });
-  }
-
-  onTouchStart(event) {
-    const { touches } = event;
-    const { clientX } = touches[0];
-
-    this.startDrag(clientX);
-  }
-
-  onMouseDown(event) {
-    const { clientX } = event;
-
-    this.startDrag(clientX);
-  }
-
-  dragMove (clientX) {
-    const { isDragging, dragStart } = this.state;
-
-    if (!isDragging || this.isAnimating) {
-      return;
-    }
-
-    this.isAnimating = true;
-
-    requestAnimationFrame(() => {
-      const movement = clientX - dragStart;
-      this.props.onInterfaceDrag(movement);
-
-      this.setState({
-        dragStart: clientX,
-      });
-
-      this.isAnimating = false;
-    })
-  }
-
-  onTouchMove(event) {
-    const { touches } = event;
-    const { clientX } = touches[0];
-
-    this.dragMove(clientX);
-  }
-
-  onMouseMove(event) {
-    const { clientX } = event;
-
-    this.dragMove(clientX);
-  }
-
-  onDragEnd(event) {
-    this.setState({
-      isDragging: false,
-    });
-  }
-
   getClasses() {
     return conditionalClasses({
       [layer.interface]: true,
-      [layer.dragging]: this.state.isDragging,
     })
   }
 
   render() {
     return (
-      <div
-        className={this.getClasses()}
-        onMouseDown={this.onMouseDown}
-        onMouseMove={this.onMouseMove}
-        onMouseUp={this.onDragEnd}
-        onTouchStart={this.onTouchStart}
-        onTouchMove={this.onTouchMove}
-        onTouchEnd={this.onDragEnd}
-      />
+      <Draggable onDrag={this.props.onInterfaceDrag} className={this.getClasses()}/>
     );
   }
 }

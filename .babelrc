@@ -9,6 +9,10 @@
         "expose": "utils"
       },
       {
+        "src": "./src/components",
+        "expose": "components"
+      },
+      {
         "src": "./src/state",
         "expose": "state"
       }
