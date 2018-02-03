@@ -12,7 +12,7 @@ class InterfaceLayer extends Component {
 
   render() {
     return (
-      <Draggable onDrag={this.props.onInterfaceDrag} className={this.getClasses()}/>
+      <Draggable onDrag={this.props.onInterfaceDrag} containerClass={this.getClasses()} controlClass={this.getClasses()}/>
     );
   }
 }

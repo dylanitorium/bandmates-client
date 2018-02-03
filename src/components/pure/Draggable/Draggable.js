@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { conditionalClasses } from 'utils/conditionalClasses';
 import draggable from './draggable.css';
 
@@ -78,9 +79,16 @@ class Draggable extends Component {
     });
   }
 
-  getClasses() {
+  getContainerClasses() {
     return conditionalClasses({
-      [this.props.className]: true,
+      [this.props.containerClass]: true,
+      [draggable.dragging]: this.state.isDragging,
+    })
+  }
+
+  getControlClasses() {
+    return conditionalClasses({
+      [this.props.controlClass]: true,
       [draggable.default]: true,
       [draggable.dragging]: this.state.isDragging,
     })
@@ -89,16 +97,30 @@ class Draggable extends Component {
   render() {
     return (
       <div
-        className={this.getClasses()}
-        onMouseDown={this.onMouseDown}
+        className={this.getContainerClasses()}
         onMouseMove={this.onMouseMove}
         onMouseUp={this.onDragEnd}
-        onTouchStart={this.onTouchStart}
         onTouchMove={this.onTouchMove}
         onTouchEnd={this.onDragEnd}
-      />
+        style={this.props.style}
+      >
+        <div
+          className={this.getControlClasses()}
+          onMouseDown={this.onMouseDown}
+          onTouchStart={this.onTouchStart}
+          style={this.props.controlStyle}
+        />
+      </div>
     );
   }
 }
+
+Draggable.propTypes = {
+  style: PropTypes.object,
+};
+
+Draggable.defaultPrope = {
+  style: PropTypes.object,
+};
 
 export default Draggable;

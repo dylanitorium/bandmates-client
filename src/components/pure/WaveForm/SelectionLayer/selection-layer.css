@@ -1,8 +1,13 @@
 .container {
   width: 100%;
-
+  position: relative;
+  height: 40px;
 }
 
 .control {
-  
+  width: 6px;
+  height: 40px;
+  position: absolute;
+  top: -10px;
+  background-color: white;
 }

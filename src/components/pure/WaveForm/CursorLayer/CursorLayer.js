@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cursor from './cursor-layer.css';
 
 const CursorLayer = props => (
-  <div className={cursor.container} style={{ left: props.windowWidth / 2 + 'px' }}>
+  <div className={cursor.container} style={{ left: ((props.windowWidth / 2) - 1) + 'px' }}>
     <span className={cursor.main}></span>
     <span className={cursor.top}></span>
     <span className={cursor.bottom}></span>
