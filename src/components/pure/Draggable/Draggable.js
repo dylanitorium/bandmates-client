@@ -44,6 +44,8 @@ class Draggable extends Component {
       isDragging: true,
       dragStart: clientX,
     });
+
+    this.props.onDragStart(clientX);
   }
 
   onTouchStart = (event) =>  {
@@ -97,6 +99,8 @@ class Draggable extends Component {
     this.setState({
       isDragging: false,
     });
+
+    this.props.onDragEnd(event);
   }
 
   getContainerClasses() {
@@ -134,13 +138,18 @@ Draggable.propTypes = {
   containerClass: PropTypes.string,
   controlClass: PropTypes.string,
   controlStyle: PropTypes.object,
-  onDrag: PropTypes
+  onDrag: PropTypes.func,
+  onDragStart: PropTypes.func,
+  onDragEnd: PropTypes.func,
 };
 
 Draggable.defaultProps = {
   containerClass: undefined,
   controlClass: undefined,
   controlStyle: undefined,
+  onDragStart: () => {},
+  onDrag: () => {},
+  onDragEnd: () => {},
 };
 
 export default Draggable;

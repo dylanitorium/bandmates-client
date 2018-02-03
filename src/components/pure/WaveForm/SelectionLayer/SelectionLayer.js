@@ -3,37 +3,21 @@ import PropTypes from 'prop-types';
 import Draggable from '../../Draggable/Draggable';
 import styles from './selection-layer.css';
 
-class SelectionLayer extends Component {
-  constructor(props) {
-    super(props);
+const SelectionLayer = props =>(
+  <Draggable
+    containerClass={styles.container}
+    controlClass={styles.control}
+    controlStyle={{ left: props.selectorPosition }}
+    onDrag={props.onSelectionDrag}
+    onDragEnd={props.onSelectionEnd}
+  />
+);
 
-    this.state = {
-      left: ((this.props.windowWidth / 2) - 3)
-    };
-  }
-
-
-  handleDrag = (movement) => {
-    const { left } = this.state;
-    this.setState({
-      left: left + movement,
-    })
-  }
-
-  render() {
-    return (
-      <Draggable
-        containerClass={styles.container}
-        controlClass={styles.control}
-        controlStyle={{ left: this.state.left }}
-        onDrag={this.handleDrag}
-      />
-    );
-  }
-};
 
 SelectionLayer.propTypes = {
-  windowWidth: PropTypes.number.isRequired,
+  selectorPosition: PropTypes.number.isRequired,
+  onSelectionDrag: PropTypes.func.isRequired,
+  onSelectionEnd: PropTypes.func.isRequired,
 };
 
 export default SelectionLayer;

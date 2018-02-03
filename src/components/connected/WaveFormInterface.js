@@ -5,6 +5,7 @@ import * as audio from 'state/modules/audio';
 import * as waveform from 'state/modules/waveform';
 import * as windowActions from 'state/modules/window';
 import * as interfaceActions from 'state/modules/interface';
+import * as selectionActions from 'state/modules/selection';
 
 const mapStateToProps = state => ({
   data: state.waveform.waveform,
@@ -17,6 +18,7 @@ const mapStateToProps = state => ({
   width: constants.DEFAULT_WAVEFORM_WIDTH,
   height: constants.DEFAULT_WAVEFORM_HEIGHT,
   amplitude: constants.DEFAULT_WAVEFORM_AMPLITUDE,
+  selectorPosition: ((state.window.width / 2) - 3) + state.selection.selectorOffset,
 });
 
 const mapDispatchToProps = {
@@ -35,6 +37,8 @@ const mapDispatchToProps = {
   onInterfaceClick: interfaceActions.jumpToTime,
   onInterfaceDrag: interfaceActions.dragToTime,
   onPlayClick: interfaceActions.playToggle,
+  onSelectionDrag: selectionActions.dragSelector,
+  onSelectionEnd: selectionActions.createSection,
 };
 
 const ConnectedWaveFormInterface = connect(
