@@ -3,6 +3,18 @@ import PropTypes from 'prop-types';
 import { conditionalClasses } from 'utils/conditionalClasses';
 import draggable from './draggable.css';
 
+/**
+ * @callback onDrag
+ * @param {number} movement
+ */
+
+/**
+ * @class
+ * @prop {onDrag} onDrag
+ * @prop {string} containerClass
+ * @prop {string} controlClass
+ * @prop {object} controlStyle
+ */
 class Draggable extends Component {
   constructor(props) {
     super(props);
@@ -116,11 +128,16 @@ class Draggable extends Component {
 }
 
 Draggable.propTypes = {
-  style: PropTypes.object,
+  containerClass: PropTypes.string,
+  controlClass: PropTypes.string,
+  controlStyle: PropTypes.object,
+  onDrag: PropTypes
 };
 
-Draggable.defaultPrope = {
-  style: PropTypes.object,
+Draggable.defaultProps = {
+  containerClass: undefined,
+  controlClass: undefined,
+  controlStyle: undefined,
 };
 
 export default Draggable;
