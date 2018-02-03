@@ -23,35 +23,43 @@ class Draggable extends Component {
       isDragging: false,
       dragStart: 0,
     };
-
-    this.onMouseDown = this.onMouseDown.bind(this);
-    this.onDragEnd = this.onDragEnd.bind(this);
-    this.onMouseMove = this.onMouseMove.bind(this);
-    this.onTouchStart = this.onTouchStart.bind(this);
-    this.onTouchMove = this.onTouchMove.bind(this);
   }
 
-  startDrag(clientX) {
+  componentDidMount() {
+    window.addEventListener('mousemove', this.onMouseMove);
+    window.addEventListener('touchmove', this.onTouchMove);
+    window.addEventListener('mouseup', this.onDragEnd);
+    window.addEventListener('touchend', this.onDragEnd);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('mousemove', this.onMouseMove);
+    window.removeEventListener('touchmove', this.onTouchMove);
+    window.removeEventListener('mouseup', this.onDragEnd);
+    window.removeEventListener('touchend', this.onDragEnd);
+  }
+
+  startDrag = (clientX) => {
     this.setState({
       isDragging: true,
       dragStart: clientX,
     });
   }
 
-  onTouchStart(event) {
+  onTouchStart = (event) =>  {
     const { touches } = event;
     const { clientX } = touches[0];
 
     this.startDrag(clientX);
   }
 
-  onMouseDown(event) {
+  onMouseDown = (event) =>  {
     const { clientX } = event;
 
     this.startDrag(clientX);
   }
 
-  dragMove (clientX) {
+  dragMove = (clientX) => {
     const { isDragging, dragStart } = this.state;
 
     if (!isDragging || this.isAnimating) {
@@ -72,20 +80,20 @@ class Draggable extends Component {
     })
   }
 
-  onTouchMove(event) {
+  onTouchMove = (event) =>  {
     const { touches } = event;
     const { clientX } = touches[0];
 
     this.dragMove(clientX);
   }
 
-  onMouseMove(event) {
+  onMouseMove = (event) =>  {
     const { clientX } = event;
 
     this.dragMove(clientX);
   }
 
-  onDragEnd(event) {
+  onDragEnd = (event) =>  {
     this.setState({
       isDragging: false,
     });
@@ -110,11 +118,6 @@ class Draggable extends Component {
     return (
       <div
         className={this.getContainerClasses()}
-        onMouseMove={this.onMouseMove}
-        onMouseUp={this.onDragEnd}
-        onTouchMove={this.onTouchMove}
-        onTouchEnd={this.onDragEnd}
-        style={this.props.style}
       >
         <div
           className={this.getControlClasses()}
