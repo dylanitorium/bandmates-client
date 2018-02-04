@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Draggable from '../../Draggable/Draggable';
 import styles from './selection-layer.css';
 
-const SelectionLayer = props =>(
+const SelectionLayer = props => (
   <Draggable
     containerClass={styles.container}
     controlClass={styles.control}
     controlStyle={{ left: props.selectorPosition }}
+    onDragStart={props.onSelectionStart}
     onDrag={props.onSelectionDrag}
     onDragEnd={props.onSelectionEnd}
   />

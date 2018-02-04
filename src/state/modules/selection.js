@@ -1,29 +1,54 @@
 import makeReducer from 'utils/makeReducer';
+import { createSelector } from 'reselect';
+import * as sections from './sections';
+
+export const windowWidthSelector = state => state.window.width;
+
+export const offsetSelector = state => state.selection.selectorOffset
+
+export const selectorPositionSelector = createSelector(
+  windowWidthSelector,
+  offsetSelector,
+  (width, offset) => ((width / 2) - 3) + offset,
+);
 
 export const actionTypes = {
-  CREATE_SECTION: 'CREATE_SECTION',
+  START_SELECTION: 'START_SELECTION',
   UPDATE_SELECTOR_OFFSET: 'UPDATE_SELECTOR_OFFSET',
 };
 
-export const createSection = (selectorOffset) => ({
-  type: actionTypes.CREATE_SECTION,
-  selectorOffset,
+export const startSelection = (selectorStart) => ({
+  type: actionTypes.START_SELECTION,
+  selectorStart,
 });
+
+export const startSelectionThunk = () => (
+  (dispatch, getState) => {
+    const { cursor: { cursorPostion } } = getState();
+    dispatch(startSelection(cursorPostion));
+  }
+);
 
 export const dragSelector = (movement) => ({
   type: actionTypes.UPDATE_SELECTOR_OFFSET,
   movement,
 });
 
+
 const initialState = {
+  selectorStart: 0,
   selectorOffset: 0,
 }
 
 const handlers = {
+  [actionTypes.START_SELECTION]: (state, action) => ({
+    selectorStart: action.selectorStart,
+  }),
   [actionTypes.UPDATE_SELECTOR_OFFSET]: (state, action) => ({
     selectorOffset: state.selectorOffset + action.movement,
   }),
-  [actionTypes.CREATE_SECTION]: (state, action) => ({
+  [sections.actionTypes.CREATE_SECTION]: (state, action) => ({
+    selectorStart: 0,
     selectorOffset: 0,
   }),
 }

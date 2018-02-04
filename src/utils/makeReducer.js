@@ -1,6 +1,6 @@
 const makeReducer = (initialState, handlers, name) => (
   (state = initialState, action) => {
-    const { type, ...payload } = action;
+    const { type } = action;
 
     const stateInContext = name ? state[name] : state;
 
@@ -10,7 +10,7 @@ const makeReducer = (initialState, handlers, name) => (
 
     return {
       ...stateInContext,
-      ...handlers[type](state, payload),
+      ...handlers[type](state, action),
     };
   }
 );
