@@ -1,7 +1,7 @@
 import makeReducer from 'utils/makeReducer';
 
 export const actionTypes = {
-  CREATE_SECTION: 'CREATE_SECTION',
+  CREATE_SECTION: 'app/sections/create',
 };
 
 export const createSection = (id, start, end) => ({
@@ -25,7 +25,7 @@ const initialSectionState = {
 
 const section = (state = initialSectionState, action) => {
   const { type, ...payload } = action;
-  console.log(action);
+
   switch (type) {
     case actionTypes.CREATE_SECTION:
       return {

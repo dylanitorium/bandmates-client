@@ -12,9 +12,18 @@ export const selectorPositionSelector = createSelector(
   (width, offset) => ((width / 2) - 3) + offset,
 );
 
+export const selectorStartSelector = state => state.selection.selectorStart;
+
+
+export const selectorOffsetSelector = createSelector(
+  windowWidthSelector,
+  selectorStartSelector,
+  (width, start) => ((width / 2) - 3) + start,
+);
+
 export const actionTypes = {
-  START_SELECTION: 'START_SELECTION',
-  UPDATE_SELECTOR_OFFSET: 'UPDATE_SELECTOR_OFFSET',
+  START_SELECTION: 'app/selection/start',
+  UPDATE_SELECTOR_OFFSET: 'app/selection/update',
 };
 
 export const startSelection = (selectorStart) => ({

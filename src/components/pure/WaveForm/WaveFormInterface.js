@@ -8,6 +8,7 @@ import ClockLayer from './ClockLayer/ClockLayer';
 import CursorLayer from './CursorLayer/CursorLayer';
 import InterfaceLayer from './InterfaceLayer/InterfaceLayer';
 import SelectionLayer from './SelectionLayer/SelectionLayer';
+import SelectionInterface from './SelectionLayer/SelectionInterface';
 
 
 class WaveFormInterface extends Component {
@@ -35,11 +36,12 @@ class WaveFormInterface extends Component {
         <div style={containerStyle}>
           <WaveFormLayer {...props}/>
           <ClockLayer {...props} />
+          <SelectionLayer {...props} />
           <CursorLayer {...props} />
           <InterfaceLayer {...props} />
           <PlayButton {...props} />
         </div>
-        <SelectionLayer {...props} />
+        <SelectionInterface {...props} />
       </div>
     );
   }
