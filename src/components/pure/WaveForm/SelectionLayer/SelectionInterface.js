@@ -7,7 +7,7 @@ const SelectionInterface = props => (
   <Draggable
     containerClass={styles.interface_container}
     controlClass={styles.interface_control}
-    controlStyle={{ left: props.selectorPosition }}
+    controlStyle={{ transform: `translate(${props.selectorPosition}px, 0px)` }}
     onDragStart={props.onSelectionStart}
     onDrag={props.onSelectionDrag}
     onDragEnd={props.onSelectionEnd}

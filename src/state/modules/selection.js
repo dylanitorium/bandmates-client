@@ -1,24 +1,24 @@
 import makeReducer from 'utils/makeReducer';
 import { createSelector } from 'reselect';
 import * as sections from './sections';
+import * as audio from './audio';
+import * as waveform from './waveform';
 
 export const windowWidthSelector = state => state.window.width;
 
-export const offsetSelector = state => state.selection.selectorOffset
-
-export const selectorPositionSelector = createSelector(
+export const widthOffsetSelector = createSelector(
   windowWidthSelector,
-  offsetSelector,
-  (width, offset) => ((width / 2) - 3) + offset,
+  width => ((width / 2) - 3)
 );
 
-export const selectorStartSelector = state => state.selection.selectorStart;
+export const offsetSelector = state => state.selection.selectorOffset;
 
+export const cursorPostionSelector = state => state.cursor.cursorPostion;
 
-export const selectorOffsetSelector = createSelector(
-  windowWidthSelector,
-  selectorStartSelector,
-  (width, start) => ((width / 2) - 3) + start,
+export const selectorPositionSelector = createSelector(
+  widthOffsetSelector,
+  offsetSelector,
+  (width, offset) => width + offset,
 );
 
 export const actionTypes = {
@@ -50,14 +50,19 @@ const initialState = {
 }
 
 const handlers = {
+  [waveform.actionTypes.REQUEST.SUCCESS]: (state, action) => ({
+    pixelFactor: action.waveform.pixels_per_second,
+  }),
   [actionTypes.START_SELECTION]: (state, action) => ({
     selectorStart: action.selectorStart,
+  }),
+  [audio.actionTypes.UPDATE_TIME]: (state, action) => ({
+    selectorStart: state.pixelFactor * action.currentTime,
   }),
   [actionTypes.UPDATE_SELECTOR_OFFSET]: (state, action) => ({
     selectorOffset: state.selectorOffset + action.movement,
   }),
   [sections.actionTypes.CREATE_SECTION]: (state, action) => ({
-    selectorStart: 0,
     selectorOffset: 0,
   }),
 }

@@ -20,7 +20,6 @@ const mapStateToProps = state => ({
   height: constants.DEFAULT_WAVEFORM_HEIGHT,
   amplitude: constants.DEFAULT_WAVEFORM_AMPLITUDE,
   selectorPosition: selectionActions.selectorPositionSelector(state),
-  activeSectionStart: selectionActions.selectorOffsetSelector(state),
 });
 
 const mapDispatchToProps = {

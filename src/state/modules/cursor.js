@@ -15,7 +15,7 @@ const handlers = {
     pixelFactor: action.waveform.pixels_per_second,
   }),
   [audio.actionTypes.UPDATE_TIME]: (state, action) => ({
-      cursorPostion: state.pixelFactor * action.currentTime,
+    cursorPostion: state.pixelFactor * action.currentTime,
   }),
 }
 

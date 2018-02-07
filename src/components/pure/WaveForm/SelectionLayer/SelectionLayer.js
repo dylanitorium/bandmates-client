@@ -8,8 +8,8 @@ const SelectionLayer = props => (
       position: 'absolute',
       top: 0,
       bottom: 0,
-      left: props.windowWidth / 2,
-      width: props.selectorPosition - (props.windowWidth / 2) + 3,
+      left: 0,
+      width: 0,
       background: 'rgba(200, 200, 200, 0.5)'
     }}></div>
   </div>
