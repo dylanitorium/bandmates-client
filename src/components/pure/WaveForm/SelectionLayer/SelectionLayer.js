@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import styles from './selection-layer.css';
 
 const SelectionLayer = props => (
-  <div className={styles.visualiser_container}>
-    {console.log(props.activeSectionStart, props.selectorPosition)}
+  <div className={styles.visualiser}>
     <div style={{
       position: 'absolute',
       top: 0,
       bottom: 0,
       left: props.windowWidth / 2,
-      width: props.selectorPosition - props.activeSectionStart,
+      width: props.selectorPosition - (props.windowWidth / 2) + 3,
       background: 'rgba(200, 200, 200, 0.5)'
     }}></div>
   </div>
