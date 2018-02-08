@@ -34,6 +34,8 @@ const WaveFormLayer = (props) => {
 };
 
 WaveFormLayer.propTypes = {
+  cursorPostion: PropTypes.number.isRequired,
+  windowWidth: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   amplitude: PropTypes.number.isRequired,

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Draggable from 'components/pure/Draggable/Draggable';
 import { conditionalClasses } from 'utils/conditionalClasses';
 import layer from './interface-layer.css';
@@ -20,5 +21,9 @@ class InterfaceLayer extends Component {
     );
   }
 }
+
+InterfaceLayer.propTypes = {
+  onInterfaceDrag: PropTypes.func.isRequired,
+};
 
 export default InterfaceLayer;

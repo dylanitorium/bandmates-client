@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import WaveformData from 'waveform-data';
-import BasicAudioFile from 'utils/BasicAudioFile';
-import WaveFormLayer from './WaveFormLayer/WaveFormLayer';
-import PlayButton from './PlayButton/PlayButton';
-import ClockLayer from './ClockLayer/ClockLayer';
-import CursorLayer from './CursorLayer/CursorLayer';
-import InterfaceLayer from './InterfaceLayer/InterfaceLayer';
-import SelectionLayer from './SelectionLayer/SelectionLayer';
-import SelectionInterface from './SelectionLayer/SelectionInterface';
-
+import WaveFormLayer from '../../connected/WaveFormLayer';
+import ClockLayer from '../../connected/ClockLayer';
+import SelectionLayer from '../../connected/SelectionLayer';
+import CursorLayer from '../../connected/CursorLayer';
+import InterfaceLayer from '../../connected/InterfaceLayer';
+import PlayButton from '../../connected/PlayButton';
+import SelectionInterface from '../../connected/SelectionInterface';
 
 class WaveFormInterface extends Component {
   componentDidMount() {
@@ -48,10 +46,8 @@ class WaveFormInterface extends Component {
 }
 
 WaveFormInterface.propTypes = {
-  width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   amplitude: PropTypes.number.isRequired,
-  audio: PropTypes.instanceOf(BasicAudioFile),
   data: PropTypes.instanceOf(WaveformData),
 };
 

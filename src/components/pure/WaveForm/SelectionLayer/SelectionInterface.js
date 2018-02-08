@@ -17,6 +17,7 @@ const SelectionInterface = props => (
 
 SelectionInterface.propTypes = {
   selectorPosition: PropTypes.number.isRequired,
+  onSelectionStart: PropTypes.func.isRequired,
   onSelectionDrag: PropTypes.func.isRequired,
   onSelectionEnd: PropTypes.func.isRequired,
 };
