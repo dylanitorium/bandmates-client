@@ -6,6 +6,8 @@ import SelectionInterface from '../pure/WaveForm/SelectionLayer/SelectionInterfa
 
 const mapStateToProps = state => ({
   selectorPosition: selectionActions.selectorPositionSelector(state),
+  windowWidth: state.window.width,
+
 });
 
 const mapDispatchToProps = {

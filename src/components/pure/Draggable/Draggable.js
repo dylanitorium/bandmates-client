@@ -64,22 +64,16 @@ class Draggable extends Component {
   dragMove = (clientX) => {
     const { isDragging, dragStart } = this.state;
 
-    if (!isDragging || this.isAnimating) {
+    if (!isDragging) {
       return;
     }
+    
+    const movement = clientX - dragStart;
+    this.props.onDrag(movement);
 
-    this.isAnimating = true;
-
-    requestAnimationFrame(() => {
-      const movement = clientX - dragStart;
-      this.props.onDrag(movement);
-
-      this.setState({
-        dragStart: clientX,
-      });
-
-      this.isAnimating = false;
-    })
+    this.setState({
+      dragStart: clientX,
+    });
   }
 
   onTouchMove = (event) =>  {
