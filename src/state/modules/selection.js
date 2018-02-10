@@ -21,6 +21,8 @@ export const selectorPositionSelector = createSelector(
   (width, offset) => width + offset,
 );
 
+export const selectorStartSelector = state => state.selection.selectorStart;
+
 export const actionTypes = {
   START_SELECTION: 'app/selection/start',
   UPDATE_SELECTOR_OFFSET: 'app/selection/update',
@@ -47,6 +49,7 @@ export const dragSelector = (movement) => ({
 const initialState = {
   selectorStart: 0,
   selectorOffset: 0,
+  isDragging: false,
 }
 
 const handlers = {
@@ -55,15 +58,15 @@ const handlers = {
   }),
   [actionTypes.START_SELECTION]: (state, action) => ({
     selectorStart: action.selectorStart,
-  }),
-  [audio.actionTypes.UPDATE_TIME]: (state, action) => ({
-    selectorStart: state.pixelFactor * action.currentTime,
+    isDragging: true,
   }),
   [actionTypes.UPDATE_SELECTOR_OFFSET]: (state, action) => ({
     selectorOffset: state.selectorOffset + action.movement,
   }),
   [sections.actionTypes.CREATE_SECTION]: (state, action) => ({
+    selectorStart: 0,
     selectorOffset: 0,
+    isDragging: false,
   }),
 }
 
