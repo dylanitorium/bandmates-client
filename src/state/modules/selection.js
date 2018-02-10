@@ -1,10 +1,14 @@
 import makeReducer from 'utils/makeReducer';
 import { createSelector } from 'reselect';
 import * as sections from './sections';
-import * as audio from './audio';
 import * as waveform from './waveform';
 
 export const windowWidthSelector = state => state.window.width;
+
+export const windowCenterSelector = createSelector(
+  windowWidthSelector,
+  width => width / 2,
+);
 
 export const widthOffsetSelector = createSelector(
   windowWidthSelector,
@@ -22,6 +26,26 @@ export const selectorPositionSelector = createSelector(
 );
 
 export const selectorStartSelector = state => state.selection.selectorStart;
+
+export const selectionRightSelector = createSelector(
+  windowCenterSelector,
+  cursorPostionSelector,
+  selectorStartSelector,
+  offsetSelector,
+  (center, cursor, start, offset) => {console.log(center, offset); return offset > 0 ? center - offset : (center + (cursor - start))},
+);
+
+// (props.windowWidth / 2) - (props.cursorPosition - props.selectorStart)
+// (props.windowWidth / 2) - props.selectorPosition)
+
+export const selectionLeftSelector = createSelector(
+  windowCenterSelector,
+  cursorPostionSelector,
+  selectorStartSelector,
+  offsetSelector,
+  (center, cursor, start, offset) => offset > 0 ? (center - (cursor - start)) : center + offset,
+);
+
 
 export const actionTypes = {
   START_SELECTION: 'app/selection/start',
