@@ -3,8 +3,7 @@ import styles from './selection-layer.css';
 
 const SelectionLayer = props => (
   <div className={styles.visualiser}>
-    {console.log(props)}
-    {true && (
+    {props.isDragging && (
       <div style={{
         position: 'absolute',
         top: 0,

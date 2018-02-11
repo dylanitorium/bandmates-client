@@ -8,6 +8,7 @@ import CursorLayer from '../../connected/CursorLayer';
 import InterfaceLayer from '../../connected/InterfaceLayer';
 import PlayButton from '../../connected/PlayButton';
 import SelectionInterface from '../../connected/SelectionInterface';
+import SectionLayer from '../../connected/SectionLayer';
 
 class WaveFormInterface extends Component {
   componentDidMount() {
@@ -31,8 +32,12 @@ class WaveFormInterface extends Component {
 
     return (
       <div>
-        <div style={containerStyle}>
+        <div
+          className="wave-form-interface__container"
+          style={containerStyle}
+        >
           <WaveFormLayer {...props}/>
+          <SectionLayer {...props} />
           <ClockLayer {...props} />
           <SelectionLayer {...props} />
           <CursorLayer {...props} />

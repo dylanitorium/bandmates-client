@@ -67,7 +67,7 @@ class Draggable extends Component {
     if (!isDragging) {
       return;
     }
-    
+
     const movement = clientX - dragStart;
     this.props.onDrag(movement);
 
@@ -90,11 +90,14 @@ class Draggable extends Component {
   }
 
   onDragEnd = (event) =>  {
-    this.setState({
-      isDragging: false,
-    });
 
-    this.props.onDragEnd(event);
+    if (this.state.isDragging) {
+      this.setState({
+        isDragging: false,
+      });
+
+      this.props.onDragEnd(event);
+    }
   }
 
   getContainerClasses() {

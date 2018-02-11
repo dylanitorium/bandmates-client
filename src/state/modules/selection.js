@@ -35,9 +35,6 @@ export const selectionRightSelector = createSelector(
   (center, cursor, start, offset) => {console.log(center, offset); return offset > 0 ? center - offset : (center + (cursor - start))},
 );
 
-// (props.windowWidth / 2) - (props.cursorPosition - props.selectorStart)
-// (props.windowWidth / 2) - props.selectorPosition)
-
 export const selectionLeftSelector = createSelector(
   windowCenterSelector,
   cursorPostionSelector,
