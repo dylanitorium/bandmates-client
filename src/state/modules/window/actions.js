@@ -1,11 +1,5 @@
-import makeReducer from 'utils/makeReducer';
+import { actionTypes } from './actionTypes';
 
-// Action Types
-export const actionTypes = {
-  RESIZE: 'app/window/resize',
-};
-
-// Action Creators
 export const resizeWindow = width => ({
   type: actionTypes.RESIZE,
   width,
@@ -32,7 +26,7 @@ const onThrottledResize = (callback) => {
 }
 
 // Utility
-const getWindowWidth = () => (
+export const getWindowWidth = () => (
   window.innerWidth
   || document.documentElement.clientWidth
   || document.body.clientWidth
@@ -45,16 +39,3 @@ export const listenForResize = () => (
     })
   }
 );
-
-// Reducer
-const initialState = {
-  width: getWindowWidth(),
-};
-
-const handlers = {
-  [actionTypes.RESIZE]: (state, action) => ({
-    width: action.width,
-  }),
-};
-
-export default makeReducer(initialState, handlers);

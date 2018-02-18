@@ -1,17 +1,7 @@
+import { actionTypes } from './actionTypes';
+import { DEFAULT_WAVEFORM_WIDTH } from 'utils/constants';
 import WaveformData from 'waveform-data';
 import * as requestUtils from 'utils/request';
-import makeReducer from 'utils/makeReducer';
-import { DEFAULT_WAVEFORM_WIDTH } from 'utils/constants';
-
-// Action Types
-export const actionTypes = {
-  REQUEST: {
-    START: 'app/waveform/request/start',
-    SUCCESS: 'app/waveform/request/success',
-    FAILURE: 'app/waveform/request/failure',
-  },
-  RESAMPLE: 'app/waveform/resample',
-};
 
 // Action Creators
 const requestWaveformStart = source => ({
@@ -60,29 +50,3 @@ export const resampleWaveformThunk = width => (
     dispatch(resampleWaveform(resampled));
   }
 );
-
-const initialState = {
-  waveform: null,
-  isRequesting: false,
-  error: null,
-};
-
-const handlers = {
-  [actionTypes.REQUEST.START]: () => ({
-    isRequesting: true,
-  }),
-  [actionTypes.REQUEST.SUCCESS]: (state, action) => ({
-    isRequesting: false,
-    waveform: action.waveform,
-  }),
-  [actionTypes.REQUEST.FINISH]: (state, action) => ({
-    isRequesting: false,
-    error: action.error,
-  }),
-  [actionTypes.RESAMPLE]: (state, action) => ({
-    waveform: action.waveform,
-  }),
-};
-
-
-export default makeReducer(initialState, handlers);
