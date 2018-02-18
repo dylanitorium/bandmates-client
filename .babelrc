@@ -15,6 +15,10 @@
       {
         "src": "./src/state",
         "expose": "state"
+      },
+      {
+        "src": "./src/utils/HOC",
+        "expose": "hoc"
       }
     ]]
   ]

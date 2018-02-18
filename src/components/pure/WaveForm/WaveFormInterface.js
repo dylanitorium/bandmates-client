@@ -9,6 +9,7 @@ import InterfaceLayer from '../../connected/InterfaceLayer';
 import PlayButton from '../../connected/PlayButton';
 import SelectionInterface from '../../connected/SelectionInterface';
 import SectionLayer from '../../connected/SectionLayer';
+import SectionDetailsInterface from '../../connected/SectionDetailsInterface';
 
 class WaveFormInterface extends Component {
   componentDidMount() {
@@ -45,6 +46,7 @@ class WaveFormInterface extends Component {
           <PlayButton {...props} />
         </div>
         <SelectionInterface {...props} />
+        <SectionDetailsInterface {...props} />
       </div>
     );
   }

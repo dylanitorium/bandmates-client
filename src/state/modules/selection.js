@@ -32,7 +32,7 @@ export const selectionRightSelector = createSelector(
   cursorPostionSelector,
   selectorStartSelector,
   offsetSelector,
-  (center, cursor, start, offset) => {console.log(center, offset); return offset > 0 ? center - offset : (center + (cursor - start))},
+  (center, cursor, start, offset) => (offset > 0 ? center - offset : (center + (cursor - start))),
 );
 
 export const selectionLeftSelector = createSelector(

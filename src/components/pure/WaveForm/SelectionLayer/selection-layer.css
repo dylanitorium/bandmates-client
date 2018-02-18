@@ -21,3 +21,10 @@
   top: -10px;
   background-color: white;
 }
+
+.layer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.5);
+}

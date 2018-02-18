@@ -66,11 +66,20 @@ export const registerKeyboardEvents = () => (
   (dispatch, getState) => {
     window.addEventListener('keyup', (event) => {
       const { audio: { audio, isPlaying } } = getState();
+      const focussed = document.activeElement;
+
+      console.log(focussed.nodeName);
+
+      if (focussed && focussed.nodeName === 'TEXTAREA') {
+        return;
+      }
+
+      if (!audio) {
+        return;
+      }
 
       if (event.keyCode === 32) {
-        if (!audio) {
-          return;
-        }
+
 
         if (isPlaying) {
           dispatch(audioActions.pauseThunk());

@@ -4,13 +4,9 @@ import styles from './selection-layer.css';
 const SelectionLayer = props => (
   <div className={styles.visualiser}>
     {props.isDragging && (
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
+      <div className={styles.layer} style={{
         left: props.selectionLeft,
         right: props.selectionRight,
-        background: 'rgba(255, 255, 255, 0.5)'
       }}></div>
     )}
   </div>
