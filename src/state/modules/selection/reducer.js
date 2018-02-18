@@ -1,8 +1,8 @@
 import makeReducer from 'utils/makeReducer';
 import { actionTypes } from './actionTypes';
 
-import * as sections from './sections';
-import * as waveform from './waveform';
+import * as sections from '../sections/actionTypes';
+import * as waveform from '../waveform/actionTypes';
 
 const initialState = {
   selectorStart: 0,

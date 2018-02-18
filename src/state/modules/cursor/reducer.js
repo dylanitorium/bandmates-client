@@ -1,6 +1,6 @@
 import makeReducer from 'utils/makeReducer';
-import * as audio from './audio';
-import * as waveform from './waveform';
+import * as audio from '../audio/actionTypes';
+import * as waveform from '../waveform/actionTypes';
 
 export const initialState = {
   pixelFactor: 0,

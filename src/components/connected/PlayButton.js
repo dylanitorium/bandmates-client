@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import * as interfaceActions from 'state/modules/interface';
+import * as interfaceActions from 'state/modules/interface/actions';
 import PlayButton from '../pure/WaveForm/PlayButton/PlayButton';
 
 const mapStateToProps = state => ({

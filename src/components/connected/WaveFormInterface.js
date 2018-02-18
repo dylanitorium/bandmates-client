@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import WaveFormInterface from '../pure/WaveForm/WaveFormInterface';
 import * as constants from 'utils/constants';
-import * as audio from 'state/modules/audio';
-import * as waveform from 'state/modules/waveform';
-import * as windowActions from 'state/modules/window';
-import * as interfaceActions from 'state/modules/interface';
+import * as audio from 'state/modules/audio/actions';
+import * as waveform from 'state/modules/waveform/actions';
+import * as windowActions from 'state/modules/window/actions';
+import * as interfaceActions from 'state/modules/interface/actions';
 
 const mapStateToProps = state => ({
   data: state.waveform.waveform,

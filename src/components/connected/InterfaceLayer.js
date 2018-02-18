@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import * as interfaceActions from 'state/modules/interface';
+import * as interfaceActions from 'state/modules/interface/actions';
 import InterfaceLayer from '../pure/WaveForm/InterfaceLayer/InterfaceLayer';
 
 
