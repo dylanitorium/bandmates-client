@@ -1,11 +1,38 @@
 import makeReducer from 'utils/makeReducer';
 import { actionTypes } from './actionTypes';
 
+
+const initialCommentState = {
+  author: null,
+  id: null,
+  lastEdited: null,
+  edited: false,
+  content: '',
+};
+
+const comment = (state = initialCommentState, action) => {
+  const { type, ...payload } = action;
+
+  switch(type) {
+    case actionTypes.ADD_COMMENT:
+      return {
+        ...state,
+        id: payload.commentId,
+        content: payload.value,
+        lastEdited: payload.timestamp,
+        author: payload.author,
+        sectionId: payload.sectionId,
+      }
+    default:
+      return state;
+  }
+};
+
 const initialSectionState = {
   id: null,
   start: null,
   end: null,
-  comments: [],
+  comments: {},
 };
 
 const section = (state = initialSectionState, action) => {
@@ -15,14 +42,19 @@ const section = (state = initialSectionState, action) => {
     case actionTypes.CREATE_SECTION:
       return {
         ...state,
-        id: payload.id,
+        id: payload.sectionId,
         start: payload.start,
         end: payload.end,
       };
     case actionTypes.UPDATE_COMMENT:
+    case actionTypes.DELETE_COMMENT:
+    case actionTypes.ADD_COMMENT:
       return {
         ...state,
-        comment: payload.value,
+        comments: {
+          ...state.comments,
+          [payload.commentId]: comment(state.comments[payload.commentId], action),
+        },
       };
     default:
       return state;
@@ -38,16 +70,16 @@ const initialState = {
 const handlers = {
   [actionTypes.CREATE_SECTION]: (state, action) => ({
     sections: {
-      [action.id]: section(state.sections[action.id], action),
+      [action.sectionId]: section(state.sections[action.sectionId], action),
     },
-    activeSection: action.id,
+    activeSection: action.sectionId,
     commentBoxIsOpen: true,
   }),
   [actionTypes.CLOSE_COMMENT_BOX]: () => ({
     activeSection: null,
     commentBoxIsOpen: false,
   }),
-  [actionTypes.UPDATE_COMMENT]: (state, action) => ({
+  [actionTypes.ADD_COMMENT]: (state, action) => ({
     sections: {
       [action.sectionId]: section(state.sections[action.sectionId], action),
     },

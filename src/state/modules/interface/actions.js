@@ -66,11 +66,10 @@ export const registerKeyboardEvents = () => (
   (dispatch, getState) => {
     window.addEventListener('keyup', (event) => {
       const { audio: { audio, isPlaying } } = getState();
-      const focussed = document.activeElement;
+      const focused = document.activeElement;
 
-      console.log(focussed.nodeName);
-
-      if (focussed && focussed.nodeName === 'TEXTAREA') {
+      // If we are focused on the comment box, then don't do anything with the key press
+      if (focused && focused.nodeName === 'TEXTAREA') {
         return;
       }
 
