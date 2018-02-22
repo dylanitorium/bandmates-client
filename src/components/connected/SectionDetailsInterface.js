@@ -7,6 +7,11 @@ import * as sectionsActions from 'state/modules/sections/actions';
 const mapStateToProps = state => ({
   visible: state.sections.commentBoxIsOpen,
   sectionId: state.sections.activeSection,
+  comments: state.sections.sections[state.sections.activeSection]
+    ? Object.keys(state.sections.sections[state.sections.activeSection].comments) .map(id => (
+      state.sections.sections[state.sections.activeSection].comments[id]
+    ))
+    : [],
 });
 
 const mapDispatchToProps = {

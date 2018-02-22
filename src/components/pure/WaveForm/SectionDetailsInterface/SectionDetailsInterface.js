@@ -20,10 +20,12 @@ class SectionDetailsInterface extends Component {
 
   postComment = () => {
     this.props.addComment(this.state.comment);
+    this.setState({ comment: '' });
   }
 
   render() {
     const { props, state } = this;
+    console.log(props);
     return (
       <div style={{
         width: '300px',
@@ -32,7 +34,11 @@ class SectionDetailsInterface extends Component {
         <div style={{
           background: 'white'
         }}>
-          CommentsList
+          {props.comments.map(comment => (
+            <div key={comment.id}>
+              {comment.content}
+            </div>
+          ))}
         </div>
 
         <div style={{
@@ -41,7 +47,7 @@ class SectionDetailsInterface extends Component {
           <button onClick={props.closeCommentBox}> close </button>
         </div>
         <div>
-          <textarea value={state.value} onChange={this.handleCommentChange} onKeyPress={this.handleEnterPress} />
+          <textarea value={state.comment} onChange={this.handleCommentChange} onKeyPress={this.handleEnterPress} />
           <button style={{ float: 'right'}} onClick={this.postComment}>
             Post
           </button>
