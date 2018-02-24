@@ -1,6 +1,20 @@
 import React from 'react';
 import styles from './section-layer.css';
 
+const sectionStyles = ({ start, end }) => {
+  if (end < start) {
+    return {
+      left: end,
+      width: start - end,
+    };
+  }
+
+  return {
+    left: start,
+    width: end - start,
+  };
+};
+
 const SectionLayer = props => (
   <div
     className={styles.container}
@@ -20,10 +34,7 @@ const SectionLayer = props => (
         <div
           className={styles.section}
           key={section.id}
-          style={{
-            left: section.start,
-            width: section.end - section.start,
-          }}
+          style={sectionStyles(section)}
         >
         </div>
       ))}

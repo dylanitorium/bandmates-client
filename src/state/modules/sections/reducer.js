@@ -70,6 +70,7 @@ const initialState = {
 const handlers = {
   [actionTypes.CREATE_SECTION]: (state, action) => ({
     sections: {
+      ...state.sections,
       [action.sectionId]: section(state.sections[action.sectionId], action),
     },
     activeSection: action.sectionId,
@@ -81,6 +82,7 @@ const handlers = {
   }),
   [actionTypes.ADD_COMMENT]: (state, action) => ({
     sections: {
+      ...state.sections,
       [action.sectionId]: section(state.sections[action.sectionId], action),
     },
   }),
