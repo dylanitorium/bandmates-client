@@ -11,12 +11,17 @@ class InterfaceLayer extends Component {
     })
   }
 
+  handleInterfaceClick = (event) => {
+    console.log(event);
+  }
+
   render() {
     return (
       <Draggable
         onDrag={this.props.onInterfaceDrag}
         containerClass={this.getClasses()}
         controlClass={this.getClasses()}
+        onClick={this.handleInterfaceClick}
       />
     );
   }

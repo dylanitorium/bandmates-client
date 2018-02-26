@@ -8,8 +8,9 @@ import * as interfaceActions from 'state/modules/interface/actions';
 
 const mapStateToProps = state => ({
   data: state.waveform.waveform,
-  height: constants.DEFAULT_WAVEFORM_HEIGHT,
-  amplitude: constants.DEFAULT_WAVEFORM_AMPLITUDE,
+  height: state.waveform.height,
+  amplitude: state.waveform.amplitude,
+  width: state.waveform.width,
 });
 
 const mapDispatchToProps = {

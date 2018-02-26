@@ -1,10 +1,14 @@
 import makeReducer from 'utils/makeReducer';
 import { actionTypes } from './actionTypes';
+import * as constants from 'utils/constants';
 
 const initialState = {
   waveform: null,
   isRequesting: false,
   error: null,
+  height: constants.DEFAULT_WAVEFORM_HEIGHT,
+  amplitude: constants.DEFAULT_WAVEFORM_AMPLITUDE,
+  width: constants.DEFAULT_WAVEFORM_WIDTH,
 };
 
 const handlers = {

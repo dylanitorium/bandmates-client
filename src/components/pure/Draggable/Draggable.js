@@ -125,6 +125,7 @@ class Draggable extends Component {
           onMouseDown={this.onMouseDown}
           onTouchStart={this.onTouchStart}
           style={this.props.controlStyle}
+          onClick={this.props.onClick}
         />
       </div>
     );
@@ -138,6 +139,7 @@ Draggable.propTypes = {
   onDrag: PropTypes.func,
   onDragStart: PropTypes.func,
   onDragEnd: PropTypes.func,
+  onClick: PropTypes.func,
 };
 
 Draggable.defaultProps = {
@@ -147,6 +149,7 @@ Draggable.defaultProps = {
   onDragStart: () => {},
   onDrag: () => {},
   onDragEnd: () => {},
+  onClick: () => {},
 };
 
 export default Draggable;
