@@ -25,12 +25,17 @@ class SectionDetailsInterface extends Component {
 
   render() {
     const { props, state } = this;
-    console.log(props);
+
     return (
       <div style={{
         width: '300px',
         margin: '0 auto',
       }}>
+        <div style={{
+          color: 'white',
+        }}>
+          {this.props.section.id}
+        </div>
         <div style={{
           background: 'white'
         }}>

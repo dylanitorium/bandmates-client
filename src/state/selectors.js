@@ -68,11 +68,17 @@ export const isPlayingSelector = state => state.audio.isPlaying;
 
 export const commentBoxVisibleSelector = state => state.sections.commentBoxIsOpen;
 
-export const activeSectionSelector = state => state.sections.activeSection;
+export const activeSectionIdSelector = state => state.sections.activeSection;
+
+export const activeSectionSelector = createSelector(
+  sectionsSelector,
+  activeSectionIdSelector,
+  (sections, activeSectionId) => sections[activeSectionId],
+)
 
 export const commentsSelector = createSelector(
   sectionsSelector,
-  activeSectionSelector,
+  activeSectionIdSelector,
   (sections, activeSection) => (
     sections[activeSection]
       ? Object.keys(sections[activeSection].comments).map(id => (

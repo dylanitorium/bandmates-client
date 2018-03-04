@@ -11,7 +11,7 @@ import {
 
 const mapStateToProps = state => ({
   visible: commentBoxVisibleSelector(state),
-  sectionId: activeSectionSelector(state),
+  section: activeSectionSelector(state),
   comments: commentsSelector(state),
 });
 
