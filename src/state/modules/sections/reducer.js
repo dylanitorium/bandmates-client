@@ -72,6 +72,14 @@ const handlers = {
     activeSection: action.sectionId,
     commentBoxIsOpen: true,
   }),
+  [actionTypes.DELETE_SECTION]: (state, action) => ({
+    activeSection: null,
+    commentBoxIsOpen: false,
+    sections: (() => {
+      const { [action.sectionId]: section, ...sections } = state.sections;
+      return sections;
+    })
+  }),
   [actionTypes.CREATE_SECTION]: (state, action) => ({
     sections: {
       ...state.sections,

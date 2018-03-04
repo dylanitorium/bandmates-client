@@ -12,7 +12,12 @@ export const createSection = (sectionId, start, end) => ({
 export const selectSection = sectionId => ({
   type: actionTypes.SELECT_SECTION,
   sectionId,
-})
+});
+
+export const deleteSection = sectionId => ({
+  type: actionTypes.DELETE_SECTION,
+  sectionId,
+});
 
 const createSectionId = (start, end) => {
   return `${md5(`${start}${end}`)}.${moment().valueOf()}`;

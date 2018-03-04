@@ -18,6 +18,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   closeCommentBox: sectionsActions.closeCommentBox,
   addComment: sectionsActions.addCommentThunk,
+  deleteSection: sectionsActions.deleteSection,
 };
 
 export default compose(

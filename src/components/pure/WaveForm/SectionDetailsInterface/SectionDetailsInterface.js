@@ -34,7 +34,7 @@ class SectionDetailsInterface extends Component {
         <div style={{
           color: 'white',
         }}>
-          {this.props.section.id}
+          {props.section.id}
         </div>
         <div style={{
           background: 'white'
@@ -55,6 +55,9 @@ class SectionDetailsInterface extends Component {
           <textarea value={state.comment} onChange={this.handleCommentChange} onKeyPress={this.handleEnterPress} />
           <button style={{ float: 'right'}} onClick={this.postComment}>
             Post
+          </button>
+          <button style={{ float: 'right'}} onClick={() => this.props.deleteSection(props.section.id)}>
+            Delete
           </button>
         </div>
       </div>
