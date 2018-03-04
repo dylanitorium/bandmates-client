@@ -1,10 +1,14 @@
 import { connect } from 'react-redux';
 import * as interfaceActions from 'state/modules/interface/actions';
 import PlayButton from '../pure/WaveForm/PlayButton/PlayButton';
+import {
+  audioSelector,
+  isPlayingSelector,
+} from 'state/selectors';
 
 const mapStateToProps = state => ({
-  audio: state.audio.audio,
-  isPlaying: state.audio.isPlaying,
+  audio: audioSelector(state),
+  isPlaying: isPlayingSelector(state),
 });
 
 const mapDispatchToProps = {

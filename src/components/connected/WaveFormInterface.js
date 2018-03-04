@@ -1,16 +1,21 @@
 import { connect } from 'react-redux';
 import WaveFormInterface from '../pure/WaveForm/WaveFormInterface';
-import * as constants from 'utils/constants';
 import * as audio from 'state/modules/audio/actions';
 import * as waveform from 'state/modules/waveform/actions';
 import * as windowActions from 'state/modules/window/actions';
 import * as interfaceActions from 'state/modules/interface/actions';
+import {
+  waveformSelector,
+  waveformHeightSelector,
+  amplitudeSelector,
+  waveformWidthSelector,
+} from 'state/selectors';
 
 const mapStateToProps = state => ({
-  data: state.waveform.waveform,
-  height: state.waveform.height,
-  amplitude: state.waveform.amplitude,
-  width: state.waveform.width,
+  data: waveformSelector(state),
+  height: waveformHeightSelector(state),
+  amplitude: amplitudeSelector(state),
+  width: waveformWidthSelector(state),
 });
 
 const mapDispatchToProps = {

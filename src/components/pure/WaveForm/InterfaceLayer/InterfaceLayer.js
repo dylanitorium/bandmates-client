@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'components/pure/Draggable/Draggable';
+import SectionLayer from 'components/pure/WaveForm/SectionLayer/SectionLayer';
 import { conditionalClasses } from 'utils/conditionalClasses';
 import layer from './interface-layer.css';
 
@@ -11,8 +12,8 @@ class InterfaceLayer extends Component {
     })
   }
 
-  handleInterfaceClick = (event) => {
-    console.log(event);
+  handleSectionClick = (sectionId) => {
+    console.log(sectionId);
   }
 
   render() {
@@ -21,8 +22,12 @@ class InterfaceLayer extends Component {
         onDrag={this.props.onInterfaceDrag}
         containerClass={this.getClasses()}
         controlClass={this.getClasses()}
-        onClick={this.handleInterfaceClick}
-      />
+
+      >
+        <SectionLayer
+          {...this.props}
+        />
+      </Draggable>
     );
   }
 }

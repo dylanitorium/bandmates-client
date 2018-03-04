@@ -1,14 +1,22 @@
 import { connect } from 'react-redux';
 import * as constants from 'utils/constants';
+import {
+  waveformHeightSelector,
+  waveformWidthSelector,
+  amplitudeSelector,
+  waveformSelector,
+  cursorPositionSelector,
+  windowWidthSelector,
+} from 'state/selectors';
 import WaveFormLayer from '../pure/WaveForm/WaveFormLayer/WaveFormLayer';
 
 const mapStateToProps = state => ({
-  data: state.waveform.waveform,
-  cursorPostion: state.cursor.cursorPostion,
-  windowWidth: state.window.width,
-  width: constants.DEFAULT_WAVEFORM_WIDTH,
-  height: constants.DEFAULT_WAVEFORM_HEIGHT,
-  amplitude: constants.DEFAULT_WAVEFORM_AMPLITUDE,
+  data: waveformSelector(state),
+  cursorPostion: cursorPositionSelector(state),
+  windowWidth: windowWidthSelector(state),
+  width: waveformWidthSelector(state),
+  height: waveformHeightSelector(state),
+  amplitude: amplitudeSelector(state),
 });
 
 export default connect(mapStateToProps)(WaveFormLayer);

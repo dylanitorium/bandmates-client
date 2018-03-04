@@ -1,13 +1,15 @@
 import { connect } from 'react-redux';
 import * as selectionActions from 'state/modules/selection/actions';
-import * as selectionSelectors from 'state/modules/selection/selectors';
 import * as sectionsActions from 'state/modules/sections/actions';
 import SelectionInterface from '../pure/WaveForm/SelectionLayer/SelectionInterface';
-
+import {
+ selectorPositionSelector,
+ windowWidthSelector
+} from 'state/selectors';
 
 const mapStateToProps = state => ({
-  selectorPosition: selectionSelectors.selectorPositionSelector(state),
-  windowWidth: state.window.width,
+  selectorPosition: selectorPositionSelector(state),
+  windowWidth: windowWidthSelector(state),
 });
 
 const mapDispatchToProps = {

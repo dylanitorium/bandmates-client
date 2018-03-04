@@ -126,13 +126,16 @@ class Draggable extends Component {
           onTouchStart={this.onTouchStart}
           style={this.props.controlStyle}
           onClick={this.props.onClick}
-        />
+        >
+          {this.props.children}
+        </div>
       </div>
     );
   }
 }
 
 Draggable.propTypes = {
+  children: PropTypes.node,
   containerClass: PropTypes.string,
   controlClass: PropTypes.string,
   controlStyle: PropTypes.object,
@@ -143,6 +146,7 @@ Draggable.propTypes = {
 };
 
 Draggable.defaultProps = {
+  children: undefined,
   containerClass: undefined,
   controlClass: undefined,
   controlStyle: undefined,

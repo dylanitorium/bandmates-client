@@ -9,6 +9,11 @@ export const createSection = (sectionId, start, end) => ({
   end,
 });
 
+export const selectSection = sectionId => ({
+  type: actionTypes.SELECT_SECTION,
+  sectionId,
+})
+
 const createSectionId = (start, end) => {
   return `${md5(`${start}${end}`)}.${moment().valueOf()}`;
 }

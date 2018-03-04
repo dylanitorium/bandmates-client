@@ -1,11 +1,15 @@
 import { connect } from 'react-redux';
-import * as selectionSelectors from 'state/modules/selection/selectors';
 import SelectionLayer from '../pure/WaveForm/SelectionLayer/SelectionLayer';
+import {
+  selectionLeftSelector,
+  selectionRightSelector,
+  selectionIsDraggingSelector,
+} from 'state/selectors';
 
 const mapStateToProps = state => ({
-  selectionLeft: selectionSelectors.selectionLeftSelector(state),
-  selectionRight: selectionSelectors.selectionRightSelector(state),
-  isDragging: state.selection.isDragging,
+  selectionLeft: selectionLeftSelector(state),
+  selectionRight: selectionRightSelector(state),
+  isDragging: selectionIsDraggingSelector(state),
 });
 
 const mapDispatchToProps = {

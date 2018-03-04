@@ -68,6 +68,10 @@ const initialState = {
 };
 
 const handlers = {
+  [actionTypes.SELECT_SECTION]: (state, action) => ({
+    activeSection: action.sectionId,
+    commentBoxIsOpen: true,
+  }),
   [actionTypes.CREATE_SECTION]: (state, action) => ({
     sections: {
       ...state.sections,
