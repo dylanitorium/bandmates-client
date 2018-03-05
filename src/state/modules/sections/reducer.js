@@ -61,7 +61,7 @@ const section = (state = initialSectionState, action) => {
           return comments;
         })
       }
-    case actionTypes.EDIT_COMMENT:
+    case actionTypes.UPDATE_COMMENT:
     case actionTypes.ADD_COMMENT:
       return {
         ...state,

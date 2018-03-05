@@ -5,5 +5,6 @@ export const actionTypes = {
   CLOSE_COMMENT_BOX: 'app/sections/comments/close',
   ADD_COMMENT: 'app/sections/comments/add',
   DELETE_COMMENT: 'app/sections/comments/delete',
-  EDIT_COMMENT: 'app/sections/comments/update',
+  EDIT_COMMENT: 'app/sections/comments/edit',
+  UPDATE_COMMENT: 'app/sections/comments/update',
 };
