@@ -23,6 +23,12 @@ const comment = (state = initialCommentState, action) => {
         author: payload.author,
         sectionId: payload.sectionId,
       }
+    case actionTypes.EDIT_COMMENT:
+      return {
+        ...state,
+        content: payload.value,
+        lastEdited: payload.timestamp,
+      }
     default:
       return state;
   }
@@ -46,8 +52,16 @@ const section = (state = initialSectionState, action) => {
         start: payload.start,
         end: payload.end,
       };
-    case actionTypes.UPDATE_COMMENT:
+
     case actionTypes.DELETE_COMMENT:
+      return {
+        ...state,
+        comments: (() => {
+          const { [action.commentId]: comment, ...comments } = state.comments;
+          return comments;
+        })
+      }
+    case actionTypes.EDIT_COMMENT:
     case actionTypes.ADD_COMMENT:
       return {
         ...state,

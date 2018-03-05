@@ -55,8 +55,19 @@ export const addCommentThunk = (value) => (
 export const addComment = (sectionId, commentId, timestamp, value, author) => ({
   type: actionTypes.ADD_COMMENT,
   sectionId,
+  author,
+});
+
+export const editCommentThunk = (commentId, value) => (
+  (dispatch, getState) => {
+    const timestamp = moment();
+    dispatch(addComment(commentId, timestamp.format(), value));
+  }
+);
+
+export const editComment = (commentId, timestamp, value) => ({
+  type: actionTypes.ADD_COMMENT,
   commentId,
   timestamp,
   value,
-  author,
-});
+})
