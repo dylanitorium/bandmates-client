@@ -5,7 +5,6 @@
 
 ## TO DO:
 
-- select a selection
-- delete a selection
+- refactor comments to own reducer
 - resize a selection
 - style comments area

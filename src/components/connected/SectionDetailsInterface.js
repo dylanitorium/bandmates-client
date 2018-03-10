@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import conditionalComponent from 'hoc/conditionalComponent';
 import SectionDetailsInterface from 'components/pure/WaveForm/SectionDetailsInterface/SectionDetailsInterface';
 import * as sectionsActions from 'state/modules/sections/actions';
+import * as commentActions from 'state/modules/comments/actions';
 import {
   commentBoxVisibleSelector,
   activeSectionSelector,
@@ -17,7 +18,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   closeCommentBox: sectionsActions.closeCommentBox,
-  addComment: sectionsActions.addCommentThunk,
+  addComment: commentActions.addCommentThunk,
   deleteSection: sectionsActions.deleteSection,
 };
 

@@ -34,14 +34,8 @@ export const waveformReferenceStyleSelector = createSelector(
 
 export const sectionsSelector = state => state.sections.sections;
 
-export const sectionsArraySelector = createSelector(
-  sectionsSelector,
-  sections => Object.keys(sections).map(id => sections[id])
-);
-
-
 export const sectionsForDisplaySelector = createSelector(
-  sectionsArraySelector,
+  sectionsSelector,
   (sections) => sections.map(({ id, start, end }) => ({
     id,
     style: (() => {
@@ -66,26 +60,22 @@ export const audioSelector = state => state.audio.audio;
 
 export const isPlayingSelector = state => state.audio.isPlaying;
 
-export const commentBoxVisibleSelector = state => state.sections.commentBoxIsOpen;
+export const commentBoxVisibleSelector = state => !!state.sections.activeSection;
 
 export const activeSectionIdSelector = state => state.sections.activeSection;
 
 export const activeSectionSelector = createSelector(
   sectionsSelector,
   activeSectionIdSelector,
-  (sections, activeSectionId) => sections[activeSectionId],
+  (sections, activeSectionId) => sections.find(({ id }) => id === activeSectionId),
 )
 
+export const allCommentsSelector = state => state.comments.comments;
+
 export const commentsSelector = createSelector(
-  sectionsSelector,
+  allCommentsSelector,
   activeSectionIdSelector,
-  (sections, activeSection) => (
-    sections[activeSection]
-      ? Object.keys(sections[activeSection].comments).map(id => (
-        sections[activeSection].comments[id]
-      ))
-      : []
-  )
+  (comments, activeSectionId) => comments.filter(({ sectionId }) => sectionId === activeSectionId),
 );
 
 export const windowCenterSelector = createSelector(
