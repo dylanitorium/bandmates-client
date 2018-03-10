@@ -27,16 +27,31 @@ export const addComment = (sectionId, commentId, timestamp, value, author) => ({
   value,
 });
 
-export const updateCommentThunk = (commentId, value) => (
+export const editCommentThunk = (commentId, value) => (
   (dispatch, getState) => {
     const timestamp = moment();
-    dispatch(addComment(commentId, timestamp.format(), value));
+    dispatch(editComment(commentId, timestamp.format(), value));
   }
 );
 
-export const updateComment = (commentId, timestamp, value) => ({
-  type: actionTypes.UPDATE_COMMENT,
+export const editComment = (commentId, timestamp, value) => ({
+  type: actionTypes.EDIT_COMMENT,
   commentId,
   timestamp,
   value,
-})
+});
+
+export const deleteComment = commentId => ({
+  type: actionTypes.DELETE_COMMENT,
+  commentId,
+});
+
+export const selectComment = commentId => ({
+  type: actionTypes.SELECT_COMMENT,
+  commentId,
+});
+
+export const updateCommentValue = value => ({
+  type: actionTypes.UPDATE_COMMENT,
+  value,
+});

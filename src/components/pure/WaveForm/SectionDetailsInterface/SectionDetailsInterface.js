@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 
 
 class SectionDetailsInterface extends Component {
-  state = {
-    comment: this.props.comment || '',
-  }
 
   handleCommentChange = (e) => {
     const comment = e.target.value;
-    this.setState({ comment });
+    this.props.updateCommentValue(comment);
   }
 
   handleEnterPress = (e) => {
@@ -19,12 +16,17 @@ class SectionDetailsInterface extends Component {
   }
 
   postComment = () => {
-    this.props.addComment(this.state.comment);
-    this.setState({ comment: '' });
+    if (this.props.activeCommentId) {
+      this.props.editComment(this.props.activeCommentId, this.props.commentValue);
+    } else {
+      this.props.addComment(this.props.commentValue);
+    }
   }
 
   render() {
-    const { props, state } = this;
+    const { props } = this;
+
+    console.log(props);
 
     return (
       <div style={{
@@ -42,6 +44,12 @@ class SectionDetailsInterface extends Component {
           {props.comments.map(comment => (
             <div key={comment.id}>
               {comment.content}
+              <button style={{ float: 'right'}} onClick={() => this.props.selectComment(comment.id)}>
+                Post
+              </button>
+              <button style={{ float: 'right'}} onClick={() => this.props.deleteComment(comment.id)}>
+                Delete
+              </button>
             </div>
           ))}
         </div>
@@ -52,7 +60,7 @@ class SectionDetailsInterface extends Component {
           <button onClick={props.closeCommentBox}> close </button>
         </div>
         <div>
-          <textarea value={state.comment} onChange={this.handleCommentChange} onKeyPress={this.handleEnterPress} />
+          <textarea value={props.commentValue} onChange={this.handleCommentChange} onKeyPress={this.handleEnterPress} />
           <button style={{ float: 'right'}} onClick={this.postComment}>
             Post
           </button>

@@ -117,3 +117,13 @@ export const selectionLeftSelector = createSelector(
 );
 
 export const selectionIsDraggingSelector = state => state.selection.isDragging;
+
+export const activeCommentIdSelector = state => state.comments.activeComment;
+
+export const activeCommentSelector = createSelector(
+  activeCommentIdSelector,
+  commentsSelector,
+  (commentId, comments) => comments.find(({ id }) => id === commentId)
+);
+
+export const commentValueSelector = state => state.comments.commentFieldValue;

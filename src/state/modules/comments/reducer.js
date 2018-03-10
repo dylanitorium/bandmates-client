@@ -34,30 +34,40 @@ const comment = (state = initialCommentState, action) => {
 
 const initialState = {
   activeComment: null,
+  commentFieldValue: '',
   comments: [],
 };
 
 const handlers = {
   [actionTypes.ADD_COMMENT]: (state, action) => ({
+    activeComment: null,
+    commentFieldValue: '',
     comments: [
       ...state.comments,
       comment(null, action)
     ],
   }),
   [actionTypes.EDIT_COMMENT]: (state, action) => ({
+    activeComment: null,
+    commentFieldValue: '',
     comments: [
-      ...state.comments.filter(({ commentId }) => commentId !== action.commentId),
-      comment(state.comments.find(({ commentId }) => commentId === action.commentId), action)
+      ...state.comments.filter(({ id }) => id !== action.commentId),
+      comment(state.comments.find(({ id }) => id === action.commentId), action)
     ],
   }),
   [actionTypes.SELECT_COMMENT]: (state, action) => ({
+    commentFieldValue: state.comments.find(({ id }) => id === action.commentId).content,
     activeComment: action.commentId,
   }),
   [actionTypes.UNSELECT_COMMENT]: (state, action) => ({
+    commentFieldValue: '',
     activeComment: null,
   }),
   [actionTypes.DELETE_COMMENT]: (state, action) => ({
-    comments: state.comments.filter(({ commentId }) => commentId !== action.commentId),
+    comments: state.comments.filter(({ id }) => id !== action.commentId),
+  }),
+  [actionTypes.UPDATE_COMMENT]: (state, action) => ({
+    commentFieldValue: action.value
   }),
 }
 
