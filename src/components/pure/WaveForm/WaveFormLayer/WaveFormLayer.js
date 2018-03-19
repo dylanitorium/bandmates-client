@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import WaveformData from 'waveform-data';
+import styles from './waveform-layer.css';
 
 const WaveFormLayer = (props) => {
   const POINT_MOD = 0.5;
@@ -27,9 +28,11 @@ const WaveFormLayer = (props) => {
   const xOffset = (props.cursorPostion  * -1) + (props.windowWidth / 2);
 
   return (
-    <svg width={props.width} height={props.height} style={{ transform: `translate(${xOffset}px, 0px)` }}>
-      <path d={pathData} fill={props.color} stroke={props.color} strokeWidth={1} />
-    </svg>
+    <div className={styles.container}>
+      <svg width={props.width} height={props.height} style={{ transform: `translate(${xOffset}px, 0px)` }}>
+        <path d={pathData} fill={props.color} stroke={props.color} strokeWidth={1} />
+      </svg>
+    </div>
   );
 };
 

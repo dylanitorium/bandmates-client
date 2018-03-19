@@ -21,6 +21,7 @@ class Draggable extends Component {
 
     this.state = {
       isDragging: false,
+      activeControl: null,
       dragStart: 0,
     };
   }
@@ -39,26 +40,34 @@ class Draggable extends Component {
     window.removeEventListener('touchend', this.onDragEnd);
   }
 
-  startDrag = (clientX) => {
+  getActiveControl = (controlId) => (
+    this.props.controls.find(({ id }) => id === controlId || this.state.activeControl)
+  )
+
+  startDrag = (clientX, id) => {
     this.setState({
       isDragging: true,
       dragStart: clientX,
+      activeControl: id,
     });
 
-    this.props.onDragStart(clientX);
+
+    this.getActiveControl(id).onDragStart(clientX);
   }
 
-  onTouchStart = (event) =>  {
-    const { touches } = event;
-    const { clientX } = touches[0];
-
-    this.startDrag(clientX);
+  onTouchStart = (id) => {
+    return (event) =>  {
+      const { touches } = event;
+      const { clientX } = touches[0];
+      this.startDrag(clientX, id);
+    };
   }
 
-  onMouseDown = (event) =>  {
-    const { clientX } = event;
-
-    this.startDrag(clientX);
+  onMouseDown = (id) => {
+    return (event) =>  {
+      const { clientX } = event;
+      this.startDrag(clientX, id);
+    }
   }
 
   dragMove = (clientX) => {
@@ -69,7 +78,7 @@ class Draggable extends Component {
     }
 
     const movement = clientX - dragStart;
-    this.props.onDrag(movement);
+    this.getActiveControl().onDrag(movement);
 
     this.setState({
       dragStart: clientX,
@@ -92,11 +101,15 @@ class Draggable extends Component {
   onDragEnd = (event) =>  {
 
     if (this.state.isDragging) {
+
+      const activeControl = this.getActiveControl();
+
       this.setState({
         isDragging: false,
+        activeControl: null,
       });
 
-      this.props.onDragEnd(event);
+      activeControl.onDragEnd(event);
     }
   }
 
@@ -107,9 +120,9 @@ class Draggable extends Component {
     })
   }
 
-  getControlClasses() {
+  getControlClasses(classes) {
     return conditionalClasses({
-      [this.props.controlClass]: true,
+      [classes]: !!classes,
       [draggable.default]: true,
       [draggable.dragging]: this.state.isDragging,
     })
@@ -120,14 +133,24 @@ class Draggable extends Component {
       <div
         className={this.getContainerClasses()}
       >
-        <div
-          className={this.getControlClasses()}
-          onMouseDown={this.onMouseDown}
-          onTouchStart={this.onTouchStart}
-          style={this.props.controlStyle}
-          onClick={this.props.onClick}
-        >
-          {this.props.children}
+        <div style={{
+          height: '100%',
+          width: '100%',
+          position: 'relative',
+        }}>
+          {this.props.controls.map((control) => {
+            return (
+              <div
+                key={control.id}
+                id={control.id}
+                className={this.getControlClasses(control.class)}
+                onMouseDown={this.onMouseDown(control.id)}
+                onTouchStart={this.onTouchStart(control.id)}
+                style={control.controlStyle || {}}
+                onClick={control.onClick}
+              />
+            )
+          })}
         </div>
       </div>
     );

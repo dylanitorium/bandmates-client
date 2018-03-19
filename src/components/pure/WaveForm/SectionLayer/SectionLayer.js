@@ -1,4 +1,5 @@
 import React from 'react';
+import Draggable from 'components/pure/Draggable/Draggable';
 import styles from './section-layer.css';
 
 const SectionLayer = props => (

@@ -45,7 +45,7 @@ class SectionDetailsInterface extends Component {
             <div key={comment.id}>
               {comment.content}
               <button style={{ float: 'right'}} onClick={() => this.props.selectComment(comment.id)}>
-                Post
+                Edit
               </button>
               <button style={{ float: 'right'}} onClick={() => this.props.deleteComment(comment.id)}>
                 Delete

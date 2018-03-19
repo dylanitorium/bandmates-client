@@ -40,7 +40,7 @@ const initialState = {
 
 const handlers = {
   [actionTypes.ADD_COMMENT]: (state, action) => ({
-    activeComment: null,
+    activeComment: null, 
     commentFieldValue: '',
     comments: [
       ...state.comments,

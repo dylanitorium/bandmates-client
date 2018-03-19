@@ -7,7 +7,6 @@ import SelectionLayer from '../../connected/SelectionLayer';
 import CursorLayer from '../../connected/CursorLayer';
 import InterfaceLayer from '../../connected/InterfaceLayer';
 import PlayButton from '../../connected/PlayButton';
-import SelectionInterface from '../../connected/SelectionInterface';
 import SectionDetailsInterface from '../../connected/SectionDetailsInterface';
 
 class WaveFormInterface extends Component {
@@ -26,7 +25,6 @@ class WaveFormInterface extends Component {
     const containerStyle = {
       background: '#36454F',
       position: 'relative',
-      overflow: 'hidden',
       height: props.height,
     };
 
@@ -43,7 +41,6 @@ class WaveFormInterface extends Component {
           <InterfaceLayer {...props} />
           <PlayButton {...props} />
         </div>
-        <SelectionInterface {...props} />
         <SectionDetailsInterface {...props} />
       </div>
     );
