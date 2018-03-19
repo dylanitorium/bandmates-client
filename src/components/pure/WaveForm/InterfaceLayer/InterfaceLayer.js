@@ -47,6 +47,7 @@ class InterfaceLayer extends Component {
 }
 
 InterfaceLayer.propTypes = {
+  widthOffset: PropTypes.number.isRequired,
   onInterfaceDrag: PropTypes.func.isRequired,
   selectorPosition: PropTypes.number.isRequired,
   onSelectionStart: PropTypes.func.isRequired,

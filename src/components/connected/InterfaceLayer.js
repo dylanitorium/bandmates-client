@@ -8,7 +8,8 @@ import {
   waveformReferenceStyleSelector,
   waveformContainerStyleSelector,
   selectorPositionSelector,
-  windowWidthSelector
+  windowWidthSelector,
+  widthOffsetSelector
 } from 'state/selectors';
 
 const mapStateToProps = state => ({
@@ -17,6 +18,7 @@ const mapStateToProps = state => ({
   waveformContainerStyle: waveformContainerStyleSelector(state),
   selectorPosition: selectorPositionSelector(state),
   windowWidth: windowWidthSelector(state),
+  widthOffset: widthOffsetSelector(state),
 });
 
 const mapDispatchToProps = {

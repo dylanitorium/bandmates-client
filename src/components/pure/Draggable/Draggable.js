@@ -41,8 +41,8 @@ class Draggable extends Component {
   }
 
   getActiveControl = (controlId) => (
-    this.props.controls.find(({ id }) => id === controlId || this.state.activeControl)
-  )
+    this.props.controls.find(({ id }) => id === controlId || id === this.state.activeControl)
+  );
 
   startDrag = (clientX, id) => {
     this.setState({
@@ -146,7 +146,7 @@ class Draggable extends Component {
                 className={this.getControlClasses(control.class)}
                 onMouseDown={this.onMouseDown(control.id)}
                 onTouchStart={this.onTouchStart(control.id)}
-                style={control.controlStyle || {}}
+                style={control.style || {}}
                 onClick={control.onClick}
               />
             )
