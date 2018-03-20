@@ -33,8 +33,9 @@ class InterfaceLayer extends Component {
       }
     ];
 
-    const sectionControls = this.props.sections.map((section, index) => ({
-      ...section,
+    const sectionSelectControls = this.props.sections.map((section, index) => ({
+      id: section.id + '_select',
+      style: section.styles.select,
       class: layer.section_control,
       onClick: () => this.props.onSectionClick(section.id),
       onDragStart: () => {},
@@ -42,9 +43,31 @@ class InterfaceLayer extends Component {
       onDragEnd: () => {},
     }));
 
+    const sectionLeftEditControls = this.props.sections.map((section, index) => ({
+      id: section.id + '_leftEdit',
+      style: section.styles.leftEdit,
+      class: layer.section_edit_control,
+      onClick: () => {},
+      onDragStart: () => {},
+      onDrag: () => {},
+      onDragEnd: () => {},
+    }));
+
+    const sectionRightEditControls = this.props.sections.map((section, index) => ({
+      id: section.id + '_rightEdit',
+      style: section.styles.rightEdit,
+      class: layer.section_edit_control,
+      onClick: () => {},
+      onDragStart: () => {},
+      onDrag: () => {},
+      onDragEnd: () => {},
+    }));
+
     return [
       ...defaultControls,
-      ...sectionControls
+      ...sectionSelectControls,
+      ...sectionLeftEditControls,
+      ...sectionRightEditControls,
     ];
   }
 

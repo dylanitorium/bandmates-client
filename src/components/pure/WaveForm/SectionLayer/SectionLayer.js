@@ -8,7 +8,7 @@ const SectionLayer = props => (
         <div
           className={styles.section}
           key={section.id}
-          style={section.style}
+          style={section.styles.select}
         >
         </div>
       ))}

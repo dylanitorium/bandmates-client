@@ -121,20 +121,25 @@ export const sectionsForDisplaySelector = createSelector(
   sectionsSelector,
   windowCenterSelector,
   waveformOffsetSelector,
-  (sections, center, waveformOffset) => sections.map(({ id, start, end }) => ({
-    id,
-    style: (() => {
-      if (end < start) {
-        return {
-          left: end + waveformOffset,
-          width: start - end,
-        };
-      }
+  (sections, center, waveformOffset) => sections.map(({ id, start, end }) => {
+    const left = (end < start) ? end + waveformOffset : start + waveformOffset;
+    const width = (end < start) ? start - end : end - start;
+    const right = (left + width) - 5;
 
-      return {
-        left: start + waveformOffset,
-        width: end - start,
-      };
-    })(),
-  }))
+    return {
+      id,
+      styles: {
+        select: {
+          left,
+          width,
+        },
+        leftEdit: {
+          left
+        },
+        rightEdit: {
+          left: right
+        },
+      }
+    }
+  })
 );

@@ -33,3 +33,12 @@
   bottom: 0;
   cursor:pointer;
 }
+
+.section_edit_control {
+  composes: control;
+  position: absolute;
+  bottom: 0;
+  width: 6px;
+  height: 6px;
+  background-color: white;
+}
