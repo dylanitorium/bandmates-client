@@ -21,7 +21,6 @@ class InterfaceLayer extends Component {
         onDragEnd: () => {},
         onClick: () => {},
         class: this.getClasses(),
-        style: { zIndex: 90 },
       },
       {
         id: 'selectorControl',
@@ -30,16 +29,12 @@ class InterfaceLayer extends Component {
         onDragEnd: this.props.onSelectionEnd,
         onClick: () => {},
         class: layer.selection_control,
-        style: { transform: `translate(${this.props.selectorPosition}px, 0px)`, zIndex: 91 },
+        style: { transform: `translate(${this.props.selectorPosition}px, 0px)` },
       }
     ];
 
     const sectionControls = this.props.sections.map((section, index) => ({
-      id: section.id,
-      style: {
-        ...section.style,
-        zIndex: 91 + index,
-      },
+      ...section,
       class: layer.section_control,
       onClick: () => this.props.onSectionClick(section.id),
       onDragStart: () => {},

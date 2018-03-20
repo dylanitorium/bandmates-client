@@ -25,11 +25,9 @@ const WaveFormLayer = (props) => {
   props.data.min.forEach(drawPoint());
   props.data.max.reverse().forEach(drawPoint(props.data.offset_length));
 
-  const xOffset = (props.cursorPostion  * -1) + (props.windowWidth / 2);
-
   return (
     <div className={styles.container}>
-      <svg width={props.width} height={props.height} style={{ transform: `translate(${xOffset}px, 0px)` }}>
+      <svg width={props.width} height={props.height} style={{ transform: `translate(${props.waveformOffset}px, 0px)` }}>
         <path d={pathData} fill={props.color} stroke={props.color} strokeWidth={1} />
       </svg>
     </div>
@@ -37,8 +35,7 @@ const WaveFormLayer = (props) => {
 };
 
 WaveFormLayer.propTypes = {
-  cursorPostion: PropTypes.number.isRequired,
-  windowWidth: PropTypes.number.isRequired,
+  waveformOffset: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   amplitude: PropTypes.number.isRequired,

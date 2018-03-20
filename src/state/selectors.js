@@ -34,25 +34,7 @@ export const waveformReferenceStyleSelector = createSelector(
 
 export const sectionsSelector = state => state.sections.sections;
 
-export const sectionsForDisplaySelector = createSelector(
-  sectionsSelector,
-  (sections) => sections.map(({ id, start, end }) => ({
-    id,
-    style: (() => {
-      if (end < start) {
-        return {
-          left: end,
-          width: start - end,
-        };
-      }
 
-      return {
-        left: start,
-        width: end - start,
-      };
-    })(),
-  }))
-);
 
 export const currentTimeSelector = state => state.audio.currentTime;
 
@@ -87,6 +69,7 @@ export const widthOffsetSelector = createSelector(
   windowWidthSelector,
   width => ((width / 2) - 3)
 );
+
 
 export const offsetSelector = state => state.selection.selectorOffset;
 
@@ -127,3 +110,31 @@ export const activeCommentSelector = createSelector(
 );
 
 export const commentValueSelector = state => state.comments.commentFieldValue;
+
+export const waveformOffsetSelector = createSelector(
+  cursorPostionSelector,
+  windowCenterSelector,
+  (cursor, center) => (cursor * -1) + center,
+);
+
+export const sectionsForDisplaySelector = createSelector(
+  sectionsSelector,
+  windowCenterSelector,
+  waveformOffsetSelector,
+  (sections, center, waveformOffset) => sections.map(({ id, start, end }) => ({
+    id,
+    style: (() => {
+      if (end < start) {
+        return {
+          left: end + waveformOffset,
+          width: start - end,
+        };
+      }
+
+      return {
+        left: start + waveformOffset,
+        width: end - start,
+      };
+    })(),
+  }))
+);
