@@ -16,7 +16,6 @@ const SectionLayer = props => (
           className={styles.section}
           key={section.id}
           style={section.style}
-          onClick={() => props.onSectionClick(section.id)}
         >
         </div>
       ))}

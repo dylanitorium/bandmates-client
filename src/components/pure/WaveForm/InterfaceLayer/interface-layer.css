@@ -8,10 +8,28 @@
   height: 100%;
 }
 
+.reference {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.control {
+  position: absolute;
+}
+
 .selection_control {
+  composes: control;
   width: 6px;
   height: 40px;
-  position: absolute;
   bottom: -30px;
   background-color: white;
+}
+
+.section_control {
+  composes: control;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  cursor:pointer;
 }

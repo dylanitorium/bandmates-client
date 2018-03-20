@@ -7,6 +7,7 @@ import SelectionLayer from '../../connected/SelectionLayer';
 import CursorLayer from '../../connected/CursorLayer';
 import InterfaceLayer from '../../connected/InterfaceLayer';
 import PlayButton from '../../connected/PlayButton';
+import SectionLayer from '../../connected/SectionLayer';
 import SectionDetailsInterface from '../../connected/SectionDetailsInterface';
 
 class WaveFormInterface extends Component {
@@ -35,6 +36,7 @@ class WaveFormInterface extends Component {
           style={containerStyle}
         >
           <WaveFormLayer {...props}/>
+          <SectionLayer {...props} />
           <ClockLayer {...props} />
           <SelectionLayer {...props} />
           <CursorLayer {...props} />

@@ -12,36 +12,54 @@ class InterfaceLayer extends Component {
     })
   }
 
+  getControls() {
+    const defaultControls = [
+      {
+        id: 'waveformScrobbler',
+        onDragStart: () => {},
+        onDrag: this.props.onInterfaceDrag,
+        onDragEnd: () => {},
+        onClick: () => {},
+        class: this.getClasses(),
+        style: { zIndex: 90 },
+      },
+      {
+        id: 'selectorControl',
+        onDragStart: this.props.onSelectionStart,
+        onDrag: this.props.onSelectionDrag,
+        onDragEnd: this.props.onSelectionEnd,
+        onClick: () => {},
+        class: layer.selection_control,
+        style: { transform: `translate(${this.props.selectorPosition}px, 0px)`, zIndex: 91 },
+      }
+    ];
+
+    const sectionControls = this.props.sections.map((section, index) => ({
+      id: section.id,
+      style: {
+        ...section.style,
+        zIndex: 91 + index,
+      },
+      class: layer.section_control,
+      onClick: () => this.props.onSectionClick(section.id),
+      onDragStart: () => {},
+      onDrag: () => {},
+      onDragEnd: () => {},
+    }));
+
+    return [
+      ...defaultControls,
+      ...sectionControls
+    ];
+  }
+
   render() {
     return (
       <Draggable
         onDrag={this.props.onInterfaceDrag}
         containerClass={this.getClasses()}
-        controls={[
-          {
-            id: 'waveformScrobbler',
-            onDragStart: () => {},
-            onDrag: this.props.onInterfaceDrag,
-            onDragEnd: () => {},
-            onClick: () => {},
-            class: this.getClasses(),
-            style: { zIndex: 90 },
-          },
-          {
-            id: 'selectorControl',
-            onDragStart: this.props.onSelectionStart,
-            onDrag: this.props.onSelectionDrag,
-            onDragEnd: this.props.onSelectionEnd,
-            onClick: () => {},
-            class: layer.selection_control,
-            style: { transform: `translate(${this.props.selectorPosition}px, 0px)`, zIndex: 91 },
-          }
-        ]}
-      >
-        <SectionLayer
-          {...this.props}
-        />
-      </Draggable>
+        controls={this.getControls()}
+      />
     );
   }
 }
