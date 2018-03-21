@@ -17,6 +17,16 @@ const section = (state = initialSectionState, action) => {
         start: payload.start,
         end: payload.end,
       };
+    case actionTypes.EDIT_SECTION_START:
+      return {
+        ...state,
+        start: state.start + payload.movement
+      };
+    case actionTypes.EDIT_SECTION_END:
+      return {
+        ...state,
+        end: state.end + payload.movement
+      };
     default:
       return state;
   }
@@ -24,12 +34,25 @@ const section = (state = initialSectionState, action) => {
 
 const initialState = {
   activeSection: null,
+  sectionControlOffset: 0,
   sections: [],
 };
 
 const handlers = {
   [actionTypes.SELECT_SECTION]: (state, action) => ({
     activeSection: action.sectionId,
+  }),
+  [actionTypes.EDIT_SECTION_START]: (state, action) => ({
+    sections: [
+      ...state.sections.filter(({ id }) => id !== action.sectionId),
+      section(state.sections.find(({ id }) => id === action.sectionId), action)
+    ]
+  }),
+  [actionTypes.EDIT_SECTION_END]: (state, action) => ({
+    sections: [
+      ...state.sections.filter(({ id }) => id !== action.sectionId),
+      section(state.sections.find(({ id }) => id === action.sectionId), action)
+    ]
   }),
   [actionTypes.DELETE_SECTION]: (state, action) => ({
     activeSection: null,

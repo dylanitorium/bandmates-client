@@ -19,6 +19,18 @@ export const deleteSection = sectionId => ({
   sectionId,
 });
 
+
+export const editSectionStart = (sectionId, movement) => ({
+  type: actionTypes.EDIT_SECTION_START,
+  sectionId,
+  movement,
+})
+export const editSectionEnd = (sectionId, movement) => ({
+  type: actionTypes.EDIT_SECTION_END,
+  sectionId,
+  movement,
+})
+
 const createSectionId = (start, end) => {
   return `${md5(`${start}${end}`)}.${moment().valueOf()}`;
 }

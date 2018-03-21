@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'components/pure/Draggable/Draggable';
-import SectionLayer from 'components/pure/WaveForm/SectionLayer/SectionLayer';
 import { conditionalClasses } from 'utils/conditionalClasses';
 import layer from './interface-layer.css';
 
@@ -49,7 +48,7 @@ class InterfaceLayer extends Component {
       class: layer.section_edit_control,
       onClick: () => {},
       onDragStart: () => {},
-      onDrag: () => {},
+      onDrag: (movement) => this.props.onSectionStartDrag(section.id, movement),
       onDragEnd: () => {},
     }));
 
@@ -59,7 +58,7 @@ class InterfaceLayer extends Component {
       class: layer.section_edit_control,
       onClick: () => {},
       onDragStart: () => {},
-      onDrag: () => {},
+      onDrag: (movement) => this.props.onSectionEndDrag(section.id, movement),
       onDragEnd: () => {},
     }));
 
@@ -74,7 +73,6 @@ class InterfaceLayer extends Component {
   render() {
     return (
       <Draggable
-        onDrag={this.props.onInterfaceDrag}
         containerClass={this.getClasses()}
         controls={this.getControls()}
       />

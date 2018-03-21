@@ -27,6 +27,8 @@ const mapDispatchToProps = {
   onSelectionStart: selectionActions.startSelectionThunk,
   onSelectionDrag: selectionActions.dragSelector,
   onSelectionEnd: sectionsActions.createSectionThunk,
+  onSectionStartDrag: sectionsActions.editSectionStart,
+  onSectionEndDrag: sectionsActions.editSectionEnd,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(InterfaceLayer);
