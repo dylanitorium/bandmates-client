@@ -121,25 +121,33 @@ export const sectionsForDisplaySelector = createSelector(
   sectionsSelector,
   windowCenterSelector,
   waveformOffsetSelector,
-  (sections, center, waveformOffset) => sections.map(({ id, start, end }) => {
+  activeSectionIdSelector,
+  (sections, center, waveformOffset, activeId) => sections.map(({ id, start, end }) => {
     const left = (end < start) ? end + waveformOffset : start + waveformOffset;
     const width = (end < start) ? start - end : end - start;
     const right = (left + width) - 5;
 
+    const styles = {
+      select: {
+        left,
+        width,
+      },
+      leftEdit: {
+        left
+      },
+      rightEdit: {
+        left: right
+      },
+    };
+
+    if (id === activeId) {
+      styles.select['backgroundColor'] = 'rgba(0, 116, 217, 0.2)';
+      styles.select['borderColor'] = 'rgb(0, 116, 217)';
+    }
+
     return {
       id,
-      styles: {
-        select: {
-          left,
-          width,
-        },
-        leftEdit: {
-          left
-        },
-        rightEdit: {
-          left: right
-        },
-      }
-    }
+      styles,
+    };
   })
 );
