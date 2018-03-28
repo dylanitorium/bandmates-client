@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import section from './section-details-interface.css'
+import comments from './section-comments.css'
 
 
 class SectionDetailsInterface extends Component {
@@ -25,46 +27,56 @@ class SectionDetailsInterface extends Component {
 
   render() {
     const { props } = this;
-
-    console.log(props);
-
     return (
-      <div style={{
-        width: '300px',
-        margin: '0 auto',
-      }}>
-        <div style={{
-          color: 'white',
-        }}>
-          {props.section.id}
-        </div>
-        <div style={{
-          background: 'white'
-        }}>
+      <div className={section.container}>
+      <header className={section.header}>
+        <button className={section.closeButton} onClick={props.closeCommentBox}> close </button>
+      </header>
+        <div className={comments.container}>
+          {!props.comments.length && (
+            <div className={comments.placeholder}>
+              This section has no comments yet
+            </div>
+          )}
           {props.comments.map(comment => (
-            <div key={comment.id}>
+            <div className={comments.comment} key={comment.id}>
               {comment.content}
-              <button style={{ float: 'right'}} onClick={() => this.props.selectComment(comment.id)}>
-                Edit
-              </button>
-              <button style={{ float: 'right'}} onClick={() => this.props.deleteComment(comment.id)}>
-                Delete
-              </button>
+              <div className={comments.actions}>
+                <button
+                  className={comments.editButton}
+                  onClick={() => this.props.selectComment(comment.id)}
+                >
+                  Edit
+                </button>
+                <button
+                  className={comments.deleteButton}
+                  onClick={() => this.props.deleteComment(comment.id)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>
-
-        <div style={{
-          textAlign: 'right',
-        }}>
-          <button onClick={props.closeCommentBox}> close </button>
+        <div className={comments.inputContainer}>
+          <textarea
+            className={comments.input}
+            value={props.commentValue}
+            onChange={this.handleCommentChange}
+            onKeyPress={this.handleEnterPress}
+          />
         </div>
-        <div>
-          <textarea value={props.commentValue} onChange={this.handleCommentChange} onKeyPress={this.handleEnterPress} />
-          <button style={{ float: 'right'}} onClick={this.postComment}>
+        <div className={section.actions}>
+          <button
+            className={section.postButton}
+            onClick={this.postComment}
+          >
             Post
           </button>
-          <button style={{ float: 'right'}} onClick={() => this.props.deleteSection(props.section.id)}>
+          <button
+            className={section.deleteButton}
+            onClick={() => this.props.deleteSection(props.section.id)}
+          >
             Delete
           </button>
         </div>

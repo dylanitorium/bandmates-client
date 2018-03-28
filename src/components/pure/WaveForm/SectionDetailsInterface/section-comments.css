@@ -1,0 +1,31 @@
+.container {
+
+}
+
+.placeholder {
+  font-style: italic;
+}
+
+.comment {
+
+}
+
+.actions {
+  float: right;
+}
+
+.editButton {
+
+}
+
+.deleteButton {
+
+}
+
+.inputContainer {
+ width: 100%;
+}
+
+.input {
+ width: 100%;
+}
