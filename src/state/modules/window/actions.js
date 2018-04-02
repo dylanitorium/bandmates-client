@@ -27,15 +27,14 @@ const onThrottledResize = (callback) => {
 
 // Utility
 export const getWindowWidth = () => (
-  window.innerWidth
-  || document.documentElement.clientWidth
-  || document.body.clientWidth
+  document.querySelector('.layout__main').getBoundingClientRect().width
 );
 
 export const listenForResize = () => (
   (dispatch, getState) => {
+    dispatch(resizeWindow(getWindowWidth()));
     onThrottledResize(() => {
-      dispatch(resizeWindow(getWindowWidth()))
-    })
+      dispatch(resizeWindow(getWindowWidth()));
+    });
   }
 );

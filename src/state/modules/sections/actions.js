@@ -43,7 +43,3 @@ export const createSectionThunk = () => (
     dispatch(createSection(id, selectorStart, end));
   }
 );
-
-export const closeCommentBox = () => ({
-  type: actionTypes.CLOSE_COMMENT_BOX,
-});

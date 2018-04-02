@@ -4,7 +4,7 @@ import { getWindowWidth } from './actions';
 
 // Reducer
 const initialState = {
-  width: getWindowWidth(),
+  width: 0,
 };
 
 const handlers = {
