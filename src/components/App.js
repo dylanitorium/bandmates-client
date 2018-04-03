@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { store } from 'state/store';
 import WaveFormInterface from './connected/WaveFormInterface';
+import Discussion from './connected/Discussion';
 import * as Layout from './pure/Layout'
 import './App.css';
 
@@ -16,7 +17,7 @@ class App extends Component {
           <WaveFormInterface />
         </Layout.Main>
         <Layout.Sidebar>
-          Sidebar
+          <Discussion />
         </Layout.Sidebar>
         <Layout.Footer />
       </Layout.Container>

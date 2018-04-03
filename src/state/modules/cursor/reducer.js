@@ -4,7 +4,6 @@ import * as waveform from '../waveform/actionTypes';
 
 export const initialState = {
   pixelFactor: 0,
-  cursorPostion: 0,
 };
 
 const handlers = {

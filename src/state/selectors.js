@@ -1,10 +1,47 @@
 import { createSelector } from 'reselect';
+import * as timeUtils from 'utils/time';
+
+export const waveformSelector = state => state.waveform.waveform;
+
+export const waveformHeightSelector = state => state.waveform.height;
+
+export const waveformWidthSelector = state => state.waveform.width;
 
 export const amplitudeSelector = state => state.waveform.amplitude;
 
-export const cursorPositionSelector = state => state.cursor.cursorPostion;
-
 export const windowWidthSelector = state => state.window.width;
+
+export const sectionsSelector = state => state.sections.sections;
+
+export const currentTimeSelector = state => state.audio.currentTime;
+
+export const offsetSelector = state => state.selection.selectorOffset;
+
+export const audioSelector = state => state.audio.audio;
+
+export const isPlayingSelector = state => state.audio.isPlaying;
+
+export const commentBoxVisibleSelector = state => !!state.sections.activeSection;
+
+export const activeSectionIdSelector = state => state.sections.activeSection;
+
+export const allCommentsSelector = state => state.comments.comments;
+
+export const pixelFactorSelector = createSelector(
+  waveformSelector,
+  waveform => waveform.pixels_per_second,
+);
+
+export const cursorPositionSelector = createSelector(
+  pixelFactorSelector,
+  currentTimeSelector,
+  (pixelFactor, currentTime) => pixelFactor * currentTime,
+);
+
+export const currentTimeAsClockSelector = createSelector(
+  currentTimeSelector,
+  time => timeUtils.toClock(time),
+);
 
 export const waveformContainerTransformSelector = createSelector(
   cursorPositionSelector,
@@ -13,12 +50,6 @@ export const waveformContainerTransformSelector = createSelector(
     `translate(${(cursorPostion  * -1) + (windowWidth / 2)}px, 0px)`
   )
 );
-
-export const waveformSelector = state => state.waveform.waveform;
-
-export const waveformHeightSelector = state => state.waveform.height;
-
-export const waveformWidthSelector = state => state.waveform.width;
 
 export const waveformContainerStyleSelector = createSelector(
   waveformHeightSelector,
@@ -32,27 +63,11 @@ export const waveformReferenceStyleSelector = createSelector(
   height => ({ height })
 );
 
-export const sectionsSelector = state => state.sections.sections;
-
-
-
-export const currentTimeSelector = state => state.audio.currentTime;
-
-export const audioSelector = state => state.audio.audio;
-
-export const isPlayingSelector = state => state.audio.isPlaying;
-
-export const commentBoxVisibleSelector = state => !!state.sections.activeSection;
-
-export const activeSectionIdSelector = state => state.sections.activeSection;
-
 export const activeSectionSelector = createSelector(
   sectionsSelector,
   activeSectionIdSelector,
   (sections, activeSectionId) => sections.find(({ id }) => id === activeSectionId),
-)
-
-export const allCommentsSelector = state => state.comments.comments;
+);
 
 export const commentsSelector = createSelector(
   allCommentsSelector,
@@ -70,11 +85,6 @@ export const widthOffsetSelector = createSelector(
   width => ((width / 2) - 3)
 );
 
-
-export const offsetSelector = state => state.selection.selectorOffset;
-
-export const cursorPostionSelector = state => state.cursor.cursorPostion;
-
 export const selectorPositionSelector = createSelector(
   widthOffsetSelector,
   offsetSelector,
@@ -85,7 +95,7 @@ export const selectorStartSelector = state => state.selection.selectorStart;
 
 export const selectionRightSelector = createSelector(
   windowCenterSelector,
-  cursorPostionSelector,
+  cursorPositionSelector,
   selectorStartSelector,
   offsetSelector,
   (center, cursor, start, offset) => (offset > 0 ? center - offset : (center + (cursor - start))),
@@ -93,7 +103,7 @@ export const selectionRightSelector = createSelector(
 
 export const selectionLeftSelector = createSelector(
   windowCenterSelector,
-  cursorPostionSelector,
+  cursorPositionSelector,
   selectorStartSelector,
   offsetSelector,
   (center, cursor, start, offset) => offset > 0 ? (center - (cursor - start)) : center + offset,
@@ -112,7 +122,7 @@ export const activeCommentSelector = createSelector(
 export const commentValueSelector = state => state.comments.commentFieldValue;
 
 export const waveformOffsetSelector = createSelector(
-  cursorPostionSelector,
+  cursorPositionSelector,
   windowCenterSelector,
   (cursor, center) => (cursor * -1) + center,
 );
@@ -151,3 +161,11 @@ export const sectionsForDisplaySelector = createSelector(
     };
   })
 );
+
+export const sectionsForDiscussionSelector = createSelector(
+  sectionsSelector,
+  sections => sections.map(section => ({
+    start: timeUtils.toClock(section.start),
+    end: timeUtils.toClock(section.end),
+  }))
+)

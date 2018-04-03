@@ -5,12 +5,12 @@ import clock from './clock-layer.css';
 
 const ClockLayer = props => (
   <div className={clock.clock}>
-  {timeUtils.toClock(props.currentTime)}
+    {props.currentTime}
   </div>
 );
 
 ClockLayer.propTypes = {
-  currentTime: PropTypes.number.isRequired,
+  currentTime: PropTypes.string.isRequired,
 };
 
 export default ClockLayer;

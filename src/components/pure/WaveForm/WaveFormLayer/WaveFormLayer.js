@@ -4,6 +4,7 @@ import WaveformData from 'waveform-data';
 import styles from './waveform-layer.css';
 
 const WaveFormLayer = (props) => {
+
   const POINT_MOD = 0.5;
 
   const modPoint = (point, offset) => (

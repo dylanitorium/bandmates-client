@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import ClockLayer from '../pure/WaveForm/ClockLayer/ClockLayer';
-import { currentTimeSelector } from 'state/selectors';
+import { currentTimeAsClockSelector } from 'state/selectors';
 
 const mapStateToProps = state => ({
-  currentTime: currentTimeSelector(state),
+  currentTime: currentTimeAsClockSelector(state),
 });
 
 export default connect(mapStateToProps)(ClockLayer);
