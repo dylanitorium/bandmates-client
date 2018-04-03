@@ -1,6 +1,5 @@
 import makeReducer from 'utils/makeReducer';
 import { actionTypes } from './actionTypes';
-import { getWindowWidth } from './actions';
 
 // Reducer
 const initialState = {

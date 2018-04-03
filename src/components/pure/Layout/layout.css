@@ -1,13 +1,15 @@
 .container {
   display: grid;
   width: 100%;
-
+  height: 100%;
 
   /*  Define the size and number of columns in our grid.
   The fr unit works similar to flex:
   fr columns will share the free space in the row in proportion to their value.
   We will have 2 columns - the first will be 3x the size of the second.  */
   grid-template-columns: 70% 30%;
+
+  grid-template-rows: 50px 1fr 50px;
 
   /*  Assign the grid areas we did earlier to specific places on the grid.
   First row is all header.
@@ -20,18 +22,24 @@
 }
 
 .header {
-   grid-area: header;
-   padding: 1rem;
+  grid-area: header;
+  padding: 1rem;
+  background: white;
 }
 
 .main {
+  padding: 1rem 0;
   grid-area: main;
 }
 
 .sidebar {
+  padding: 1rem;
   grid-area: sidebar;
+  background: #e9e9e9;
 }
 
 .footer {
   grid-area: footer;
+  padding: 1rem;
+  background: white;
 }
