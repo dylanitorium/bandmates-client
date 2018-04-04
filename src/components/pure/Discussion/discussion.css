@@ -1,3 +1,26 @@
 .container {
-  
+
+}
+
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: block;
+}
+
+.section {
+  display: block;
+  padding: .5rem;
+  border: 1px solid #555;
+  margin-bottom: .5rem;
+  cursor: pointer;
+}
+
+.sectionActive {
+  composes: section;
+  background-color: #999;
 }

@@ -170,12 +170,14 @@ export const sectionsForDisplaySelector = createSelector(
 export const sectionsForDiscussionSelector = createSelector(
   sectionsSelector,
   pixelFactorSelector,
-  (sections, pixelFactor) => (
+  activeSectionIdSelector,
+  (sections, pixelFactor, activeSectionId) => (
     pixelFactor
       ? sections.map(section => ({
         ...section,
         start: timeUtils.toClock(section.start / pixelFactor),
         end: timeUtils.toClock(section.end / pixelFactor),
+        active: section.id === activeSectionId,
       }))
       : []
   )
