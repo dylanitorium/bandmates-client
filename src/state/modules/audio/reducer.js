@@ -27,7 +27,7 @@ const handlers = {
   }),
   [actionTypes.PLAY]: (state, action) => ({
     isPlaying: true,
-    currentTime: action.currentTime > 0 ? action.currentTime : 0,
+    currentTime: action.currentTime,
     timestamp: action.timestamp,
   }),
   [actionTypes.PAUSE]: () => ({
@@ -40,7 +40,7 @@ const handlers = {
     timestamp: 0,
   }),
   [actionTypes.UPDATE_TIME]: (state, action) => ({
-    currentTime: action.currentTime > 0 ? action.currentTime : 0,
+    currentTime: action.currentTime,
     timestamp: action.timestamp,
   }),
 };

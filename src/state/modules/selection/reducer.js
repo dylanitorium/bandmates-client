@@ -2,7 +2,6 @@ import makeReducer from 'utils/makeReducer';
 import { actionTypes } from './actionTypes';
 
 import * as sections from '../sections/actionTypes';
-import * as waveform from '../waveform/actionTypes';
 
 const initialState = {
   selectorStart: 0,
@@ -11,9 +10,6 @@ const initialState = {
 }
 
 const handlers = {
-  [waveform.actionTypes.REQUEST.SUCCESS]: (state, action) => ({
-    pixelFactor: action.waveform.pixels_per_second,
-  }),
   [actionTypes.START_SELECTION]: (state, action) => ({
     selectorStart: action.selectorStart,
     isDragging: true,

@@ -35,9 +35,9 @@ const createSectionId = (start, end) => {
   return `${md5(`${start}${end}`)}.${moment().valueOf()}`;
 }
 
-export const createSectionThunk = () => (
+export const createSectionThunk = cursorPostion => (
   (dispatch, getState) => {
-    const { selection: { selectorOffset, selectorStart }, cursor: { cursorPostion } } = getState();
+    const { selection: { selectorOffset, selectorStart } } = getState();
     const id = createSectionId(selectorOffset, selectorStart);
     const end = selectorOffset + cursorPostion;
     dispatch(createSection(id, selectorStart, end));

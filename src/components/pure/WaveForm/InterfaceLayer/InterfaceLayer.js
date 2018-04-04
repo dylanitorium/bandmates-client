@@ -23,9 +23,9 @@ class InterfaceLayer extends Component {
       },
       {
         id: 'selectorControl',
-        onDragStart: this.props.onSelectionStart,
+        onDragStart: () => this.props.onSelectionStart(this.props.cursorPosition),
         onDrag: this.props.onSelectionDrag,
-        onDragEnd: this.props.onSelectionEnd,
+        onDragEnd: () => this.props.onSelectionEnd(this.props.cursorPosition),
         onClick: () => {},
         class: layer.selection_control,
         style: { transform: `translate(${this.props.selectorPosition}px, 0px)` },
@@ -82,6 +82,7 @@ class InterfaceLayer extends Component {
 
 InterfaceLayer.propTypes = {
   widthOffset: PropTypes.number.isRequired,
+  cursorPosition: PropTypes.number.isRequired,
   onInterfaceDrag: PropTypes.func.isRequired,
   selectorPosition: PropTypes.number.isRequired,
   onSelectionStart: PropTypes.func.isRequired,

@@ -5,10 +5,9 @@ export const startSelection = (selectorStart) => ({
   selectorStart,
 });
 
-export const startSelectionThunk = () => (
+export const startSelectionThunk = cursorPosition => (
   (dispatch, getState) => {
-    const { cursor: { cursorPostion } } = getState();
-    dispatch(startSelection(cursorPostion));
+    dispatch(startSelection(cursorPosition));
   }
 );
 
