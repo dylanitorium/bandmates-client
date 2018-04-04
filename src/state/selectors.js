@@ -171,13 +171,15 @@ export const sectionsForDiscussionSelector = createSelector(
   sectionsSelector,
   pixelFactorSelector,
   activeSectionIdSelector,
-  (sections, pixelFactor, activeSectionId) => (
+  allCommentsSelector,
+  (sections, pixelFactor, activeSectionId, comments) => (
     pixelFactor
       ? sections.map(section => ({
         ...section,
         start: timeUtils.toClock(section.start / pixelFactor),
         end: timeUtils.toClock(section.end / pixelFactor),
         active: section.id === activeSectionId,
+        comments: comments.filter(({ sectionId }) => sectionId === section.id),
       }))
       : []
   )
