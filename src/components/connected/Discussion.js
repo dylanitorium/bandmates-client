@@ -1,16 +1,11 @@
 import { connect } from 'react-redux';
-import Discussion from '../pure/Discussion';
-import * as sectionsActions from 'state/modules/sections/actions';
+import Discussion from '../pure/Discussion/Discussion';
 import {
-  sectionsForDiscussionSelector
+  activeSectionSelector,
 } from 'state/selectors';
 
 const mapStateToProps = state => ({
-  sections: sectionsForDiscussionSelector(state),
+  activeSection: activeSectionSelector(state),
 });
 
-const mapDispatchToProps = {
-  onSectionClick: sectionsActions.selectSection
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Discussion);
+export default connect(mapStateToProps)(Discussion);

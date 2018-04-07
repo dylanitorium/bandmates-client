@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './discussion.css';
 
-const Discussion = props => (
+const SectionList = props => (
   <div className={styles.container}>
-  {console.log(props)}
     <header className={styles.header}>
       <h4>Sections</h4>
     </header>
@@ -31,9 +30,9 @@ const Discussion = props => (
   </div>
 );
 
-Discussion.propTypes = {
+SectionList.propTypes = {
   sections: PropTypes.array.isRequired,
   onSectionClick: PropTypes.func.isRequired,
 }
 
-export default Discussion;
+export default SectionList;

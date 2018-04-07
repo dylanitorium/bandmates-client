@@ -17,8 +17,6 @@ export const audioSelector = state => state.audio.audio;
 
 export const isPlayingSelector = state => state.audio.isPlaying;
 
-export const commentBoxVisibleSelector = state => !!state.sections.activeSection;
-
 export const activeSectionIdSelector = state => state.sections.activeSection;
 
 export const sectionsSelector = state => state.sections.sections;
