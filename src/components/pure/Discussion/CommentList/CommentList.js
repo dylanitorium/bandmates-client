@@ -9,6 +9,7 @@ const onKeyPress = handleEnter => event => {
   const { value } = event.target;
 
   if (enterKey && !shiftKey) {
+    event.preventDefault();
     handleEnter(value);
   }
 };
