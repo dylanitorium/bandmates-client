@@ -22,14 +22,29 @@ const onChange = handleChange => event => {
 const CommentList = props => (
   <div className={styles.container}>
     <header className={styles.header}>
-      <h4 className={styles.title}>{props.section.id}</h4>
+      <button className={styles.sectionBackButton}>
+        <i className="fa fa-angle-left fa-2x" />
+      </button>
+      <div className={styles.headerLeft}>
+        <h4 className={styles.title}>{props.section.id}</h4>
+        <div className={styles.sectionMetaData}>{props.section.startNice} - {props.section.endNice}</div>
+      </div>
+      <button className={styles.sectionContextMenuButton}>
+        <i className="fa fa-ellipsis-v fa-lg" />
+      </button>
     </header>
     <aside className={styles.main}>
       <ul className={styles.list}>
         {
           props.comments.map(comment => (
-            <div key={comment.id} className={styles.comment}>
+            <div
+              key={comment.id}
+              className={comment.isOwnedByUser ? styles.ownedComment : styles.comment}
+            >
               {comment.content}
+              <div className={styles.commentMetaData}>
+                {comment.lastEditedNice}
+              </div>
             </div>
           ))
         }

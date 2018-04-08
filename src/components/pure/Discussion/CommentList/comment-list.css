@@ -15,13 +15,6 @@
   display: block;
 }
 
-.title {
-  max-width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
 .section {
   display: block;
   padding: 1rem .75rem;
@@ -44,6 +37,17 @@
   padding: 1rem;
   border-bottom: 1px solid #555;
   background: #e9e9e9;
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+}
+
+.title,
+.headerLeft {
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .main {
@@ -86,4 +90,46 @@
   border-radius: 3px;
   padding: .5rem;
   margin-bottom: .5rem;
+  width: 80%;
+}
+
+.ownedComment {
+  composes: comment;
+  margin-left: auto;
+  background-color: #e9e9e9;
+}
+
+.commentMetaData {
+  font-size: 0.65rem;
+  font-style: italic;
+  text-align: right;
+}
+
+
+.sectionMetaData {
+  font-size: 0.65rem;
+  font-style: italic;
+}
+
+.headerButton {
+  border: 0;
+  background-color: transparent;
+  padding: .5rem .75rem;
+  cursor:pointer;
+}
+
+.sectionContextMenuButton {
+  composes: headerButton;
+  margin-right: -.75rem;
+}
+
+.sectionBackButton {
+  composes: headerButton;
+  margin-left: -.75rem;
+}
+
+.headerButton:active,
+.headerButton:hover,
+.headerButton:focus {
+  outline: 0;
 }

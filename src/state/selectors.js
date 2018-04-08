@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import moment from 'moment';
 import * as timeUtils from 'utils/time';
 
 export const waveformSelector = state => state.waveform.waveform;
@@ -77,13 +78,30 @@ export const waveformReferenceStyleSelector = createSelector(
 export const activeSectionSelector = createSelector(
   sectionsSelector,
   activeSectionIdSelector,
-  (sections, activeSectionId) => sections.find(({ id }) => id === activeSectionId),
+  pixelFactorSelector,
+  (sections, activeSectionId, pixelFactor) => {
+    const activeSection = sections.find(({ id }) => id === activeSectionId);
+
+    return activeSection ? {
+      ...activeSection,
+      startNice: timeUtils.toClock(activeSection.start / pixelFactor),
+      endNice: timeUtils.toClock(activeSection.end / pixelFactor),
+    } : null;
+  },
 );
 
 export const commentsSelector = createSelector(
   allCommentsSelector,
   activeSectionIdSelector,
-  (comments, activeSectionId) => comments.filter(({ sectionId }) => sectionId === activeSectionId),
+  (comments, activeSectionId) => (
+    comments
+      .filter(({ sectionId }) => sectionId === activeSectionId)
+      .map(comment => ({
+        ...comment,
+        isOwnedByUser: true,
+        lastEditedNice: moment(comment.lastEdited).format('HH:mm a'),
+      }))
+  ),
 );
 
 export const windowCenterSelector = createSelector(
