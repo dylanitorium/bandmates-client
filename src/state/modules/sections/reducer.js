@@ -3,6 +3,7 @@ import { actionTypes } from './actionTypes';
 
 const initialSectionState = {
   id: null,
+  name: null,
   start: null,
   end: null,
 };
@@ -14,8 +15,14 @@ const section = (state = initialSectionState, action) => {
       return {
         ...state,
         id: payload.sectionId,
+        name: payload.sectionId,
         start: payload.start,
         end: payload.end,
+      }
+    case actionTypes.RENAME_SECTION:
+      return {
+        ...state,
+        name: payload.name,
       };
     case actionTypes.EDIT_SECTION_START:
       return {

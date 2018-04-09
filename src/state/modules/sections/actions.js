@@ -28,12 +28,18 @@ export const editSectionStart = (sectionId, movement) => ({
   type: actionTypes.EDIT_SECTION_START,
   sectionId,
   movement,
-})
+});
+
 export const editSectionEnd = (sectionId, movement) => ({
   type: actionTypes.EDIT_SECTION_END,
   sectionId,
   movement,
-})
+});
+
+export const renameSection = name => ({
+  type: actionTypes.RENAME_SECTION,
+  name,
+});
 
 const createSectionId = (start, end) => {
   return `${md5(`${start}${end}`)}.${moment().valueOf()}`;

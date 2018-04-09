@@ -5,4 +5,5 @@ export const actionTypes = {
   DELETE_SECTION: 'app/sections/delete',
   EDIT_SECTION_START: 'app/sections/edit/start',
   EDIT_SECTION_END: 'app/sections/edit/end',
+  RENAME_SECTION: 'app/sections/edit/name',
 };
