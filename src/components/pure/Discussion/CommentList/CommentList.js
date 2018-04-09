@@ -19,6 +19,64 @@ const onChange = handleChange => event => {
   handleChange(value);
 };
 
+class ContextMenu extends React.Component {
+  state = {
+   isOpen: false,
+  }
+
+  propTypes = {
+    options: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }
+
+  shouldShowMenu = () => this.state.isOpen;
+
+  handleAction = (action) => () => {
+    action();
+    this.toggleMenu();
+  }
+
+  toggleMenu = () => {
+    this.setState({
+      isOpen: !this.state.isOpen,
+    });
+  }
+
+  render() {
+    return (
+      <div className={styles.sectionContextMenuContainer}>
+        <button
+          onClick={this.toggleMenu}
+          className={styles.sectionContextMenuButton}
+        >
+          <i className="fa fa-ellipsis-v fa-lg" />
+        </button>
+        {
+          this.shouldShowMenu()
+            ? (
+              <div className={styles.sectionContextMenu}>
+                <ul className={styles.sectionContextMenuList}>
+                    {
+                      this.props.options.map(option => (
+                        <li key={option.label} className={styles.sectionContextMenuItem}>
+                          <a
+                            onClick={this.handleAction(option.action)}
+                            className={styles.sectionContextMenuAction}
+                          >
+                            {option.label}
+                          </a>
+                        </li>
+                      ))
+                  }
+                </ul>
+              </div>
+            )
+            : null
+        }
+      </div>
+    );
+  }
+}
+
 const CommentList = props => (
   <div className={styles.container}>
     <header className={styles.header}>
@@ -29,9 +87,12 @@ const CommentList = props => (
         <h4 className={styles.title}>{props.section.id}</h4>
         <div className={styles.sectionMetaData}>{props.section.startNice} - {props.section.endNice}</div>
       </div>
-      <button className={styles.sectionContextMenuButton}>
-        <i className="fa fa-ellipsis-v fa-lg" />
-      </button>
+      <ContextMenu options={[
+        {
+          label: "Delete Section",
+          action: () => props.deleteSection(props.section.id),
+        }
+      ]} />
     </header>
     <aside className={styles.main}>
       <ul className={styles.list}>
