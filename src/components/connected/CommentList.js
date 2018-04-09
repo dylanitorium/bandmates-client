@@ -18,6 +18,7 @@ const mapDispatchToProps = {
   addComment: commentsActions.addCommentThunk,
   updateCommentValue: commentsActions.updateCommentValue,
   deleteSection: sectionsActions.deleteSection,
+  clearActiveSection: sectionsActions.deselectSection
 };
 
 

@@ -14,6 +14,10 @@ export const selectSection = sectionId => ({
   sectionId,
 });
 
+export const deselectSection = () => ({
+  type: actionTypes.DESELECT_SECTION
+});
+
 export const deleteSection = sectionId => ({
   type: actionTypes.DELETE_SECTION,
   sectionId,

@@ -20,12 +20,12 @@ const onChange = handleChange => event => {
 };
 
 class ContextMenu extends React.Component {
+  static propTypes = {
+    options: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }
+  
   state = {
    isOpen: false,
-  }
-
-  propTypes = {
-    options: PropTypes.arrayOf(PropTypes.object).isRequired,
   }
 
   shouldShowMenu = () => this.state.isOpen;
@@ -80,7 +80,7 @@ class ContextMenu extends React.Component {
 const CommentList = props => (
   <div className={styles.container}>
     <header className={styles.header}>
-      <button className={styles.sectionBackButton}>
+      <button onClick={props.clearActiveSection} className={styles.sectionBackButton}>
         <i className="fa fa-angle-left fa-2x" />
       </button>
       <div className={styles.headerLeft}>

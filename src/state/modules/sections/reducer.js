@@ -65,7 +65,7 @@ const handlers = {
     ],
     activeSection: action.sectionId,
   }),
-  [actionTypes.CLOSE_COMMENT_BOX]: () => ({
+  [actionTypes.DESELECT_SECTION]: (state, action) => ({
     activeSection: null,
   }),
 }
