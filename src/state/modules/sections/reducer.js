@@ -45,22 +45,20 @@ const initialState = {
   sections: [],
 };
 
+const sectionPassThrough = (state, action) => ({
+  sections: [
+    ...state.sections.filter(({ id }) => id !== action.sectionId),
+    section(state.sections.find(({ id }) => id === action.sectionId), action)
+  ]
+});
+
 const handlers = {
   [actionTypes.SELECT_SECTION]: (state, action) => ({
     activeSection: action.sectionId,
   }),
-  [actionTypes.EDIT_SECTION_START]: (state, action) => ({
-    sections: [
-      ...state.sections.filter(({ id }) => id !== action.sectionId),
-      section(state.sections.find(({ id }) => id === action.sectionId), action)
-    ]
-  }),
-  [actionTypes.EDIT_SECTION_END]: (state, action) => ({
-    sections: [
-      ...state.sections.filter(({ id }) => id !== action.sectionId),
-      section(state.sections.find(({ id }) => id === action.sectionId), action)
-    ]
-  }),
+  [actionTypes.EDIT_SECTION_START]: sectionPassThrough,
+  [actionTypes.EDIT_SECTION_END]: sectionPassThrough,
+  [actionTypes.RENAME_SECTION]: sectionPassThrough,
   [actionTypes.DELETE_SECTION]: (state, action) => ({
     activeSection: null,
     sections: state.sections.filter(({ id }) => id !== action.sectionId),

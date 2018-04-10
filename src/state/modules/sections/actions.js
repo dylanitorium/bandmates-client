@@ -36,8 +36,9 @@ export const editSectionEnd = (sectionId, movement) => ({
   movement,
 });
 
-export const renameSection = name => ({
+export const renameSection = (sectionId, name) => ({
   type: actionTypes.RENAME_SECTION,
+  sectionId,
   name,
 });
 

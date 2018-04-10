@@ -34,6 +34,8 @@ export const activeCommentIdSelector = state => state.comments.activeComment;
 
 export const commentValueSelector = state => state.comments.commentFieldValue;
 
+export const isSectionNameEditableSelector = state => state.discussion.isSectionNameEditable
+
 export const pixelFactorSelector = createSelector(
   waveformSelector,
   waveform => (waveform ? waveform.pixels_per_second : null),

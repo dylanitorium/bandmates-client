@@ -16,7 +16,7 @@ const SectionList = props => (
                 onClick={() => props.onSectionClick(section.id)}
                 className={section.active ? styles.sectionActive : styles.section}
               >
-                <div className={styles.label}>{section.id}</div>
+                <div className={styles.label}>{section.name}</div>
                 <div className={styles.sectionInner}>
                   <div className={styles.range}>{section.start} - {section.end}</div>
                   <div>{section.comments.length} <i className="far fa-comments" /></div>

@@ -44,10 +44,32 @@
 
 .title,
 .headerLeft {
+  width: 100%;
   max-width: 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.title {
+  margin-bottom: 0.25rem;
+  border-bottom: 1px solid transparent;
+}
+
+.editTitle {
+  background: none;
+  border: 0;
+  border-bottom: 1px solid #555;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.editTitle:focus,
+.editTitle:active,
+.editTitle:hover {
+  outline: 0;
 }
 
 .main {

@@ -5,6 +5,7 @@ import windowReducer from './window/reducer';
 import selection from './selection/reducer';
 import sections from './sections/reducer';
 import comments from './comments/reducer';
+import discussion from './discussion/reducer';
 
 const reducer = combineReducers({
   audio,
@@ -13,7 +14,8 @@ const reducer = combineReducers({
   window: windowReducer,
   selection,
   sections,
-  comments
+  comments,
+  discussion
 });
 
 export default reducer;

@@ -62,6 +62,11 @@ export const dragToTime = (movement, start) => (
   }
 );
 
+const INPUT_NODES = [
+  'TEXTAREA',
+  'INPUT'
+]
+
 export const registerKeyboardEvents = () => (
   (dispatch, getState) => {
     window.addEventListener('keyup', (event) => {
@@ -69,7 +74,7 @@ export const registerKeyboardEvents = () => (
       const focused = document.activeElement;
 
       // If we are focused on the comment box, then don't do anything with the key press
-      if (focused && focused.nodeName === 'TEXTAREA') {
+      if (focused && INPUT_NODES.includes(focused.nodeName)) {
         return;
       }
 
