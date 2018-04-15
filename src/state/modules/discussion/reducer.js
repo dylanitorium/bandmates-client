@@ -9,7 +9,13 @@ const initialState = {
 const handlers = {
   [actionTypes.SET_EDIT_SECTION_NAME]: (state, action) => ({
     isSectionNameEditable: action.editable,
-  })
+  }),
+  [sectionsActionTypes.DESELECT_SECTION]: () => ({
+    isSectionNameEditable: false,
+  }),
+  [sectionsActionTypes.CREATE_SECTION]: () => ({
+    isSectionNameEditable: false,
+  }),
 }
 
 export default makeReducer(initialState, handlers);

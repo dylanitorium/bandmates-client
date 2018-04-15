@@ -62,8 +62,13 @@ class ContextMenu extends React.Component {
   }
 }
 
-const preventPropagation = (event) => {
-  event.stopPropagation();
+
+const handleKeyPress = props => event => {
+ event.stopPropagation();
+
+ if (event.key === 'Enter') {
+   props.setSectionNameEditable(false)
+ }
 }
 
 const SectionTitle = props => (
@@ -73,7 +78,7 @@ const SectionTitle = props => (
         type="text"
         value={props.section.name}
         className={styles.editTitle}
-        onKeyPress={preventPropagation}
+        onKeyPress={handleKeyPress(props)}
         onChange={(event) => {
           props.editSectionName(props.section.id, event.target.value)
         }}
